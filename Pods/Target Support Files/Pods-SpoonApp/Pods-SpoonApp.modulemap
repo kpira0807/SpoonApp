@@ -1,0 +1,6 @@
+framework module Pods_SpoonApp {
+  umbrella header "Pods-SpoonApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
