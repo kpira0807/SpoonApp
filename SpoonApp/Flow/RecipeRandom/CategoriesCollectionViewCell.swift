@@ -39,13 +39,15 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         categotiesLabel.text = nil
     }
     
+    public func configure(categoties: String) {
+        categotiesLabel.text = categoties
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         backCellView.frame = CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height)
         
         categotiesLabel.frame = CGRect(x: 0, y: 0, width: backCellView.frame.size.width, height: backCellView.frame.size.height)
-        
-        categotiesLabel.text = "Okay"
     }
 }

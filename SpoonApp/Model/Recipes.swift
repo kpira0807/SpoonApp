@@ -1,7 +1,7 @@
 import Foundation
 
 struct RecipesDetail: Codable {
-    var recipes: Recipes
+    var recipes: [Recipes]
 }
 
 struct Recipes: Codable {
@@ -13,16 +13,16 @@ struct Recipes: Codable {
     var cheap: Bool
     var veryPopular: Bool
     var sustainable: Bool
-    var weightWatcherSmartPoints: Int
-    var gaps: String
+    //  var weightWatcherSmartPoints: Int
+    //    var gaps: String
     var lowFodmap: Bool
-    var aggregateLikes: Int
-    var spoonacularScore: Int
+    //    var aggregateLikes: Int
+    //   var spoonacularScore: Int
     var healthScore: Int
     var creditsText: String
-    var license: String
+    //  var license: String
     var sourceName: String
-    var pricePerServing: Double
+    var pricePerServing: Float
     var extendedIngredients: [ExtendedIngredients]
     var id: Int
     var title: String
@@ -32,10 +32,10 @@ struct Recipes: Codable {
     var imageType: String
     var sourceUrl: String
     var summary: String
- //  var dishTypes: [String]
-  //  var cuisines: [String]
+    //  var dishTypes: [String]
+    //  var cuisines: [String]
     var instructions: String
-
+    
 }
 
 struct ExtendedIngredients: Codable {
@@ -51,17 +51,17 @@ struct ExtendedIngredients: Codable {
     var originalName: String
     var amount: Double
     var unit: String
-    var measures: [Measures]
+  //  var measures: Measures
     
 }
 
 struct Measures: Codable {
-    var metric: [Metric]
+    var metric: Metric
 }
 
 struct Metric: Codable {
     
-    var amount: Int
+    var amount: Double
     var unitShort: String
     var unitLong: String
     

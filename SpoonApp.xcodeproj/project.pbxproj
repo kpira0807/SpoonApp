@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		7F7B0DBC52AD1AFE1D62247E /* Pods_SpoonApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFF150CC821C25063D96CA4 /* Pods_SpoonApp.framework */; };
 		CC3DCE0D2772186800BBED4F /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3DCE0C2772186800BBED4F /* CategoriesCollectionViewCell.swift */; };
+		CC3DCE0F27738F3B00BBED4F /* ReciperStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3DCE0E27738F3A00BBED4F /* ReciperStorage.swift */; };
+		CC3DCE1127738F4F00BBED4F /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3DCE1027738F4F00BBED4F /* RecipeModel.swift */; };
+		CC3DCE1327738F5C00BBED4F /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3DCE1227738F5C00BBED4F /* RecipeViewModel.swift */; };
 		CC674A4B27709ECE00E1DE78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */; };
 		CC674A4D27709ECE00E1DE78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */; };
 		CC674A5427709ED200E1DE78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC674A5327709ED200E1DE78 /* Assets.xcassets */; };
@@ -30,6 +33,9 @@
 		612A09A212E4291F652AEDBD /* Pods-SpoonApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpoonApp.release.xcconfig"; path = "Target Support Files/Pods-SpoonApp/Pods-SpoonApp.release.xcconfig"; sourceTree = "<group>"; };
 		AFFF150CC821C25063D96CA4 /* Pods_SpoonApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpoonApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC3DCE0C2772186800BBED4F /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		CC3DCE0E27738F3A00BBED4F /* ReciperStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReciperStorage.swift; sourceTree = "<group>"; };
+		CC3DCE1027738F4F00BBED4F /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
+		CC3DCE1227738F5C00BBED4F /* RecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewModel.swift; sourceTree = "<group>"; };
 		CC674A4727709ECE00E1DE78 /* SpoonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpoonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +136,8 @@
 			children = (
 				CC674A6F2771F38D00E1DE78 /* RandomRecipeViewController.swift */,
 				CC3DCE0C2772186800BBED4F /* CategoriesCollectionViewCell.swift */,
+				CC3DCE1227738F5C00BBED4F /* RecipeViewModel.swift */,
+				CC3DCE1027738F4F00BBED4F /* RecipeModel.swift */,
 			);
 			path = RecipeRandom;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				CC674A692770ACBB00E1DE78 /* ReciperDownloader.swift */,
+				CC3DCE0E27738F3A00BBED4F /* ReciperStorage.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -308,10 +317,13 @@
 				CC674A742771F3CD00E1DE78 /* MenuViewController.swift in Sources */,
 				CC674A4B27709ECE00E1DE78 /* AppDelegate.swift in Sources */,
 				CC3DCE0D2772186800BBED4F /* CategoriesCollectionViewCell.swift in Sources */,
+				CC3DCE1127738F4F00BBED4F /* RecipeModel.swift in Sources */,
 				CC674A632770A0E900E1DE78 /* assets.swift in Sources */,
+				CC3DCE0F27738F3B00BBED4F /* ReciperStorage.swift in Sources */,
 				CC674A642770A0E900E1DE78 /* strings.swift in Sources */,
 				CC674A6C2771E94200E1DE78 /* ViewController.swift in Sources */,
 				CC674A6A2770ACBB00E1DE78 /* ReciperDownloader.swift in Sources */,
+				CC3DCE1327738F5C00BBED4F /* RecipeViewModel.swift in Sources */,
 				CC674A4D27709ECE00E1DE78 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

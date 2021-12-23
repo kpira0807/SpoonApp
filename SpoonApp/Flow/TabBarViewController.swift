@@ -17,7 +17,7 @@ class TabBarViewController: UITabBarController {
 extension TabBarViewController {
     
     func setupTabBar() {
-        let randomRecipeVC = UINavigationController(rootViewController: RandomRecipeViewController())
+        let randomRecipeVC = UINavigationController(rootViewController: RandomRecipeViewController(RecipeViewModel(model: RecipeModel()))!)
         randomRecipeVC.tabBarItem = UITabBarItem(title: L10n.recipeTitleVC, image: UIImage(systemName: "book"), selectedImage: UIImage(systemName: "book.fill"))
         
         let favouriteRecipeVC = UINavigationController(rootViewController: FavoriteRecipeTableViewController())
