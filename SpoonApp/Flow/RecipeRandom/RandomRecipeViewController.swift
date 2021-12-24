@@ -20,29 +20,27 @@ class RandomRecipeViewController: UIViewController {
     }()
     
     private let summuryText = UILabel()
-
+    
     private let viewModel: RecipeViewModel
     
+    let nameArray = ["Vegetarian", "Vegan", "Gluten Free", "Dairy Free", "Very Healthy", "Cheap", "Very Popular", "Sustainable"]
+    
+    var collectionArray = [Bool]()
     
     init?(_ viewModel: RecipeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = L10n.recipeTitleVC
-        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: Asset.textColor.color]
-        
         view.backgroundColor = .white
         
-        timeCookLabel.text = "40 minutes"
-      
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -68,11 +66,17 @@ class RandomRecipeViewController: UIViewController {
         
         setup()
         
+        favouriteButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.userDidShake()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.userDidShake()
+        setup()
     }
     
     private func setup() {
@@ -80,34 +84,29 @@ class RandomRecipeViewController: UIViewController {
             self?.updateRecipe(recipe)
         }
     }
-
-    var collectionItems = [String: Bool]()
+    
+    @objc func buttonAction() {
+        favouriteButton.setImage(UIImage(named:Asset.heartfill.name), for: .normal)
+    }
     
     private func updateRecipe(_ recipe: RecipesDetail) {
         DispatchQueue.main.async { [self] in
             let allRecipe = recipe.recipes[0]
             
             self.nameRecipeLabel.text = allRecipe.title
-            self.summuryText.text = allRecipe.summary
-
+            self.summuryText.text = allRecipe.summary.htmlStripped
+            
             self.timeCookLabel.text = "\(allRecipe.readyInMinutes) minutes"
             
-            self.collectionItems = ["Vegetarian": allRecipe.vegetarian,
-                                    "Vegan": allRecipe.vegan,
-                                    "Gluten Free": allRecipe.glutenFree,
-                                    "Dairy Free": allRecipe.dairyFree,
-                                    "Very Healthy": allRecipe.veryHealthy,
-                                    "Cheap": allRecipe.cheap,
-                                    "Very Popular": allRecipe.veryPopular,
-                                    "Sustainable": allRecipe.sustainable]
-
+            self.collectionArray = [allRecipe.vegetarian, allRecipe.vegan, allRecipe.glutenFree, allRecipe.dairyFree, allRecipe.veryHealthy, allRecipe.cheap, allRecipe.veryPopular, allRecipe.sustainable]
+            
             let urls = URL(string: allRecipe.image)
-                    
-                    if let data = try? Data(contentsOf: urls!)
-                    {
-                        let image: UIImage = UIImage(data: data)!
-                        self.recipeImage.image = image
-                    }
+            
+            if let data = try? Data(contentsOf: urls!)
+            {
+                let image: UIImage = UIImage(data: data)!
+                self.recipeImage.image = image
+            }
         }
     }
 }
@@ -123,7 +122,7 @@ extension RandomRecipeViewController {
         
         scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
@@ -134,7 +133,7 @@ extension RandomRecipeViewController {
     
     private func customRecipeImage(){
         recipeImage.translatesAutoresizingMaskIntoConstraints = false
-        recipeImage.contentMode = .scaleAspectFit
+        recipeImage.contentMode = .scaleAspectFill
         recipeImage.image = Asset.food.image
     }
     
@@ -143,7 +142,7 @@ extension RandomRecipeViewController {
         recipeImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         recipeImage.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         recipeImage.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        recipeImage.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        recipeImage.heightAnchor.constraint(equalToConstant: 300).isActive = true
     }
     
     private func customNameRecipeLabel() {
@@ -153,9 +152,7 @@ extension RandomRecipeViewController {
         nameRecipeLabel.textColor = Asset.textColor.color
         nameRecipeLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .bold)
         nameRecipeLabel.numberOfLines = 0
-        
         nameRecipeLabel.text = "Cake"
-        
         nameRecipeLabel.clipsToBounds = true
     }
     
@@ -163,7 +160,6 @@ extension RandomRecipeViewController {
         contentView.addSubview(nameRecipeLabel)
         nameRecipeLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         nameRecipeLabel.topAnchor.constraint(equalTo: recipeImage.bottomAnchor, constant: 15).isActive = true
-        
         nameRecipeLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
         nameRecipeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15).isActive = true
     }
@@ -211,8 +207,8 @@ extension RandomRecipeViewController {
         favouriteButton.centerXAnchor.constraint(equalTo: viewBackButton.centerXAnchor).isActive = true
         favouriteButton.centerYAnchor.constraint(equalTo: viewBackButton.centerYAnchor).isActive = true
         
-        favouriteButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        favouriteButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        favouriteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        favouriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
         timeCookLabel.centerYAnchor.constraint(equalTo: viewBackButton.centerYAnchor).isActive = true
         timeCookLabel.leftAnchor.constraint(equalTo: viewBackButton.leftAnchor, constant: 10).isActive = true
@@ -235,8 +231,7 @@ extension RandomRecipeViewController {
     
     private func customFavouriteButton() {
         favouriteButton.translatesAutoresizingMaskIntoConstraints = false
-        // заменить на иконку фаворит
-        let image = Asset.food.name
+        let image = Asset.heart.name
         favouriteButton.setImage(UIImage(named: image), for: .normal)
     }
     
@@ -276,11 +271,20 @@ extension RandomRecipeViewController: UICollectionViewDelegate, UICollectionView
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        cell.configure(categoties: nameArray[indexPath.row])
+        /*
+         if collectionArray.isEmpty == false || collectionArray[indexPath.row] {
+         cell.backgroundColor = .lightGray
+         } else {
+         cell.backgroundColor = .green
+         }
+         */
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionItems.keys.count
+        return nameArray.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

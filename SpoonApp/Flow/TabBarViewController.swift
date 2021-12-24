@@ -17,13 +17,13 @@ class TabBarViewController: UITabBarController {
 extension TabBarViewController {
     
     func setupTabBar() {
-        let randomRecipeVC = UINavigationController(rootViewController: RandomRecipeViewController(RecipeViewModel(model: RecipeModel()))!)
+        let randomRecipeVC = RandomRecipeViewController(RecipeViewModel(model: RecipeModel()))!
         randomRecipeVC.tabBarItem = UITabBarItem(title: L10n.recipeTitleVC, image: UIImage(systemName: "book"), selectedImage: UIImage(systemName: "book.fill"))
         
-        let favouriteRecipeVC = UINavigationController(rootViewController: FavoriteRecipeTableViewController())
+        let favouriteRecipeVC = FavoriteRecipeTableViewController()
         favouriteRecipeVC.tabBarItem = UITabBarItem(title: L10n.favouritesTitleVC, image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
         
-        let menuRecipeVC = UINavigationController(rootViewController: MenuViewController())
+        let menuRecipeVC = MenuViewController()
         menuRecipeVC.tabBarItem = UITabBarItem(title: L10n.menuTitleVC, image: UIImage(systemName: "menucard"), selectedImage: UIImage(systemName: "menucard.fill"))
         
         viewControllers = [randomRecipeVC, favouriteRecipeVC, menuRecipeVC]

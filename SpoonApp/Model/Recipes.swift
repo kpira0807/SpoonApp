@@ -15,21 +15,21 @@ struct Recipes: Codable {
     var sustainable: Bool
     //  var weightWatcherSmartPoints: Int
     //    var gaps: String
-    var lowFodmap: Bool
+    // var lowFodmap: Bool
     //    var aggregateLikes: Int
     //   var spoonacularScore: Int
-    var healthScore: Int
+    //var healthScore: Int
     var creditsText: String
     //  var license: String
     var sourceName: String
-    var pricePerServing: Float
+    //  var pricePerServing: Float
     var extendedIngredients: [ExtendedIngredients]
     var id: Int
     var title: String
     var readyInMinutes: Int
-    var servings: Int
+    //  var servings: Int
     var image: String
-    var imageType: String
+    //   var imageType: String
     var sourceUrl: String
     var summary: String
     //  var dishTypes: [String]
@@ -45,13 +45,13 @@ struct ExtendedIngredients: Codable {
     var image: String
     var consistency: String
     var name: String
-    var nameClean: String
+    //   var nameClean: String
     var original: String
-    var originalString: String
-    var originalName: String
+    //   var originalString: String
+    //  var originalName: String
     var amount: Double
     var unit: String
-  //  var measures: Measures
+    var measures: Measures
     
 }
 

@@ -12,6 +12,7 @@
 		CC3DCE0F27738F3B00BBED4F /* ReciperStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3DCE0E27738F3A00BBED4F /* ReciperStorage.swift */; };
 		CC3DCE1127738F4F00BBED4F /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3DCE1027738F4F00BBED4F /* RecipeModel.swift */; };
 		CC3DCE1327738F5C00BBED4F /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3DCE1227738F5C00BBED4F /* RecipeViewModel.swift */; };
+		CC3DCE17277620FC00BBED4F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3DCE16277620FC00BBED4F /* String.swift */; };
 		CC674A4B27709ECE00E1DE78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */; };
 		CC674A4D27709ECE00E1DE78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */; };
 		CC674A5427709ED200E1DE78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC674A5327709ED200E1DE78 /* Assets.xcassets */; };
@@ -22,7 +23,6 @@
 		CC674A662770A10100E1DE78 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC674A652770A10100E1DE78 /* Localizable.strings */; };
 		CC674A682770A4CC00E1DE78 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A672770A4CC00E1DE78 /* Recipes.swift */; };
 		CC674A6A2770ACBB00E1DE78 /* ReciperDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A692770ACBB00E1DE78 /* ReciperDownloader.swift */; };
-		CC674A6C2771E94200E1DE78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A6B2771E94100E1DE78 /* ViewController.swift */; };
 		CC674A6E2771F34A00E1DE78 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A6D2771F34A00E1DE78 /* TabBarViewController.swift */; };
 		CC674A702771F38D00E1DE78 /* RandomRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A6F2771F38D00E1DE78 /* RandomRecipeViewController.swift */; };
 		CC674A722771F3BB00E1DE78 /* FavoriteRecipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A712771F3BB00E1DE78 /* FavoriteRecipeTableViewController.swift */; };
@@ -36,6 +36,7 @@
 		CC3DCE0E27738F3A00BBED4F /* ReciperStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReciperStorage.swift; sourceTree = "<group>"; };
 		CC3DCE1027738F4F00BBED4F /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		CC3DCE1227738F5C00BBED4F /* RecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewModel.swift; sourceTree = "<group>"; };
+		CC3DCE16277620FC00BBED4F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		CC674A4727709ECE00E1DE78 /* SpoonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpoonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +49,6 @@
 		CC674A652770A10100E1DE78 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		CC674A672770A4CC00E1DE78 /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
 		CC674A692770ACBB00E1DE78 /* ReciperDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReciperDownloader.swift; sourceTree = "<group>"; };
-		CC674A6B2771E94100E1DE78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CC674A6D2771F34A00E1DE78 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		CC674A6F2771F38D00E1DE78 /* RandomRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRecipeViewController.swift; sourceTree = "<group>"; };
 		CC674A712771F3BB00E1DE78 /* FavoriteRecipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeTableViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +85,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CC3DCE182776211C00BBED4F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				CC3DCE16277620FC00BBED4F /* String.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		CC674A3E27709ECD00E1DE78 = {
 			isa = PBXGroup;
 			children = (
@@ -107,12 +115,12 @@
 		CC674A4927709ECE00E1DE78 /* SpoonApp */ = {
 			isa = PBXGroup;
 			children = (
+				CC3DCE182776211C00BBED4F /* Helpers */,
 				CC674A7A2771F44400E1DE78 /* Flow */,
 				CC674A792771F43200E1DE78 /* Services */,
 				CC674A782771F41C00E1DE78 /* Model */,
 				CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */,
 				CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */,
-				CC674A6B2771E94100E1DE78 /* ViewController.swift */,
 				CC674A5327709ED200E1DE78 /* Assets.xcassets */,
 				CC674A5527709ED200E1DE78 /* LaunchScreen.storyboard */,
 				CC674A5827709ED200E1DE78 /* Info.plist */,
@@ -321,9 +329,9 @@
 				CC674A632770A0E900E1DE78 /* assets.swift in Sources */,
 				CC3DCE0F27738F3B00BBED4F /* ReciperStorage.swift in Sources */,
 				CC674A642770A0E900E1DE78 /* strings.swift in Sources */,
-				CC674A6C2771E94200E1DE78 /* ViewController.swift in Sources */,
 				CC674A6A2770ACBB00E1DE78 /* ReciperDownloader.swift in Sources */,
 				CC3DCE1327738F5C00BBED4F /* RecipeViewModel.swift in Sources */,
+				CC3DCE17277620FC00BBED4F /* String.swift in Sources */,
 				CC674A4D27709ECE00E1DE78 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
