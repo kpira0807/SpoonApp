@@ -1,23 +1,48 @@
 import Foundation
+import RealmSwift
 
 protocol ReciperStorageProtocol {
-    func saveRecipe(_ recipe: [Recipes])
-    func getRecipe() -> [Recipes]?
+    
+    func saveRecipe(_ recipe: RecipeSaveModel)
+    func getGivenRecipe() -> [RecipeSaveModel]
+    
 }
 
 final class ReciperStorage: ReciperStorageProtocol {
-    
-    private let userDefaultsAnswerKey = "recipe"
-    
-    func saveRecipe(_ recipe: [Recipes]) {
-        UserDefaults.standard.set(recipe, forKey: userDefaultsAnswerKey)
-    }
-    
-    func getRecipe() -> [Recipes]? {
-        guard let recipe = UserDefaults.standard.array(forKey: userDefaultsAnswerKey) as? [Recipes] else {
-            return nil
+
+    func saveRecipe(_ recipe: RecipeSaveModel) {
+        DispatchQueue.global(qos: .background).async {
+            autoreleasepool {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        realm.add(recipe)
+                        realm.refresh()
+                    }
+                } catch {
+                    print("save Error")
+                }
+            }
         }
-        print("recipe \(recipe)")
-        return recipe
     }
+    
+    
+    var results: Results<RecipeSaveModel>!
+    
+    func getGivenRecipe() -> [RecipeSaveModel] {
+        DispatchQueue(label: "background").sync {
+            do {
+                let realm = try Realm()
+                let answers = realm.objects(RecipeSaveModel.self)
+                realm.refresh()
+                let arrayAnswers = Array(answers)
+                return arrayAnswers
+            } catch {
+                print(L10n.errorAlert)
+            }
+            
+            return []
+        }
+    }
+    
 }

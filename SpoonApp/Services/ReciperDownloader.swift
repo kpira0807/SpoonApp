@@ -1,19 +1,28 @@
 import Foundation
+import RxCocoa
+import RxSwift
 
 protocol ReciperDownloaderProtocol {
-    func getResponseRecipe(success: @escaping (RecipesDetail) -> Void)
+    
+    func getResponseRecipe() -> Observable<RecipesDetail?>
+
 }
 
 final class ReciperDownloader: ReciperDownloaderProtocol {
     
-    private let recipeURL = "https://api.spoonacular.com/recipes/random?apiKey=82a59c76fa8548be9aafb1e79b2e39a1"
+    private var networksManager = NetworksManager()
+    private var recipeURL: String {
+        get  {
+            
+            return "\(networksManager.urlRendomRecipe)?apiKey=\(networksManager.apiKey)"
+        }
+    }
     private let session: URLSession
     
     init(_ session: URLSession =  URLSession.shared) {
-        
         self.session = session
     }
-    
+/*
     func getResponseRecipe(success: @escaping (RecipesDetail) -> Void) {
         guard let url = URL(string: recipeURL) else { return }
         session.dataTask(with: url) { (data, _, error) in
@@ -33,4 +42,41 @@ final class ReciperDownloader: ReciperDownloaderProtocol {
             }
         }.resume()
     }
+*/
+    private enum FetchError: Error {
+            case invalidResponse(URLResponse?)
+            case invalidJSON(Error)
+        }
+    
+    func getResponseRecipe() -> Observable<RecipesDetail?> {
+        
+        guard let url = URL(string: "\(networksManager.urlRendomRecipe)?apiKey=\(networksManager.apiKey)") else {
+            return Observable.just(nil)
+        }
+        
+        let request = URLRequest(url: url)
+        return URLSession.shared.rx.response(request: request)
+            .map { result -> Data in
+                guard result.response.statusCode == 200 else {
+                    throw FetchError.invalidResponse(result.response)
+                }
+                return result.data
+            }.map { data in
+                do {
+                    let apiResponse = try JSONDecoder().decode(
+                        RecipesDetail.self, from: data
+                    )
+                    let answer = apiResponse
+                    print("DATA: \(answer)")
+                    return answer
+                } catch let error {
+                    throw FetchError.invalidJSON(error)
+                }
+            }
+            .observeOn(MainScheduler.instance)
+            .asObservable()
+        
+        
+    }
 }
+

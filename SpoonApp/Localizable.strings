@@ -2,3 +2,13 @@
 "FavouritesTitleVC" = "Favourites";
 "MenuTitleVC" = "Menu";
 "DetailstitleVC" = "Details";
+"MoreButton" = "Detail";
+"ErrorAlert" = "Error";
+"Vegetarian" = "Vegetarian";
+"Vegan" = "Vegan";
+"GlutenFree" = "Gluten Free";
+"DairyFree" = "Dairy Free";
+"VeryHealthy" = "Very Healthy";
+"Cheap" = "Cheap";
+"VeryPopular" = "Very Popular";
+"Sustainable" = "Sustainable";

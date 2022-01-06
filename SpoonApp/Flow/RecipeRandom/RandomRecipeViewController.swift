@@ -1,35 +1,146 @@
 import UIKit
+import SnapKit
+import RxSwift
+import RxCocoa
 
-class RandomRecipeViewController: UIViewController {
+struct Utilites {
+    var name: String
+    var status: Bool
+}
+
+final class RandomRecipeViewController: UIViewController {
     
-    private let scrollView = UIScrollView()
-    private let contentView = UIView()
+    var utilites = [Utilites]()
+    private let disposeBag = DisposeBag()
+    // scroll for all screen
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return scrollView
+    }()
     
-    private let recipeImage = UIImageView()
-    private let nameRecipeLabel = UILabel()
+    // view for scroll
+    private lazy var contentScrollView: UIView = {
+        let contentScrollView = UIView()
+        contentScrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return contentScrollView
+    }()
     
-    private let viewBackButton = UIView()
-    private let timeCookLabel = UILabel()
-    private let favouriteButton = UIButton()
-    private let moreButton = UIButton()
+    // view for image and name recipe
+    private lazy var viewBackgroundImageName: UIView = {
+        let viewBackgroundImageName = UIView()
+        viewBackgroundImageName.translatesAutoresizingMaskIntoConstraints = false
+        
+        return viewBackgroundImageName
+    }()
+    
+    // view for collection with information about recipe
+    private lazy var viewBackgroundCollection: UIView = {
+        let viewBackgroundCollection = UIView()
+        viewBackgroundCollection.translatesAutoresizingMaskIntoConstraints = false
+        
+        return viewBackgroundCollection
+    }()
+    
+    // view for favourite button, detail button and cook time
+    private lazy var viewBackgroundUtilites: UIView = {
+        let viewBackgroundUtilites = UIView()
+        viewBackgroundUtilites.translatesAutoresizingMaskIntoConstraints = false
+        
+        return viewBackgroundUtilites
+    }()
+    
+    // view for summury
+    private lazy var viewBackgroundSummury: UIView = {
+        let viewBackgroundSummury = UIView()
+        viewBackgroundSummury.translatesAutoresizingMaskIntoConstraints = false
+        
+        return viewBackgroundSummury
+    }()
+    
+    
+    private lazy var recipeImage: UIImageView = {
+        let recipeImage = UIImageView()
+        recipeImage.translatesAutoresizingMaskIntoConstraints = false
+        recipeImage.contentMode = .scaleAspectFill
+        recipeImage.image = Asset.food.image
+        
+        return recipeImage
+    }()
+    
+    private lazy var nameRecipeLabel: UILabel = {
+        let nameRecipeLabel = UILabel()
+        nameRecipeLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameRecipeLabel.textAlignment = NSTextAlignment.center
+        nameRecipeLabel.textColor = Asset.textColor.color
+        nameRecipeLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .bold)
+        nameRecipeLabel.numberOfLines = 0
+        nameRecipeLabel.clipsToBounds = true
+        
+        return nameRecipeLabel
+    }()
+
+    private lazy var timeCookLabel: UILabel = {
+        let timeCookLabel = UILabel()
+        timeCookLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeCookLabel.textAlignment = NSTextAlignment.left
+        timeCookLabel.textColor = Asset.textColor.color
+        timeCookLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
+        timeCookLabel.numberOfLines = 0
+        timeCookLabel.clipsToBounds = true
+        
+        return timeCookLabel
+    }()
+    
+    private lazy var favouriteButton: UIButton = {
+        let favouriteButton = UIButton()
+        favouriteButton.translatesAutoresizingMaskIntoConstraints = false
+        let image = Asset.heart.name
+        favouriteButton.setImage(UIImage(named: image), for: .normal)
+        
+        return favouriteButton
+    }()
+    
+    private lazy var moreButton: UIButton = {
+        let moreButton = UIButton()
+        moreButton.translatesAutoresizingMaskIntoConstraints = false
+        moreButton.setTitle(L10n.moreButton, for: .normal)
+        moreButton.setTitleColor(Asset.tabBarTintColor.color, for: .normal)
+        moreButton.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
+        moreButton.layer.cornerRadius = 8
+        moreButton.layer.borderWidth = 1
+        moreButton.layer.borderColor = Asset.tabBarTintColor.color.cgColor
+        moreButton.clipsToBounds = true
+        
+        return moreButton
+    }()
     
     private let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         collectionView.register(CategoriesCollectionViewCell.self, forCellWithReuseIdentifier: CategoriesCollectionViewCell.identifier)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
         return collectionView
     }()
-    
-    private let summuryText = UILabel()
+
+    private lazy var summuryText: UILabel = {
+        let summuryText = UILabel()
+        summuryText.translatesAutoresizingMaskIntoConstraints = false
+        summuryText.numberOfLines = 0
+        summuryText.clipsToBounds = true
+        
+        return summuryText
+    }()
     
     private let viewModel: RecipeViewModel
     
-    let nameArray = ["Vegetarian", "Vegan", "Gluten Free", "Dairy Free", "Very Healthy", "Cheap", "Very Popular", "Sustainable"]
-    
-    var collectionArray = [Bool]()
-    
     init?(_ viewModel: RecipeViewModel) {
         self.viewModel = viewModel
+        
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -45,33 +156,30 @@ class RandomRecipeViewController: UIViewController {
         collectionView.dataSource = self
         
         setupScrollView()
-        
-        customRecipeImage()
-        setupViewsRecioeImage()
-        
-        customNameRecipeLabel()
-        setupViewsNameRecipeLabel()
-        
-        setupViewsCollection()
-        customCollection()
-        
-        setupViewsBackButtons()
-        customViewButton()
-        customTimeLabel()
-        customMoreButton()
-        customFavouriteButton()
-        
-        setupViewsSummuryText()
-        customSummuryLabel()
+        positionViews()
+        sizeImageName()
+        sizeViewsCollection()
+        sizeViewBackgroundUtilites()
+        sizeSummuryText()
         
         setup()
         
         favouriteButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        
+        moreButton.addTarget(self, action: #selector(handlePresentingVC(_:)), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.userDidShake()
+        
+        viewModel.usersUpdate()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe { [weak self] (answer) in
+                guard let self = self else { return }
+                self.setup()
+            } onError: { (error) in
+                print(error)
+            } .disposed(by: self.disposeBag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -85,27 +193,43 @@ class RandomRecipeViewController: UIViewController {
         }
     }
     
+    // action for favourite button
     @objc func buttonAction() {
         favouriteButton.setImage(UIImage(named:Asset.heartfill.name), for: .normal)
     }
     
+    // open detail screen with all information about recipe
+    @objc func handlePresentingVC(_ sender: UIButton) {
+        let vc = DetailsViewController()
+      present(vc, animated: true, completion: nil)
+    }
+    
     private func updateRecipe(_ recipe: RecipesDetail) {
-        DispatchQueue.main.async { [self] in
+        DispatchQueue.main.async { [weak self] in
             let allRecipe = recipe.recipes[0]
             
-            self.nameRecipeLabel.text = allRecipe.title
-            self.summuryText.text = allRecipe.summary.htmlStripped
+            self?.nameRecipeLabel.text = allRecipe.title
+            self?.summuryText.attributedText = allRecipe.summary?.convertHtmlToAttributedStringWithCSS(font: UIFont.systemFont(ofSize: 14.0), csscolor: "black", lineheight: 5, csstextalign: "justify")
             
-            self.timeCookLabel.text = "\(allRecipe.readyInMinutes) minutes"
+            self?.timeCookLabel.text = "\(allRecipe.readyInMinutes ?? 0) minutes"
             
-            self.collectionArray = [allRecipe.vegetarian, allRecipe.vegan, allRecipe.glutenFree, allRecipe.dairyFree, allRecipe.veryHealthy, allRecipe.cheap, allRecipe.veryPopular, allRecipe.sustainable]
+            self?.utilites = [Utilites(name: L10n.vegetarian, status: allRecipe.vegetarian ?? false),
+                              Utilites(name: L10n.vegan, status: allRecipe.vegan ?? false),
+                              Utilites(name: L10n.glutenFree, status: allRecipe.glutenFree ?? false),
+                              Utilites(name: L10n.dairyFree, status: allRecipe.dairyFree ?? false),
+                              Utilites(name: L10n.veryHealthy, status: allRecipe.veryHealthy ?? false),
+                              Utilites(name: L10n.cheap, status: allRecipe.cheap ?? false),
+                              Utilites(name: L10n.veryPopular, status: allRecipe.veryPopular ?? false),
+                              Utilites(name: L10n.sustainable, status: allRecipe.sustainable ?? false)]
             
-            let urls = URL(string: allRecipe.image)
+            self?.collectionView.reloadData()
+            
+            let urls = URL(string: allRecipe.image ?? Asset.food.name)
             
             if let data = try? Data(contentsOf: urls!)
             {
                 let image: UIImage = UIImage(data: data)!
-                self.recipeImage.image = image
+                self?.recipeImage.image = image
             }
         }
     }
@@ -113,71 +237,93 @@ class RandomRecipeViewController: UIViewController {
 
 extension RandomRecipeViewController {
     
+ /// Position for all elements
+
     private func setupScrollView(){
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
+        scrollView.addSubview(contentScrollView)
+
+        scrollView.snp.makeConstraints { make in
+            make.centerX.equalTo(view.center.x)
+            make.width.equalTo(view.snp.width)
+            make.top.equalTo(view.snp.top)
+            make.bottom.equalTo(view.snp.bottom)
+        }
         
-        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        contentScrollView.snp.makeConstraints{ make in
+            make.centerX.equalTo(scrollView.snp.centerX)
+            make.width.equalTo(scrollView.snp.width)
+            make.top.equalTo(scrollView.snp.top)
+            make.bottom.equalTo(scrollView.snp.bottom)
+        }
+    }
+    
+    private func positionViews() {
+        contentScrollView.addSubview(viewBackgroundImageName)
+        contentScrollView.addSubview(viewBackgroundUtilites)
+        contentScrollView.addSubview(viewBackgroundCollection)
+        contentScrollView.addSubview(viewBackgroundSummury)
+
+        viewBackgroundImageName.snp.makeConstraints{ make in
+            make.top.equalTo(contentScrollView.snp.top)
+            make.left.equalTo(contentScrollView.snp.left)
+            make.right.equalTo(contentScrollView.snp.right)
+            make.height.equalTo(380)
+        }
+
+        viewBackgroundCollection.snp.makeConstraints{ make in
+            make.top.equalTo(viewBackgroundImageName.snp.bottom).offset(15)
+            make.left.equalTo(contentScrollView.snp.left)
+            make.right.equalTo(contentScrollView.snp.right)
+            make.height.equalTo(35)
+        }
+
+        viewBackgroundUtilites.snp.makeConstraints{ make in
+            make.top.equalTo(viewBackgroundCollection.snp.bottom).offset(10)
+            make.right.equalTo(contentScrollView.snp.right)
+            make.left.equalTo(contentScrollView.snp.left)
+            make.height.equalTo(50)
+        }
+
+        viewBackgroundSummury.snp.makeConstraints{ make in
+            make.top.equalTo(viewBackgroundUtilites.snp.bottom).offset(10)
+            make.left.equalTo(contentScrollView.snp.left)
+            make.right.equalTo(contentScrollView.snp.right)
+            make.bottom.equalTo(contentScrollView.snp.bottom)
+        }
+    }
+    
+    private func sizeImageName() {
+        viewBackgroundImageName.addSubview(recipeImage)
+
+        recipeImage.snp.makeConstraints{ make in
+            make.centerX.equalTo(viewBackgroundImageName.snp.centerX)
+            make.top.equalTo(viewBackgroundImageName.snp.top)
+            make.width.equalTo(viewBackgroundImageName.snp.width)
+            make.height.equalTo(300)
+        }
         
-        contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        viewBackgroundImageName.addSubview(nameRecipeLabel)
+
+        nameRecipeLabel.snp.makeConstraints{ make in
+            make.centerX.equalTo(viewBackgroundImageName.snp.centerX)
+            make.top.equalTo(recipeImage.snp.bottom).offset(15)
+            make.left.equalTo(viewBackgroundImageName.snp.left).offset(15)
+            make.right.equalTo(viewBackgroundImageName.snp.right).offset(-15)
+        }
     }
     
-    private func customRecipeImage(){
-        recipeImage.translatesAutoresizingMaskIntoConstraints = false
-        recipeImage.contentMode = .scaleAspectFill
-        recipeImage.image = Asset.food.image
-    }
-    
-    private func setupViewsRecioeImage() {
-        contentView.addSubview(recipeImage)
-        recipeImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        recipeImage.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        recipeImage.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        recipeImage.heightAnchor.constraint(equalToConstant: 300).isActive = true
-    }
-    
-    private func customNameRecipeLabel() {
-        nameRecipeLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        nameRecipeLabel.textAlignment = NSTextAlignment.center
-        nameRecipeLabel.textColor = Asset.textColor.color
-        nameRecipeLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .bold)
-        nameRecipeLabel.numberOfLines = 0
-        nameRecipeLabel.text = "Cake"
-        nameRecipeLabel.clipsToBounds = true
-    }
-    
-    private func setupViewsNameRecipeLabel() {
-        contentView.addSubview(nameRecipeLabel)
-        nameRecipeLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        nameRecipeLabel.topAnchor.constraint(equalTo: recipeImage.bottomAnchor, constant: 15).isActive = true
-        nameRecipeLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
-        nameRecipeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15).isActive = true
-    }
-    
-    private func setupViewsCollection() {
-        contentView.addSubview(collectionView)
-        collectionView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        collectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        collectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        collectionView.topAnchor.constraint(equalTo: nameRecipeLabel.bottomAnchor, constant: 20).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-    }
-    
-    private func customCollection() {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+    private func sizeViewsCollection() {
+        viewBackgroundCollection.addSubview(collectionView)
+
+        collectionView.snp.makeConstraints{ make in
+            make.left.equalTo(viewBackgroundCollection.snp.left)
+            make.right.equalTo(viewBackgroundCollection.snp.right)
+            make.width.equalTo(viewBackgroundCollection.snp.width)
+            make.height.equalTo(30)
+        }
         
         let cellSize = CGSize(width: view.bounds.width/3, height:30)
-        
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .horizontal
         layout.itemSize = cellSize
@@ -188,80 +334,42 @@ extension RandomRecipeViewController {
         collectionView.reloadData()
     }
     
-    private func setupViewsBackButtons(){
-        contentView.addSubview(viewBackButton)
-        viewBackButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        viewBackButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 10).isActive = true
-        viewBackButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
-        viewBackButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15).isActive = true
-        viewBackButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    }
-    
-    private func customViewButton() {
-        viewBackButton.translatesAutoresizingMaskIntoConstraints = false
+    private func sizeViewBackgroundUtilites() {
         
-        viewBackButton.addSubview(favouriteButton)
-        viewBackButton.addSubview(moreButton)
-        viewBackButton.addSubview(timeCookLabel)
-        
-        favouriteButton.centerXAnchor.constraint(equalTo: viewBackButton.centerXAnchor).isActive = true
-        favouriteButton.centerYAnchor.constraint(equalTo: viewBackButton.centerYAnchor).isActive = true
-        
-        favouriteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        favouriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        timeCookLabel.centerYAnchor.constraint(equalTo: viewBackButton.centerYAnchor).isActive = true
-        timeCookLabel.leftAnchor.constraint(equalTo: viewBackButton.leftAnchor, constant: 10).isActive = true
-        timeCookLabel.rightAnchor.constraint(equalTo: favouriteButton.leftAnchor, constant: -10).isActive = true
-        
-        moreButton.centerYAnchor.constraint(equalTo: viewBackButton.centerYAnchor).isActive = true
-        moreButton.rightAnchor.constraint(equalTo: viewBackButton.rightAnchor, constant: -10).isActive = true
-        moreButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        moreButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        viewBackgroundUtilites.addSubview(favouriteButton)
+        viewBackgroundUtilites.addSubview(moreButton)
+        viewBackgroundUtilites.addSubview(timeCookLabel)
+
+        favouriteButton.snp.makeConstraints{ make in
+            make.centerX.equalTo(viewBackgroundUtilites.snp.centerX)
+            make.centerY.equalTo(viewBackgroundUtilites.snp.centerY)
+            make.height.equalTo(30)
+            make.width.equalTo(30)
+        }
+
+        timeCookLabel.snp.makeConstraints{ make in
+            make.centerY.equalTo(viewBackgroundUtilites.snp.centerY)
+            make.left.equalTo(viewBackgroundUtilites.snp.left).offset(20)
+            make.right.equalTo(favouriteButton.snp.left).offset(-10)
+        }
+
+        moreButton.snp.makeConstraints{ make in
+            make.centerY.equalTo(viewBackgroundUtilites.snp.centerY)
+            make.right.equalTo(viewBackgroundUtilites.snp.right).offset(-20)
+            make.height.equalTo(40)
+            make.width.equalTo(60)
+        }
     }
-    
-    private func customTimeLabel() {
-        timeCookLabel.translatesAutoresizingMaskIntoConstraints = false
-        timeCookLabel.textAlignment = NSTextAlignment.left
-        timeCookLabel.textColor = Asset.textColor.color
-        timeCookLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
-        timeCookLabel.numberOfLines = 0
-        timeCookLabel.clipsToBounds = true
-    }
-    
-    private func customFavouriteButton() {
-        favouriteButton.translatesAutoresizingMaskIntoConstraints = false
-        let image = Asset.heart.name
-        favouriteButton.setImage(UIImage(named: image), for: .normal)
-    }
-    
-    private func customMoreButton() {
-        moreButton.translatesAutoresizingMaskIntoConstraints = false
-        moreButton.setTitle("More", for: .normal)
-        moreButton.setTitleColor(Asset.tabBarTintColor.color, for: .normal)
-        moreButton.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
-        moreButton.layer.cornerRadius = 8
-        moreButton.layer.borderWidth = 1
-        moreButton.layer.borderColor = Asset.tabBarTintColor.color.cgColor
-        moreButton.clipsToBounds = true
-    }
-    
-    private func setupViewsSummuryText(){
-        contentView.addSubview(summuryText)
-        summuryText.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        summuryText.topAnchor.constraint(equalTo: viewBackButton.bottomAnchor, constant: 10).isActive = true
-        summuryText.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
-        summuryText.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15).isActive = true
-        summuryText.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-    }
-    
-    private func customSummuryLabel() {
-        summuryText.translatesAutoresizingMaskIntoConstraints = false
-        summuryText.textAlignment = NSTextAlignment.justified
-        summuryText.textColor = Asset.textColor.color
-        summuryText.font = UIFont.systemFont(ofSize: 14.0, weight: .regular)
-        summuryText.numberOfLines = 0
-        summuryText.clipsToBounds = true
+
+    private func sizeSummuryText(){
+        viewBackgroundSummury.addSubview(summuryText)
+
+        summuryText.snp.makeConstraints{ make in
+            make.centerX.equalTo(viewBackgroundSummury.snp.centerX)
+            make.top.equalTo(viewBackgroundSummury.snp.top).offset(5)
+            make.left.equalTo(viewBackgroundSummury.snp.left).offset(15)
+            make.right.equalTo(viewBackgroundSummury.snp.right).offset(-15)
+        }
     }
 }
 
@@ -269,25 +377,26 @@ extension RandomRecipeViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else {
+            
             return UICollectionViewCell()
         }
+
+        if utilites[indexPath.row].status == false {
+            cell.configure(categoties: utilites[indexPath.row].name, backColor: Asset.greyLight.color)
+        } else {
+            cell.configure(categoties: utilites[indexPath.row].name, backColor: Asset.backGreen.color)
+        }
         
-        cell.configure(categoties: nameArray[indexPath.row])
-        /*
-         if collectionArray.isEmpty == false || collectionArray[indexPath.row] {
-         cell.backgroundColor = .lightGray
-         } else {
-         cell.backgroundColor = .green
-         }
-         */
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return nameArray.count
+        
+        return utilites.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        
         return 1
     }
 }
