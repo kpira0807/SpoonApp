@@ -18,7 +18,14 @@ final class RecipeModel: NavigationNode {
         
         super.init(parent: parent)
     }
-
+    
+    func getRandomRecipe(_ completion: @escaping (RecipesDetail) -> Void) {
+        downloader.getResponseRecipe(success: { recipe in completion(recipe)
+        })
+    }
+    
+    ///For RxSwift in future
+    /*
     func getRandomRecipe() -> Observable<RecipesDetail?> {
         
         return Observable.create { observer in
@@ -36,8 +43,13 @@ final class RecipeModel: NavigationNode {
             return Disposables.create()
         }
     }
-    
+   */
     func saveFavouriteRecipe(_ recipe: RecipeSaveModel) {
         storage.saveRecipe(recipe)
+    }
+    
+    func detailButton() -> UIViewController {
+        guard let vc = DetailsViewController(DetailsViewModel(model: DetailsModel(parent: self))) else { return UIViewController() }
+        return vc
     }
 }

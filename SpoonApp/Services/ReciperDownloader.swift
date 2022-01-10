@@ -4,8 +4,9 @@ import RxSwift
 
 protocol ReciperDownloaderProtocol {
     
-    func getResponseRecipe() -> Observable<RecipesDetail?>
-
+    /// For RxSwift for future
+    // func getResponseRecipe() -> Observable<RecipesDetail?>
+    func getResponseRecipe(success: @escaping (RecipesDetail) -> Void)
 }
 
 final class ReciperDownloader: ReciperDownloaderProtocol {
@@ -22,7 +23,7 @@ final class ReciperDownloader: ReciperDownloaderProtocol {
     init(_ session: URLSession =  URLSession.shared) {
         self.session = session
     }
-/*
+
     func getResponseRecipe(success: @escaping (RecipesDetail) -> Void) {
         guard let url = URL(string: recipeURL) else { return }
         session.dataTask(with: url) { (data, _, error) in
@@ -42,7 +43,9 @@ final class ReciperDownloader: ReciperDownloaderProtocol {
             }
         }.resume()
     }
-*/
+    
+    ///For RxSwift for Future
+/*
     private enum FetchError: Error {
             case invalidResponse(URLResponse?)
             case invalidJSON(Error)
@@ -75,8 +78,7 @@ final class ReciperDownloader: ReciperDownloaderProtocol {
             }
             .observeOn(MainScheduler.instance)
             .asObservable()
-        
-        
     }
+ */
 }
 

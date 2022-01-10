@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  SpoonApp
-//
-//  Created by Iryna Didkovska on 20.12.2021.
-//
-
 import UIKit
 
 @main

@@ -29,6 +29,14 @@
 		CC403DD227871D2B00BBE448 /* NetworksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DD127871D2B00BBE448 /* NetworksManager.swift */; };
 		CC403DD52787271C00BBE448 /* CategoriesCVCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DD42787271C00BBE448 /* CategoriesCVCellModel.swift */; };
 		CC403DD72787273800BBE448 /* CategoriesCVCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DD62787273800BBE448 /* CategoriesCVCellViewModel.swift */; };
+		CC403DD9278C599700BBE448 /* RandomRecipeAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DD8278C599700BBE448 /* RandomRecipeAssembly.swift */; };
+		CC403DDB278C61EB00BBE448 /* FavouriteRecipeAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DDA278C61EB00BBE448 /* FavouriteRecipeAssembly.swift */; };
+		CC403DDD278C61FA00BBE448 /* MenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DDC278C61FA00BBE448 /* MenuAssembly.swift */; };
+		CC403DDF278C645E00BBE448 /* TabBarAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DDE278C645E00BBE448 /* TabBarAssembly.swift */; };
+		CC403DE3278C761D00BBE448 /* DetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE2278C761D00BBE448 /* DetailsModel.swift */; };
+		CC403DE5278C763F00BBE448 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE4278C763F00BBE448 /* DetailsViewModel.swift */; };
+		CC403DE7278C780F00BBE448 /* DetailsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE6278C780F00BBE448 /* DetailsAssembly.swift */; };
+		CC403DE9278C782100BBE448 /* DetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE8278C782100BBE448 /* DetailsCoordinator.swift */; };
 		CC674A4B27709ECE00E1DE78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */; };
 		CC674A4D27709ECE00E1DE78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */; };
 		CC674A5427709ED200E1DE78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC674A5327709ED200E1DE78 /* Assets.xcassets */; };
@@ -69,6 +77,14 @@
 		CC403DD127871D2B00BBE448 /* NetworksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworksManager.swift; sourceTree = "<group>"; };
 		CC403DD42787271C00BBE448 /* CategoriesCVCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCVCellModel.swift; sourceTree = "<group>"; };
 		CC403DD62787273800BBE448 /* CategoriesCVCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCVCellViewModel.swift; sourceTree = "<group>"; };
+		CC403DD8278C599700BBE448 /* RandomRecipeAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRecipeAssembly.swift; sourceTree = "<group>"; };
+		CC403DDA278C61EB00BBE448 /* FavouriteRecipeAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRecipeAssembly.swift; sourceTree = "<group>"; };
+		CC403DDC278C61FA00BBE448 /* MenuAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAssembly.swift; sourceTree = "<group>"; };
+		CC403DDE278C645E00BBE448 /* TabBarAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAssembly.swift; sourceTree = "<group>"; };
+		CC403DE2278C761D00BBE448 /* DetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsModel.swift; sourceTree = "<group>"; };
+		CC403DE4278C763F00BBE448 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
+		CC403DE6278C780F00BBE448 /* DetailsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsAssembly.swift; sourceTree = "<group>"; };
+		CC403DE8278C782100BBE448 /* DetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCoordinator.swift; sourceTree = "<group>"; };
 		CC674A4727709ECE00E1DE78 /* SpoonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpoonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +145,7 @@
 		CC3DCE2F277DD51D00BBED4F /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				CC403DDE278C645E00BBE448 /* TabBarAssembly.swift */,
 				CC3DCE1F277DAAE300BBED4F /* TabBarCoordinator.swift */,
 				CC674A6D2771F34A00E1DE78 /* TabBarViewController.swift */,
 			);
@@ -206,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				CC3DCE40278492E500BBED4F /* Cells */,
+				CC403DD8278C599700BBE448 /* RandomRecipeAssembly.swift */,
 				CC3DCE21277DBBE900BBED4F /* RandomRecipeCoordinator.swift */,
 				CC674A6F2771F38D00E1DE78 /* RandomRecipeViewController.swift */,
 				CC3DCE1227738F5C00BBED4F /* RecipeViewModel.swift */,
@@ -217,6 +235,7 @@
 		CC674A762771F3E800E1DE78 /* FavoriteRecipe */ = {
 			isa = PBXGroup;
 			children = (
+				CC403DDA278C61EB00BBE448 /* FavouriteRecipeAssembly.swift */,
 				CC3DCE23277DBC0500BBED4F /* FavouriteCoordinator.swift */,
 				CC674A712771F3BB00E1DE78 /* FavoriteRecipeTableViewController.swift */,
 				CC3DCE2D277DBFB100BBED4F /* FavoutireViewModel.swift */,
@@ -228,6 +247,7 @@
 		CC674A772771F40500E1DE78 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				CC403DDC278C61FA00BBE448 /* MenuAssembly.swift */,
 				CC3DCE25277DBC6400BBED4F /* MenuCoordinator.swift */,
 				CC674A732771F3CD00E1DE78 /* MenuViewController.swift */,
 				CC3DCE29277DBE1300BBED4F /* MenuViewModel.swift */,
@@ -269,7 +289,11 @@
 		CC674A7B2771F47B00E1DE78 /* DetailsRecipe */ = {
 			isa = PBXGroup;
 			children = (
+				CC403DE6278C780F00BBE448 /* DetailsAssembly.swift */,
+				CC403DE8278C782100BBE448 /* DetailsCoordinator.swift */,
 				CC3DCE452785E13C00BBED4F /* DetailsViewController.swift */,
+				CC403DE4278C763F00BBE448 /* DetailsViewModel.swift */,
+				CC403DE2278C761D00BBE448 /* DetailsModel.swift */,
 			);
 			path = DetailsRecipe;
 			sourceTree = "<group>";
@@ -391,11 +415,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC3DCE2E277DBFB100BBED4F /* FavoutireViewModel.swift in Sources */,
+				CC403DE3278C761D00BBE448 /* DetailsModel.swift in Sources */,
+				CC403DDF278C645E00BBE448 /* TabBarAssembly.swift in Sources */,
 				CC674A702771F38D00E1DE78 /* RandomRecipeViewController.swift in Sources */,
 				CC3DCE462785E13D00BBED4F /* DetailsViewController.swift in Sources */,
 				CC674A6E2771F34A00E1DE78 /* TabBarViewController.swift in Sources */,
 				CC3DCE482785E98700BBED4F /* RecipeSaveModel.swift in Sources */,
 				CC674A682770A4CC00E1DE78 /* Recipes.swift in Sources */,
+				CC403DE7278C780F00BBE448 /* DetailsAssembly.swift in Sources */,
 				CC674A722771F3BB00E1DE78 /* FavoriteRecipeTableViewController.swift in Sources */,
 				CC674A742771F3CD00E1DE78 /* MenuViewController.swift in Sources */,
 				CC3DCE22277DBBE900BBED4F /* RandomRecipeCoordinator.swift in Sources */,
@@ -403,13 +430,18 @@
 				CC3DCE26277DBC6400BBED4F /* MenuCoordinator.swift in Sources */,
 				CC674A4B27709ECE00E1DE78 /* AppDelegate.swift in Sources */,
 				CC3DCE28277DBDC600BBED4F /* MenuModel.swift in Sources */,
+				CC403DE9278C782100BBE448 /* DetailsCoordinator.swift in Sources */,
 				CC3DCE0D2772186800BBED4F /* CategoriesCollectionViewCell.swift in Sources */,
+				CC403DD9278C599700BBE448 /* RandomRecipeAssembly.swift in Sources */,
 				CC403DD227871D2B00BBE448 /* NetworksManager.swift in Sources */,
 				CC3DCE1127738F4F00BBED4F /* RecipeModel.swift in Sources */,
 				CC674A632770A0E900E1DE78 /* assets.swift in Sources */,
+				CC403DDB278C61EB00BBE448 /* FavouriteRecipeAssembly.swift in Sources */,
 				CC3DCE20277DAAE300BBED4F /* TabBarCoordinator.swift in Sources */,
 				CC3DCE1C277DA80100BBED4F /* Coordinator.swift in Sources */,
 				CC3DCE2A277DBE1400BBED4F /* MenuViewModel.swift in Sources */,
+				CC403DDD278C61FA00BBE448 /* MenuAssembly.swift in Sources */,
+				CC403DE5278C763F00BBE448 /* DetailsViewModel.swift in Sources */,
 				CC403DD72787273800BBE448 /* CategoriesCVCellViewModel.swift in Sources */,
 				CC3DCE1E277DAA9400BBED4F /* AppNavigator.swift in Sources */,
 				CC3DCE24277DBC0500BBED4F /* FavouriteCoordinator.swift in Sources */,

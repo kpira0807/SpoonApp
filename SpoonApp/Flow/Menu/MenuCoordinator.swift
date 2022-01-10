@@ -1,17 +1,21 @@
 import UIKit
-
-enum MenuEvent: NavigationEvent {
-    
-}
+import Swinject
 
 class MenuCoordinator: NavigationNode {
     
+    private var container: Container!
     weak var containerViewController: UIViewController?
     
     override init(parent: NavigationNode?) {
         super.init(parent: parent)
         
         addHandlers()
+    }
+    
+    private func registerFlow() {
+        container = Container()
+        
+        MenuAssembly(self).assemble(container: container)
     }
     
     private func addHandlers() {
@@ -33,13 +37,11 @@ extension MenuCoordinator: Coordinator {
         let menuSelectedImage = UIImage(systemName: "menucard.fill")
         
         let menuTabBarItem = UITabBarItem(title: menuTitle,
-                                            image: menuImage,
-                                            selectedImage: menuSelectedImage)
+                                          image: menuImage,
+                                          selectedImage: menuSelectedImage)
         
         menuViewController?.tabBarItem = menuTabBarItem
         
         return menuViewController!
-        
     }
-    
 }

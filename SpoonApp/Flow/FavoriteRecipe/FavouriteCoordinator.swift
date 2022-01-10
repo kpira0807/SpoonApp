@@ -1,17 +1,23 @@
 import UIKit
-
-enum FavouriteEvent: NavigationEvent {
-    
-}
+import Swinject
 
 class FavouriteCoordinator: NavigationNode {
     
+    private var container: Container!
     weak var containerViewController: UIViewController?
     
     override init(parent: NavigationNode?) {
+        
         super.init(parent: parent)
         
+        registerFlow()
         addHandlers()
+    }
+    
+    private func registerFlow() {
+        container = Container()
+        
+        FavouriteRecipeAssembly(self).assemble(container: container)
     }
     
     private func addHandlers() {
@@ -23,24 +29,18 @@ class FavouriteCoordinator: NavigationNode {
 extension FavouriteCoordinator: Coordinator {
     
     func createFlow() -> UIViewController {
-        let favouriteModel = FavouriteModel(parent: self)
-        
-        let favouriteViewModel = FavoutireViewModel(model: favouriteModel)
-        let favouriteViewController = FavoriteRecipeTableViewController(favouriteViewModel)
+        let favouriteViewController = container.resolve(FavoriteRecipeTableViewController.self)
         
         let favouriteTitle = L10n.favouritesTitleVC
         let favouriteImage = UIImage(systemName: "heart")
         let favouriteSelectedImage = UIImage(systemName: "heart.fill")
         
         let favouriteTabBarItem = UITabBarItem(title: favouriteTitle,
-                                            image: favouriteImage,
-                                            selectedImage: favouriteSelectedImage)
+                                               image: favouriteImage,
+                                               selectedImage: favouriteSelectedImage)
         
         favouriteViewController?.tabBarItem = favouriteTabBarItem
         
         return favouriteViewController!
-        
     }
-    
-    
 }

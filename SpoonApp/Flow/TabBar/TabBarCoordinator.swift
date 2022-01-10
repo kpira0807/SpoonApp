@@ -1,19 +1,24 @@
 import UIKit
-
-enum TabBarEvent: NavigationEvent {
-    
-}
+import Swinject
 
 class TabBarCoordinator: NavigationNode {
 
+    private var container: Container!
     weak var containerViewController: UIViewController?
     
     override init(parent: NavigationNode?) {
         super.init(parent: parent)
         
+        registerFlow()
         addHandlers()
     }
-    
+   
+    private func registerFlow() {
+        container = Container()
+        
+        TabBarAssembly(self).assemble(container: container)
+    }
+  
     private func addHandlers() {
         // add Settings flow event handlers
     }

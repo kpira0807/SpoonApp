@@ -7,5 +7,4 @@ class FavoutireViewModel {
     init(model: FavouriteModel) {
         self.model = model
     }
-
 }

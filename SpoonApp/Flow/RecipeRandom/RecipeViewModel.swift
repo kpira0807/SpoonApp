@@ -12,7 +12,9 @@ class RecipeViewModel {
     }
     
     var updateRecipeData: ((RecipesDetail) -> Void)?
- 
+    
+    ///For RxSwift in future
+ /*
     func usersUpdate() -> Observable<RecipesDetail?> {
         
         return Observable.create { [weak self] observer in
@@ -26,5 +28,17 @@ class RecipeViewModel {
                             
             return Disposables.create()
         }
+    }
+  */
+    func usersUpdate() {
+        model.getRandomRecipe { recipe in
+            self.updateRecipeData?(recipe)
+        }
+    }
+    
+    func buttonAction() -> UIViewController {
+        let vc = model.detailButton()
+        
+        return vc
     }
 }

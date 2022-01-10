@@ -12,6 +12,7 @@ final class RandomRecipeViewController: UIViewController {
     
     var utilites = [Utilites]()
     private let disposeBag = DisposeBag()
+    
     // scroll for all screen
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -60,7 +61,7 @@ final class RandomRecipeViewController: UIViewController {
         return viewBackgroundSummury
     }()
     
-    
+    // image for recipe
     private lazy var recipeImage: UIImageView = {
         let recipeImage = UIImageView()
         recipeImage.translatesAutoresizingMaskIntoConstraints = false
@@ -70,6 +71,7 @@ final class RandomRecipeViewController: UIViewController {
         return recipeImage
     }()
     
+    // name recipe from json
     private lazy var nameRecipeLabel: UILabel = {
         let nameRecipeLabel = UILabel()
         nameRecipeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -82,6 +84,7 @@ final class RandomRecipeViewController: UIViewController {
         return nameRecipeLabel
     }()
 
+    // label with time what need for cook
     private lazy var timeCookLabel: UILabel = {
         let timeCookLabel = UILabel()
         timeCookLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -94,6 +97,7 @@ final class RandomRecipeViewController: UIViewController {
         return timeCookLabel
     }()
     
+    // button for add recipe in save
     private lazy var favouriteButton: UIButton = {
         let favouriteButton = UIButton()
         favouriteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -103,6 +107,7 @@ final class RandomRecipeViewController: UIViewController {
         return favouriteButton
     }()
     
+    // datails information
     private lazy var moreButton: UIButton = {
         let moreButton = UIButton()
         moreButton.translatesAutoresizingMaskIntoConstraints = false
@@ -173,6 +178,9 @@ final class RandomRecipeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         viewModel.usersUpdate()
+        
+        ///For RxSwift
+        /*
             .observeOn(MainScheduler.asyncInstance)
             .subscribe { [weak self] (answer) in
                 guard let self = self else { return }
@@ -180,6 +188,7 @@ final class RandomRecipeViewController: UIViewController {
             } onError: { (error) in
                 print(error)
             } .disposed(by: self.disposeBag)
+         */
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -200,8 +209,8 @@ final class RandomRecipeViewController: UIViewController {
     
     // open detail screen with all information about recipe
     @objc func handlePresentingVC(_ sender: UIButton) {
-        let vc = DetailsViewController()
-      present(vc, animated: true, completion: nil)
+        let vc = viewModel.buttonAction()
+        present(vc, animated: true, completion: nil)
     }
     
     private func updateRecipe(_ recipe: RecipesDetail) {
@@ -238,7 +247,6 @@ final class RandomRecipeViewController: UIViewController {
 extension RandomRecipeViewController {
     
  /// Position for all elements
-
     private func setupScrollView(){
         view.addSubview(scrollView)
         scrollView.addSubview(contentScrollView)

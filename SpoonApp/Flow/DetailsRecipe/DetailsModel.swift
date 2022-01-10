@@ -1,10 +1,9 @@
 import Foundation
 
-final class FavouriteModel: NavigationNode {
+final class DetailsModel: NavigationNode {
     
     init(parent: NavigationNode) {
         
         super.init(parent: parent)
-        
     }
 }

@@ -1,33 +1,36 @@
 import UIKit
+import Swinject
+import RxSwift
 
-enum RecipeEvent: NavigationEvent {
+final class RecipeCoordinator: NavigationNode {
     
-}
-
-class RecipeCoordinator: NavigationNode {
-    
+    private var container: Container!
     weak var containerViewController: UIViewController?
     
     override init(parent: NavigationNode?) {
+        
         super.init(parent: parent)
         
+        registerFlow()
         addHandlers()
+    }
+    
+    private func registerFlow() {
+        container = Container()
+        RandomRecipeAssembly(self).assemble(container: container)
     }
     
     private func addHandlers() {
         // add Settings flow event handlers
     }
-    
 }
 
 extension RecipeCoordinator: Coordinator {
     
     func createFlow() -> UIViewController {
-        let recipeModel = RecipeModel(parent: self)
         
-        let recipeViewModel = RecipeViewModel(model: recipeModel)
-        let recipeViewController = RandomRecipeViewController(recipeViewModel)
-                
+        let recipeViewController = container.resolve(RandomRecipeViewController.self)
+        
         let recipeTitle = L10n.recipeTitleVC
         let recipeImage = UIImage(systemName: "book")
         let recipeSelectedImage = UIImage(systemName: "book.fill")
@@ -35,11 +38,8 @@ extension RecipeCoordinator: Coordinator {
         let recipeTabBarItem = UITabBarItem(title: recipeTitle,
                                             image: recipeImage,
                                             selectedImage: recipeSelectedImage)
-        
         recipeViewController?.tabBarItem = recipeTabBarItem
         
         return recipeViewController!
     }
-    
-    
 }
