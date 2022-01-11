@@ -15,7 +15,7 @@ final class ReciperDownloader: ReciperDownloaderProtocol {
     private var recipeURL: String {
         get  {
             
-            return "\(networksManager.urlRendomRecipe)?apiKey=\(networksManager.apiKey)"
+            return "\(networksManager.urlRendomRecipe)\(networksManager.rendomRecipe)\(networksManager.apiKey)"
         }
     }
     private let session: URLSession
@@ -81,4 +81,3 @@ final class ReciperDownloader: ReciperDownloaderProtocol {
     }
  */
 }
-

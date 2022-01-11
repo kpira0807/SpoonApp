@@ -1,10 +1,11 @@
 import Foundation
 
-class FavoutireViewModel {
+final class FavouriteViewModel {
     
     private let model: FavouriteModel
     
     init(model: FavouriteModel) {
         self.model = model
     }
+    
 }

@@ -4,11 +4,10 @@ final class MenuViewController: UIViewController {
     
     private let viewModel: MenuViewModel
     
-    init?(_ viewModel: MenuViewModel) {
+    init(_ viewModel: MenuViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -20,4 +19,5 @@ final class MenuViewController: UIViewController {
 
         view.backgroundColor = .white
     }
+    
 }

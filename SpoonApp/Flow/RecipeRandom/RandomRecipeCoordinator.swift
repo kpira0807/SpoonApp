@@ -4,11 +4,10 @@ import RxSwift
 
 final class RecipeCoordinator: NavigationNode {
     
+    private weak var root: UIViewController?
     private var container: Container!
-    weak var containerViewController: UIViewController?
     
     override init(parent: NavigationNode?) {
-        
         super.init(parent: parent)
         
         registerFlow()
@@ -28,18 +27,10 @@ final class RecipeCoordinator: NavigationNode {
 extension RecipeCoordinator: Coordinator {
     
     func createFlow() -> UIViewController {
-        
         let recipeViewController = container.resolve(RandomRecipeViewController.self)
-        
-        let recipeTitle = L10n.recipeTitleVC
-        let recipeImage = UIImage(systemName: "book")
-        let recipeSelectedImage = UIImage(systemName: "book.fill")
-        
-        let recipeTabBarItem = UITabBarItem(title: recipeTitle,
-                                            image: recipeImage,
-                                            selectedImage: recipeSelectedImage)
-        recipeViewController?.tabBarItem = recipeTabBarItem
+        root = recipeViewController
         
         return recipeViewController!
     }
+    
 }

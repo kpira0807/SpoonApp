@@ -13,4 +13,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appNavigator = AppNavigator(window: window!)
         appNavigator?.startFlow()
     }
+    
 }

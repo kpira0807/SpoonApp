@@ -1,10 +1,10 @@
 import UIKit
 import Swinject
 
-class MenuCoordinator: NavigationNode {
-    
+final class MenuCoordinator: NavigationNode {
+   
+    private weak var root: UIViewController?
     private var container: Container!
-    weak var containerViewController: UIViewController?
     
     override init(parent: NavigationNode?) {
         super.init(parent: parent)
@@ -28,20 +28,11 @@ extension MenuCoordinator: Coordinator {
     
     func createFlow() -> UIViewController {
         let menuModel = MenuModel(parent: self)
-        
         let menuViewModel = MenuViewModel(model: menuModel)
         let menuViewController = MenuViewController(menuViewModel)
+        root = menuViewController
         
-        let menuTitle = L10n.menuTitleVC
-        let menuImage = UIImage(systemName: "menucard")
-        let menuSelectedImage = UIImage(systemName: "menucard.fill")
-        
-        let menuTabBarItem = UITabBarItem(title: menuTitle,
-                                          image: menuImage,
-                                          selectedImage: menuSelectedImage)
-        
-        menuViewController?.tabBarItem = menuTabBarItem
-        
-        return menuViewController!
+        return menuViewController
     }
+    
 }

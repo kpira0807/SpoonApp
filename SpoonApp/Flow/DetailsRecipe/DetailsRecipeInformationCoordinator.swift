@@ -1,7 +1,7 @@
 import UIKit
 import Swinject
 
-final class FavouriteCoordinator: NavigationNode {
+final class DetailsRecipeInformationCoordinator: NavigationNode {
     
     private weak var root: UIViewController?
     private var container: Container!
@@ -9,14 +9,13 @@ final class FavouriteCoordinator: NavigationNode {
     override init(parent: NavigationNode?) {
         super.init(parent: parent)
         
-        registerFlow()
         addHandlers()
     }
     
     private func registerFlow() {
         container = Container()
         
-        FavouriteRecipeAssembly(self).assemble(container: container)
+        DetailsRecipeInformationAssembly(self).assemble(container: container)
     }
     
     private func addHandlers() {
@@ -25,13 +24,13 @@ final class FavouriteCoordinator: NavigationNode {
     
 }
 
-extension FavouriteCoordinator: Coordinator {
+extension DetailsRecipeInformationCoordinator: Coordinator {
     
     func createFlow() -> UIViewController {
-        let favouriteViewController = container.resolve(FavoriteRecipeTableViewController.self)
-        root = favouriteViewController
+        let detailsRecipeInformationViewController = container.resolve(DetailsRecipeInformationViewController.self)
+        root = detailsRecipeInformationViewController
         
-        return favouriteViewController!
+        return detailsRecipeInformationViewController!
     }
-    
+
 }

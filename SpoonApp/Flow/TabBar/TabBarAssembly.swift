@@ -15,4 +15,5 @@ final class TabBarAssembly: Assembly {
             return controller
         }.inObjectScope(.transient)
     }
+
 }

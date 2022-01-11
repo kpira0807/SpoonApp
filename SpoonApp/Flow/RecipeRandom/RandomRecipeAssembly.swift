@@ -11,13 +11,16 @@ final class RandomRecipeAssembly: Assembly {
     func assemble(container: Container) {
         container.register(RandomRecipeViewController.self) {
             [unowned parent] _ in
-            let model = RecipeModel(parent: parent,
-                                    downloader: ReciperDownloader(),
-                                    storage: ReciperStorage())
+            let model = RecipeModel(
+                parent: parent,
+                downloader: ReciperDownloader(),
+                storage: ReciperStorage()
+            )
             let viewModel = RecipeViewModel(model: model)
             let controller = RandomRecipeViewController(viewModel)
             
-            return controller!
+            return controller
         }.inObjectScope(.transient)
     }
+    
 }

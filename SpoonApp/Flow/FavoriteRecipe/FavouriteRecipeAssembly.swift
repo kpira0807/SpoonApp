@@ -12,10 +12,11 @@ final class FavouriteRecipeAssembly: Assembly {
         container.register(FavoriteRecipeTableViewController.self) {
             [unowned parent] _ in
             let model = FavouriteModel(parent: parent)
-            let viewModel = FavoutireViewModel(model: model)
+            let viewModel = FavouriteViewModel(model: model)
             let controller = FavoriteRecipeTableViewController(viewModel)
             
-            return controller!
+            return controller
         }.inObjectScope(.transient)
     }
+    
 }

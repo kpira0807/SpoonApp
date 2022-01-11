@@ -14,7 +14,8 @@ final class MenuAssembly: Assembly {
             let viewModel = MenuViewModel(model: model)
             let controller = MenuViewController(viewModel)
             
-            return controller!
+            return controller
         }.inObjectScope(.transient)
     }
+    
 }

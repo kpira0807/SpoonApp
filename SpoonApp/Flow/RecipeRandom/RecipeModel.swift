@@ -5,14 +5,12 @@ final class RecipeModel: NavigationNode {
 
     private let downloader: ReciperDownloaderProtocol
     private let storage: ReciperStorageProtocol
-    
     private let disposeBag = DisposeBag()
     
     init(parent: NavigationNode,
          downloader: ReciperDownloaderProtocol = ReciperDownloader(),
          storage: ReciperStorageProtocol = ReciperStorage()
     ) {
-        
         self.downloader = downloader
         self.storage = storage
         
@@ -49,7 +47,9 @@ final class RecipeModel: NavigationNode {
     }
     
     func detailButton() -> UIViewController {
-        guard let vc = DetailsViewController(DetailsViewModel(model: DetailsModel(parent: self))) else { return UIViewController() }
+        let vc = DetailsRecipeInformationViewController(DetailsRecipeInformationViewModel(model: DetailsRecipeInformationModel(parent: self)))
+        
         return vc
     }
+    
 }

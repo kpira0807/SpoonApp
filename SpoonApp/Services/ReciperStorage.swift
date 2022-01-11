@@ -10,6 +10,8 @@ protocol ReciperStorageProtocol {
 
 final class ReciperStorage: ReciperStorageProtocol {
 
+    var results: Results<RecipeSaveModel>!
+    
     func saveRecipe(_ recipe: RecipeSaveModel) {
         DispatchQueue.global(qos: .background).async {
             autoreleasepool {
@@ -26,9 +28,6 @@ final class ReciperStorage: ReciperStorageProtocol {
         }
     }
     
-    
-    var results: Results<RecipeSaveModel>!
-    
     func getGivenRecipe() -> [RecipeSaveModel] {
         DispatchQueue(label: "background").sync {
             do {
@@ -36,12 +35,13 @@ final class ReciperStorage: ReciperStorageProtocol {
                 let answers = realm.objects(RecipeSaveModel.self)
                 realm.refresh()
                 let arrayAnswers = Array(answers)
+                
                 return arrayAnswers
             } catch {
                 print(L10n.errorAlert)
             }
-            
             return []
         }
     }
+    
 }

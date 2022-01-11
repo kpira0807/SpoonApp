@@ -1,7 +1,7 @@
 import Foundation
 import RealmSwift
 
-class RecipeSaveModel: Object {
+final class RecipeSaveModel: Object {
     
     @objc dynamic var vegetarian: Bool = false
     @objc dynamic var vegan: Bool = false
@@ -20,12 +20,12 @@ class RecipeSaveModel: Object {
     @objc dynamic var sourceUrl: String = ""
     @objc dynamic var summary: String = ""
     @objc dynamic var instructions: String = ""
-
+    
     var extendedIngredients = List<ExtendedIngredient>()
     
 }
 
-class ExtendedIngredient: Object {
+final class ExtendedIngredient: Object {
     
     @objc dynamic var  id: Int = 0
     @objc dynamic var  aisle: String = ""
@@ -40,15 +40,17 @@ class ExtendedIngredient: Object {
     
 }
 
-class Measure: Object {
+final class Measure: Object {
     
     var metric = List<Metrics>()
+    
 }
 
-class Metrics: Object {
+final class Metrics: Object {
     
     @objc dynamic var amount: Double = 0.0
     @objc dynamic var unitShort: String = ""
     @objc dynamic var unitLong: String = ""
+    
 }
 

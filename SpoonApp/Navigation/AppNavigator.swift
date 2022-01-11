@@ -11,11 +11,11 @@ final class AppNavigator: NavigationNode {
     }
     
     func startFlow() {
-        
         let coordinator = TabBarCoordinator(parent: self)
         let controller = coordinator.createFlow()
         
         window.rootViewController = controller
         window.makeKeyAndVisible()
     }
+    
 }

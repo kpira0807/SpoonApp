@@ -1,10 +1,9 @@
 import Foundation
 import RxSwift
 
-class RecipeViewModel {
+final class RecipeViewModel {
     
     private let model: RecipeModel
-    
     private let disposeBag = DisposeBag()
     
     init(model: RecipeModel) {
@@ -41,4 +40,5 @@ class RecipeViewModel {
         
         return vc
     }
+    
 }

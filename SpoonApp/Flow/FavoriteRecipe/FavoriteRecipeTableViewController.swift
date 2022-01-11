@@ -2,9 +2,9 @@ import UIKit
 
 final class FavoriteRecipeTableViewController: UITableViewController {
     
-    private let viewModel: FavoutireViewModel
+    private let viewModel: FavouriteViewModel
     
-    init?(_ viewModel: FavoutireViewModel) {
+    init(_ viewModel: FavouriteViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)

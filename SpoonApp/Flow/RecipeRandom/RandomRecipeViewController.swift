@@ -12,59 +12,53 @@ final class RandomRecipeViewController: UIViewController {
     
     var utilites = [Utilites]()
     private let disposeBag = DisposeBag()
+    private let viewModel: RecipeViewModel
     
     // scroll for all screen
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return scrollView
     }()
     
     // view for scroll
     private lazy var contentScrollView: UIView = {
         let contentScrollView = UIView()
-        contentScrollView.translatesAutoresizingMaskIntoConstraints = false
-        
+  
         return contentScrollView
     }()
     
     // view for image and name recipe
     private lazy var viewBackgroundImageName: UIView = {
         let viewBackgroundImageName = UIView()
-        viewBackgroundImageName.translatesAutoresizingMaskIntoConstraints = false
-        
+   
         return viewBackgroundImageName
     }()
     
     // view for collection with information about recipe
     private lazy var viewBackgroundCollection: UIView = {
         let viewBackgroundCollection = UIView()
-        viewBackgroundCollection.translatesAutoresizingMaskIntoConstraints = false
-        
+    
         return viewBackgroundCollection
     }()
     
     // view for favourite button, detail button and cook time
     private lazy var viewBackgroundUtilites: UIView = {
         let viewBackgroundUtilites = UIView()
-        viewBackgroundUtilites.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return viewBackgroundUtilites
     }()
     
     // view for summury
     private lazy var viewBackgroundSummury: UIView = {
         let viewBackgroundSummury = UIView()
-        viewBackgroundSummury.translatesAutoresizingMaskIntoConstraints = false
-        
+   
         return viewBackgroundSummury
     }()
     
     // image for recipe
     private lazy var recipeImage: UIImageView = {
         let recipeImage = UIImageView()
-        recipeImage.translatesAutoresizingMaskIntoConstraints = false
         recipeImage.contentMode = .scaleAspectFill
         recipeImage.image = Asset.food.image
         
@@ -74,7 +68,6 @@ final class RandomRecipeViewController: UIViewController {
     // name recipe from json
     private lazy var nameRecipeLabel: UILabel = {
         let nameRecipeLabel = UILabel()
-        nameRecipeLabel.translatesAutoresizingMaskIntoConstraints = false
         nameRecipeLabel.textAlignment = NSTextAlignment.center
         nameRecipeLabel.textColor = Asset.textColor.color
         nameRecipeLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .bold)
@@ -87,7 +80,6 @@ final class RandomRecipeViewController: UIViewController {
     // label with time what need for cook
     private lazy var timeCookLabel: UILabel = {
         let timeCookLabel = UILabel()
-        timeCookLabel.translatesAutoresizingMaskIntoConstraints = false
         timeCookLabel.textAlignment = NSTextAlignment.left
         timeCookLabel.textColor = Asset.textColor.color
         timeCookLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
@@ -100,7 +92,6 @@ final class RandomRecipeViewController: UIViewController {
     // button for add recipe in save
     private lazy var favouriteButton: UIButton = {
         let favouriteButton = UIButton()
-        favouriteButton.translatesAutoresizingMaskIntoConstraints = false
         let image = Asset.heart.name
         favouriteButton.setImage(UIImage(named: image), for: .normal)
         
@@ -110,7 +101,6 @@ final class RandomRecipeViewController: UIViewController {
     // datails information
     private lazy var moreButton: UIButton = {
         let moreButton = UIButton()
-        moreButton.translatesAutoresizingMaskIntoConstraints = false
         moreButton.setTitle(L10n.moreButton, for: .normal)
         moreButton.setTitleColor(Asset.tabBarTintColor.color, for: .normal)
         moreButton.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
@@ -125,27 +115,22 @@ final class RandomRecipeViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         collectionView.register(CategoriesCollectionViewCell.self, forCellWithReuseIdentifier: CategoriesCollectionViewCell.identifier)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
     }()
 
     private lazy var summuryText: UILabel = {
         let summuryText = UILabel()
-        summuryText.translatesAutoresizingMaskIntoConstraints = false
         summuryText.numberOfLines = 0
         summuryText.clipsToBounds = true
         
         return summuryText
     }()
     
-    private let viewModel: RecipeViewModel
-    
-    init?(_ viewModel: RecipeViewModel) {
+    init(_ viewModel: RecipeViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -242,6 +227,7 @@ final class RandomRecipeViewController: UIViewController {
             }
         }
     }
+    
 }
 
 extension RandomRecipeViewController {
@@ -379,6 +365,7 @@ extension RandomRecipeViewController {
             make.right.equalTo(viewBackgroundSummury.snp.right).offset(-15)
         }
     }
+    
 }
 
 extension RandomRecipeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -407,5 +394,5 @@ extension RandomRecipeViewController: UICollectionViewDelegate, UICollectionView
         
         return 1
     }
+    
 }
-
