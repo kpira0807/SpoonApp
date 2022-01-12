@@ -15,47 +15,23 @@ final class RandomRecipeViewController: UIViewController {
     private let viewModel: RecipeViewModel
     
     // scroll for all screen
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-
-        return scrollView
-    }()
+    private lazy var scrollView = UIScrollView()
     
     // view for scroll
-    private lazy var contentScrollView: UIView = {
-        let contentScrollView = UIView()
-  
-        return contentScrollView
-    }()
+    private lazy var contentScrollView = UIView()
     
     // view for image and name recipe
-    private lazy var viewBackgroundImageName: UIView = {
-        let viewBackgroundImageName = UIView()
-   
-        return viewBackgroundImageName
-    }()
-    
-    // view for collection with information about recipe
-    private lazy var viewBackgroundCollection: UIView = {
-        let viewBackgroundCollection = UIView()
-    
-        return viewBackgroundCollection
-    }()
-    
-    // view for favourite button, detail button and cook time
-    private lazy var viewBackgroundUtilites: UIView = {
-        let viewBackgroundUtilites = UIView()
+    private lazy var viewBackgroundImageName = UIView()
 
-        return viewBackgroundUtilites
-    }()
-    
+    // view for collection with information about recipe
+    private lazy var viewBackgroundCollection = UIView()
+
+    // view for favourite button, detail button and cook time
+    private lazy var viewBackgroundUtilites = UIView()
+
     // view for summury
-    private lazy var viewBackgroundSummury: UIView = {
-        let viewBackgroundSummury = UIView()
-   
-        return viewBackgroundSummury
-    }()
-    
+    private lazy var viewBackgroundSummury = UIView()
+
     // image for recipe
     private lazy var recipeImage: UIImageView = {
         let recipeImage = UIImageView()
@@ -207,14 +183,40 @@ final class RandomRecipeViewController: UIViewController {
             
             self?.timeCookLabel.text = "\(allRecipe.readyInMinutes ?? 0) minutes"
             
-            self?.utilites = [Utilites(name: L10n.vegetarian, status: allRecipe.vegetarian ?? false),
-                              Utilites(name: L10n.vegan, status: allRecipe.vegan ?? false),
-                              Utilites(name: L10n.glutenFree, status: allRecipe.glutenFree ?? false),
-                              Utilites(name: L10n.dairyFree, status: allRecipe.dairyFree ?? false),
-                              Utilites(name: L10n.veryHealthy, status: allRecipe.veryHealthy ?? false),
-                              Utilites(name: L10n.cheap, status: allRecipe.cheap ?? false),
-                              Utilites(name: L10n.veryPopular, status: allRecipe.veryPopular ?? false),
-                              Utilites(name: L10n.sustainable, status: allRecipe.sustainable ?? false)]
+            self?.utilites = [
+                Utilites(
+                    name: L10n.vegetarian,
+                    status: allRecipe.vegetarian ?? false
+                ),
+                Utilites(
+                    name: L10n.vegan,
+                    status: allRecipe.vegan ?? false
+                ),
+                Utilites(
+                    name: L10n.glutenFree,
+                    status: allRecipe.glutenFree ?? false
+                ),
+                Utilites(
+                    name: L10n.dairyFree,
+                    status: allRecipe.dairyFree ?? false
+                ),
+                Utilites(
+                    name: L10n.veryHealthy,
+                    status: allRecipe.veryHealthy ?? false
+                ),
+                Utilites(
+                    name: L10n.cheap,
+                    status: allRecipe.cheap ?? false
+                ),
+                Utilites(
+                    name: L10n.veryPopular,
+                    status: allRecipe.veryPopular ?? false
+                ),
+                Utilites(
+                    name: L10n.sustainable,
+                    status: allRecipe.sustainable ?? false
+                )
+            ]
             
             self?.collectionView.reloadData()
             

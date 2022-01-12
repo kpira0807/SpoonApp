@@ -37,9 +37,11 @@ extension TabBarCoordinator: Coordinator {
         let recipeImage = UIImage(systemName: "book")
         let recipeSelectedImage = UIImage(systemName: "book.fill")
         
-        let recipeTabBarItem = UITabBarItem(title: recipeTitle,
-                                            image: recipeImage,
-                                            selectedImage: recipeSelectedImage)
+        let recipeTabBarItem = UITabBarItem(
+            title: recipeTitle,
+            image: recipeImage,
+            selectedImage: recipeSelectedImage
+        )
         randomViewController.tabBarItem = recipeTabBarItem
         
         
@@ -49,10 +51,11 @@ extension TabBarCoordinator: Coordinator {
         let favouriteImage = UIImage(systemName: "heart")
         let favouriteSelectedImage = UIImage(systemName: "heart.fill")
         
-        let favouriteTabBarItem = UITabBarItem(title: favouriteTitle,
-                                               image: favouriteImage,
-                                               selectedImage: favouriteSelectedImage)
-        
+        let favouriteTabBarItem = UITabBarItem(
+            title: favouriteTitle,
+            image: favouriteImage,
+            selectedImage: favouriteSelectedImage
+        )
         favouriteViewController.tabBarItem = favouriteTabBarItem
         
         let menuCoordinator = MenuCoordinator(parent: self)
@@ -61,15 +64,18 @@ extension TabBarCoordinator: Coordinator {
         let menuImage = UIImage(systemName: "menucard")
         let menuSelectedImage = UIImage(systemName: "menucard.fill")
         
-        let menuTabBarItem = UITabBarItem(title: menuTitle,
-                                          image: menuImage,
-                                          selectedImage: menuSelectedImage)
-        
+        let menuTabBarItem = UITabBarItem(
+            title: menuTitle,
+            image: menuImage,
+            selectedImage: menuSelectedImage
+        )
         menuViewController.tabBarItem = menuTabBarItem
  
-        tabBarController!.viewControllers = [randomViewController,
-                                            favouriteViewController,
-                                            menuViewController]
+        tabBarController!.viewControllers = [
+            randomViewController,
+            favouriteViewController,
+            menuViewController
+        ]
         
         return tabBarController!
     }
