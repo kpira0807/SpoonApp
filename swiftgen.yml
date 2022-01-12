@@ -1,0 +1,11 @@
+strings:
+  inputs: SpoonApp
+  outputs:
+    - templateName: structured-swift4
+      output: SpoonApp/SwiftGen/strings.swift
+xcassets:
+  inputs:
+    - SpoonApp/Assets.xcassets
+  outputs:
+    - templateName: swift4
+      output: SpoonApp/SwiftGen/assets.swift
