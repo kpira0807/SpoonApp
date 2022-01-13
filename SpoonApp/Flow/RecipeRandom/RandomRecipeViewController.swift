@@ -3,11 +3,6 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-struct Utilites {
-    var name: String
-    var status: Bool
-}
-
 final class RandomRecipeViewController: UIViewController {
     
     var utilites = [Utilites]()
@@ -102,7 +97,7 @@ final class RandomRecipeViewController: UIViewController {
         
         return summuryText
     }()
-    
+
     init(_ viewModel: RecipeViewModel) {
         self.viewModel = viewModel
         
@@ -180,7 +175,7 @@ final class RandomRecipeViewController: UIViewController {
             
             self?.nameRecipeLabel.text = allRecipe.title
             self?.summuryText.attributedText = allRecipe.summary?.convertHtmlToAttributedStringWithCSS(font: UIFont.systemFont(ofSize: 14.0), csscolor: "black", lineheight: 5, csstextalign: "justify")
-            
+
             self?.timeCookLabel.text = "\(allRecipe.readyInMinutes ?? 0) minutes"
             
             self?.utilites = [
@@ -238,19 +233,15 @@ extension RandomRecipeViewController {
     private func setupScrollView(){
         view.addSubview(scrollView)
         scrollView.addSubview(contentScrollView)
-
+        
         scrollView.snp.makeConstraints { make in
-            make.centerX.equalTo(view.center.x)
-            make.width.equalTo(view.snp.width)
-            make.top.equalTo(view.snp.top)
-            make.bottom.equalTo(view.snp.bottom)
+            make.edges.equalTo(self.view)
         }
         
-        contentScrollView.snp.makeConstraints{ make in
-            make.centerX.equalTo(scrollView.snp.centerX)
-            make.width.equalTo(scrollView.snp.width)
+        contentScrollView.snp.makeConstraints { (make) in
             make.top.equalTo(scrollView.snp.top)
-            make.bottom.equalTo(scrollView.snp.bottom)
+            make.bottom.equalTo(scrollView.snp.bottom).priority(250)
+            make.width.equalTo(scrollView.snp.width)
         }
     }
     
@@ -271,7 +262,7 @@ extension RandomRecipeViewController {
             make.top.equalTo(viewBackgroundImageName.snp.bottom).offset(15)
             make.left.equalTo(contentScrollView.snp.left)
             make.right.equalTo(contentScrollView.snp.right)
-            make.height.equalTo(35)
+            make.height.equalTo(30)
         }
 
         viewBackgroundUtilites.snp.makeConstraints{ make in
@@ -313,13 +304,10 @@ extension RandomRecipeViewController {
         viewBackgroundCollection.addSubview(collectionView)
 
         collectionView.snp.makeConstraints{ make in
-            make.left.equalTo(viewBackgroundCollection.snp.left)
-            make.right.equalTo(viewBackgroundCollection.snp.right)
-            make.width.equalTo(viewBackgroundCollection.snp.width)
-            make.height.equalTo(30)
+            make.edges.equalTo(viewBackgroundCollection)
         }
         
-        let cellSize = CGSize(width: view.bounds.width/3, height:30)
+        let cellSize = CGSize(width: view.bounds.width/3, height:28)
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .horizontal
         layout.itemSize = cellSize
@@ -337,8 +325,7 @@ extension RandomRecipeViewController {
         viewBackgroundUtilites.addSubview(timeCookLabel)
 
         favouriteButton.snp.makeConstraints{ make in
-            make.centerX.equalTo(viewBackgroundUtilites.snp.centerX)
-            make.centerY.equalTo(viewBackgroundUtilites.snp.centerY)
+            make.center.equalTo(viewBackgroundUtilites.snp.center)
             make.height.equalTo(30)
             make.width.equalTo(30)
         }
@@ -365,6 +352,7 @@ extension RandomRecipeViewController {
             make.top.equalTo(viewBackgroundSummury.snp.top).offset(5)
             make.left.equalTo(viewBackgroundSummury.snp.left).offset(15)
             make.right.equalTo(viewBackgroundSummury.snp.right).offset(-15)
+            make.bottom.equalTo(viewBackgroundSummury.snp.bottom)
         }
     }
     

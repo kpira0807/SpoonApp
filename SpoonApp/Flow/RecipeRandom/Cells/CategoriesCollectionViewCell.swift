@@ -49,19 +49,13 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         
         contentView.addSubview(backCellView)
-        backCellView.snp.makeConstraints{ make in
-            make.centerX.equalTo(contentView.snp.centerX)
-            make.centerY.equalTo(contentView.snp.centerY)
-            make.width.equalTo(contentView.snp.width)
-            make.height.equalTo(contentView.snp.height)
+        backCellView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView)
         }
 
         backCellView.addSubview(categoriesLabel)
-        categoriesLabel.snp.makeConstraints{ make in
-            make.centerX.equalTo(backCellView.snp.centerX)
-            make.centerY.equalTo(backCellView.snp.centerY)
-            make.width.equalTo(backCellView.snp.width)
-            make.height.equalTo(backCellView.snp.height)
+        categoriesLabel.snp.makeConstraints { make in
+            make.edges.equalTo(backCellView)
         }
     }
     
