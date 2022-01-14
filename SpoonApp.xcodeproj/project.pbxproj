@@ -37,7 +37,7 @@
 		CC403DE5278C763F00BBE448 /* DetailsRecipeInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE4278C763F00BBE448 /* DetailsRecipeInformationViewModel.swift */; };
 		CC403DE7278C780F00BBE448 /* DetailsRecipeInformationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE6278C780F00BBE448 /* DetailsRecipeInformationAssembly.swift */; };
 		CC403DE9278C782100BBE448 /* DetailsRecipeInformationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE8278C782100BBE448 /* DetailsRecipeInformationCoordinator.swift */; };
-		CC403DEB2790675B00BBE448 /* Utilites.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DEA2790675B00BBE448 /* Utilites.swift */; };
+		CC403DEB2790675B00BBE448 /* CategoryRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DEA2790675B00BBE448 /* CategoryRecipe.swift */; };
 		CC674A4B27709ECE00E1DE78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */; };
 		CC674A4D27709ECE00E1DE78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */; };
 		CC674A5427709ED200E1DE78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC674A5327709ED200E1DE78 /* Assets.xcassets */; };
@@ -86,7 +86,7 @@
 		CC403DE4278C763F00BBE448 /* DetailsRecipeInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRecipeInformationViewModel.swift; sourceTree = "<group>"; };
 		CC403DE6278C780F00BBE448 /* DetailsRecipeInformationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRecipeInformationAssembly.swift; sourceTree = "<group>"; };
 		CC403DE8278C782100BBE448 /* DetailsRecipeInformationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRecipeInformationCoordinator.swift; sourceTree = "<group>"; };
-		CC403DEA2790675B00BBE448 /* Utilites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilites.swift; sourceTree = "<group>"; };
+		CC403DEA2790675B00BBE448 /* CategoryRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRecipe.swift; sourceTree = "<group>"; };
 		CC674A4727709ECE00E1DE78 /* SpoonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpoonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 			children = (
 				CC3DCE16277620FC00BBED4F /* String.swift */,
 				CC403DD127871D2B00BBE448 /* NetworksManager.swift */,
-				CC403DEA2790675B00BBE448 /* Utilites.swift */,
+				CC403DEA2790675B00BBE448 /* CategoryRecipe.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -437,7 +437,7 @@
 				CC3DCE0D2772186800BBED4F /* CategoriesCollectionViewCell.swift in Sources */,
 				CC403DD9278C599700BBE448 /* RandomRecipeAssembly.swift in Sources */,
 				CC403DD227871D2B00BBE448 /* NetworksManager.swift in Sources */,
-				CC403DEB2790675B00BBE448 /* Utilites.swift in Sources */,
+				CC403DEB2790675B00BBE448 /* CategoryRecipe.swift in Sources */,
 				CC3DCE1127738F4F00BBED4F /* RecipeModel.swift in Sources */,
 				CC674A632770A0E900E1DE78 /* assets.swift in Sources */,
 				CC403DDB278C61EB00BBE448 /* FavouriteRecipeAssembly.swift in Sources */,

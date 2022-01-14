@@ -22,7 +22,7 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
         categoriesLabel.numberOfLines = 0
         categoriesLabel.textAlignment = NSTextAlignment.center
         categoriesLabel.clipsToBounds = true
-
+        
         return categoriesLabel
     }()
     
@@ -50,12 +50,12 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(backCellView)
         backCellView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView)
+            make.edges.equalToSuperview()
         }
-
+        
         backCellView.addSubview(categoriesLabel)
         categoriesLabel.snp.makeConstraints { make in
-            make.edges.equalTo(backCellView)
+            make.edges.equalToSuperview()
         }
     }
     

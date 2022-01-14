@@ -5,7 +5,7 @@ import RxCocoa
 
 final class RandomRecipeViewController: UIViewController {
     
-    var utilites = [Utilites]()
+    var utilites = [CategoryRecipe]()
     private let disposeBag = DisposeBag()
     private let viewModel: RecipeViewModel
     
@@ -17,16 +17,16 @@ final class RandomRecipeViewController: UIViewController {
     
     // view for image and name recipe
     private lazy var viewBackgroundImageName = UIView()
-
+    
     // view for collection with information about recipe
     private lazy var viewBackgroundCollection = UIView()
-
+    
     // view for favourite button, detail button and cook time
     private lazy var viewBackgroundUtilites = UIView()
-
+    
     // view for summury
     private lazy var viewBackgroundSummury = UIView()
-
+    
     // image for recipe
     private lazy var recipeImage: UIImageView = {
         let recipeImage = UIImageView()
@@ -47,7 +47,7 @@ final class RandomRecipeViewController: UIViewController {
         
         return nameRecipeLabel
     }()
-
+    
     // label with time what need for cook
     private lazy var timeCookLabel: UILabel = {
         let timeCookLabel = UILabel()
@@ -89,7 +89,7 @@ final class RandomRecipeViewController: UIViewController {
         
         return collectionView
     }()
-
+    
     private lazy var summuryText: UILabel = {
         let summuryText = UILabel()
         summuryText.numberOfLines = 0
@@ -97,7 +97,7 @@ final class RandomRecipeViewController: UIViewController {
         
         return summuryText
     }()
-
+    
     init(_ viewModel: RecipeViewModel) {
         self.viewModel = viewModel
         
@@ -137,13 +137,13 @@ final class RandomRecipeViewController: UIViewController {
         
         ///For RxSwift
         /*
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe { [weak self] (answer) in
-                guard let self = self else { return }
-                self.setup()
-            } onError: { (error) in
-                print(error)
-            } .disposed(by: self.disposeBag)
+         .observeOn(MainScheduler.asyncInstance)
+         .subscribe { [weak self] (answer) in
+         guard let self = self else { return }
+         self.setup()
+         } onError: { (error) in
+         print(error)
+         } .disposed(by: self.disposeBag)
          */
     }
     
@@ -175,39 +175,39 @@ final class RandomRecipeViewController: UIViewController {
             
             self?.nameRecipeLabel.text = allRecipe.title
             self?.summuryText.attributedText = allRecipe.summary?.convertHtmlToAttributedStringWithCSS(font: UIFont.systemFont(ofSize: 14.0), csscolor: "black", lineheight: 5, csstextalign: "justify")
-
+            
             self?.timeCookLabel.text = "\(allRecipe.readyInMinutes ?? 0) minutes"
             
             self?.utilites = [
-                Utilites(
+                CategoryRecipe(
                     name: L10n.vegetarian,
                     status: allRecipe.vegetarian ?? false
                 ),
-                Utilites(
+                CategoryRecipe(
                     name: L10n.vegan,
                     status: allRecipe.vegan ?? false
                 ),
-                Utilites(
+                CategoryRecipe(
                     name: L10n.glutenFree,
                     status: allRecipe.glutenFree ?? false
                 ),
-                Utilites(
+                CategoryRecipe(
                     name: L10n.dairyFree,
                     status: allRecipe.dairyFree ?? false
                 ),
-                Utilites(
+                CategoryRecipe(
                     name: L10n.veryHealthy,
                     status: allRecipe.veryHealthy ?? false
                 ),
-                Utilites(
+                CategoryRecipe(
                     name: L10n.cheap,
                     status: allRecipe.cheap ?? false
                 ),
-                Utilites(
+                CategoryRecipe(
                     name: L10n.veryPopular,
                     status: allRecipe.veryPopular ?? false
                 ),
-                Utilites(
+                CategoryRecipe(
                     name: L10n.sustainable,
                     status: allRecipe.sustainable ?? false
                 )
@@ -229,19 +229,19 @@ final class RandomRecipeViewController: UIViewController {
 
 extension RandomRecipeViewController {
     
- /// Position for all elements
+    /// Position for all elements
     private func setupScrollView(){
         view.addSubview(scrollView)
         scrollView.addSubview(contentScrollView)
         
         scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(self.view)
+            make.edges.equalToSuperview()
         }
         
         contentScrollView.snp.makeConstraints { (make) in
-            make.top.equalTo(scrollView.snp.top)
-            make.bottom.equalTo(scrollView.snp.bottom).priority(250)
-            make.width.equalTo(scrollView.snp.width)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview().priority(250)
+            make.width.equalToSuperview()
         }
     }
     
@@ -250,64 +250,64 @@ extension RandomRecipeViewController {
         contentScrollView.addSubview(viewBackgroundUtilites)
         contentScrollView.addSubview(viewBackgroundCollection)
         contentScrollView.addSubview(viewBackgroundSummury)
-
+        
         viewBackgroundImageName.snp.makeConstraints{ make in
-            make.top.equalTo(contentScrollView.snp.top)
-            make.left.equalTo(contentScrollView.snp.left)
-            make.right.equalTo(contentScrollView.snp.right)
-            make.height.equalTo(380)
+            make.top.equalTo(contentScrollView)
+            make.left.equalTo(contentScrollView)
+            make.right.equalTo(contentScrollView)
+            make.height.equalTo(380.0)
         }
-
+        
         viewBackgroundCollection.snp.makeConstraints{ make in
             make.top.equalTo(viewBackgroundImageName.snp.bottom).offset(15)
-            make.left.equalTo(contentScrollView.snp.left)
-            make.right.equalTo(contentScrollView.snp.right)
-            make.height.equalTo(30)
+            make.left.equalTo(contentScrollView)
+            make.right.equalTo(contentScrollView)
+            make.height.equalTo(30.0)
         }
-
+        
         viewBackgroundUtilites.snp.makeConstraints{ make in
             make.top.equalTo(viewBackgroundCollection.snp.bottom).offset(10)
-            make.right.equalTo(contentScrollView.snp.right)
-            make.left.equalTo(contentScrollView.snp.left)
-            make.height.equalTo(50)
+            make.left.equalTo(contentScrollView)
+            make.right.equalTo(contentScrollView)
+            make.height.equalTo(50.0)
         }
-
+        
         viewBackgroundSummury.snp.makeConstraints{ make in
             make.top.equalTo(viewBackgroundUtilites.snp.bottom).offset(10)
-            make.left.equalTo(contentScrollView.snp.left)
-            make.right.equalTo(contentScrollView.snp.right)
-            make.bottom.equalTo(contentScrollView.snp.bottom)
+            make.left.equalTo(contentScrollView)
+            make.right.equalTo(contentScrollView)
+            make.bottom.equalTo(contentScrollView)
         }
     }
     
     private func sizeImageName() {
         viewBackgroundImageName.addSubview(recipeImage)
-
+        
         recipeImage.snp.makeConstraints{ make in
-            make.centerX.equalTo(viewBackgroundImageName.snp.centerX)
-            make.top.equalTo(viewBackgroundImageName.snp.top)
-            make.width.equalTo(viewBackgroundImageName.snp.width)
-            make.height.equalTo(300)
+            make.centerX.equalTo(viewBackgroundImageName)
+            make.top.equalTo(viewBackgroundImageName)
+            make.width.equalTo(viewBackgroundImageName)
+            make.height.equalTo(300.0)
         }
         
         viewBackgroundImageName.addSubview(nameRecipeLabel)
-
+        
         nameRecipeLabel.snp.makeConstraints{ make in
-            make.centerX.equalTo(viewBackgroundImageName.snp.centerX)
+            make.centerX.equalTo(viewBackgroundImageName)
             make.top.equalTo(recipeImage.snp.bottom).offset(15)
-            make.left.equalTo(viewBackgroundImageName.snp.left).offset(15)
-            make.right.equalTo(viewBackgroundImageName.snp.right).offset(-15)
+            make.left.equalTo(viewBackgroundImageName).offset(15)
+            make.right.equalTo(viewBackgroundImageName).offset(-15)
         }
     }
     
     private func sizeViewsCollection() {
         viewBackgroundCollection.addSubview(collectionView)
-
+        
         collectionView.snp.makeConstraints{ make in
             make.edges.equalTo(viewBackgroundCollection)
         }
         
-        let cellSize = CGSize(width: view.bounds.width/3, height:28)
+        let cellSize = CGSize(width: view.bounds.width/3, height:28.0)
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .horizontal
         layout.itemSize = cellSize
@@ -323,36 +323,35 @@ extension RandomRecipeViewController {
         viewBackgroundUtilites.addSubview(favouriteButton)
         viewBackgroundUtilites.addSubview(moreButton)
         viewBackgroundUtilites.addSubview(timeCookLabel)
-
+        
         favouriteButton.snp.makeConstraints{ make in
-            make.center.equalTo(viewBackgroundUtilites.snp.center)
-            make.height.equalTo(30)
-            make.width.equalTo(30)
+            make.center.equalTo(viewBackgroundUtilites)
+            make.width.height.equalTo(30.0)
         }
-
+        
         timeCookLabel.snp.makeConstraints{ make in
-            make.centerY.equalTo(viewBackgroundUtilites.snp.centerY)
-            make.left.equalTo(viewBackgroundUtilites.snp.left).offset(20)
-            make.right.equalTo(favouriteButton.snp.left).offset(-10)
+            make.centerY.equalTo(viewBackgroundUtilites)
+            make.left.equalTo(viewBackgroundUtilites).offset(20)
+            make.right.equalTo(favouriteButton).offset(-10)
         }
-
+        
         moreButton.snp.makeConstraints{ make in
-            make.centerY.equalTo(viewBackgroundUtilites.snp.centerY)
-            make.right.equalTo(viewBackgroundUtilites.snp.right).offset(-20)
-            make.height.equalTo(40)
-            make.width.equalTo(60)
+            make.centerY.equalTo(viewBackgroundUtilites)
+            make.right.equalTo(viewBackgroundUtilites).offset(-20)
+            make.height.equalTo(40.0)
+            make.width.equalTo(60.0)
         }
     }
-
+    
     private func sizeSummuryText(){
         viewBackgroundSummury.addSubview(summuryText)
-
+        
         summuryText.snp.makeConstraints{ make in
-            make.centerX.equalTo(viewBackgroundSummury.snp.centerX)
-            make.top.equalTo(viewBackgroundSummury.snp.top).offset(5)
-            make.left.equalTo(viewBackgroundSummury.snp.left).offset(15)
-            make.right.equalTo(viewBackgroundSummury.snp.right).offset(-15)
-            make.bottom.equalTo(viewBackgroundSummury.snp.bottom)
+            make.centerX.equalTo(viewBackgroundSummury)
+            make.top.equalTo(viewBackgroundSummury).offset(5)
+            make.left.equalTo(viewBackgroundSummury).offset(15)
+            make.right.equalTo(viewBackgroundSummury).offset(-15)
+            make.bottom.equalTo(viewBackgroundSummury)
         }
     }
     
@@ -365,7 +364,7 @@ extension RandomRecipeViewController: UICollectionViewDelegate, UICollectionView
             
             return UICollectionViewCell()
         }
-
+        
         if utilites[indexPath.row].status == false {
             cell.configure(categoties: utilites[indexPath.row].name, backColor: Asset.greyLight.color)
         } else {
