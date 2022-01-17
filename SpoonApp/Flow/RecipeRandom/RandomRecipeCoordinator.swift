@@ -27,7 +27,7 @@ final class RecipeCoordinator: NavigationNode {
 extension RecipeCoordinator: Coordinator {
     
     func createFlow() -> UIViewController {
-        let recipeViewController = container.resolve(RandomRecipeViewController.self)
+        let recipeViewController = container.resolve(RandomRecipesViewController.self)
         root = recipeViewController
         
         return recipeViewController!

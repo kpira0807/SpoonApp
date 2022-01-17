@@ -38,6 +38,19 @@
 		CC403DE7278C780F00BBE448 /* DetailsRecipeInformationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE6278C780F00BBE448 /* DetailsRecipeInformationAssembly.swift */; };
 		CC403DE9278C782100BBE448 /* DetailsRecipeInformationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE8278C782100BBE448 /* DetailsRecipeInformationCoordinator.swift */; };
 		CC403DEB2790675B00BBE448 /* CategoryRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DEA2790675B00BBE448 /* CategoryRecipe.swift */; };
+		CC403DED2791969A00BBE448 /* RandomRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DEC2791969A00BBE448 /* RandomRecipesViewController.swift */; };
+		CC403DF42791985200BBE448 /* ImageNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DF32791985200BBE448 /* ImageNameTableViewCell.swift */; };
+		CC403DF62791988100BBE448 /* ImageNameCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DF52791988100BBE448 /* ImageNameCellModel.swift */; };
+		CC403DF82791989100BBE448 /* ImageNameCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DF72791989000BBE448 /* ImageNameCellViewModel.swift */; };
+		CC403DFC279198C700BBE448 /* CategoriesTableCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DFB279198C700BBE448 /* CategoriesTableCellModel.swift */; };
+		CC403DFE279198D600BBE448 /* CategoriesTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DFD279198D600BBE448 /* CategoriesTableCellViewModel.swift */; };
+		CC403E00279198EB00BBE448 /* TimeButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DFF279198EB00BBE448 /* TimeButtonsTableViewCell.swift */; };
+		CC403E02279198F700BBE448 /* TimeButtonsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403E01279198F700BBE448 /* TimeButtonsCellModel.swift */; };
+		CC403E042791990600BBE448 /* TimeButtonsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403E032791990600BBE448 /* TimeButtonsCellViewModel.swift */; };
+		CC403E062791992300BBE448 /* SummuryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403E052791992300BBE448 /* SummuryTableViewCell.swift */; };
+		CC403E082791993000BBE448 /* SummuryCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403E072791993000BBE448 /* SummuryCellModel.swift */; };
+		CC403E0A2791993C00BBE448 /* SummuryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403E092791993C00BBE448 /* SummuryCellViewModel.swift */; };
+		CC403E0C27958DF600BBE448 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403E0B27958DF500BBE448 /* CategoriesTableViewCell.swift */; };
 		CC674A4B27709ECE00E1DE78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */; };
 		CC674A4D27709ECE00E1DE78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */; };
 		CC674A5427709ED200E1DE78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC674A5327709ED200E1DE78 /* Assets.xcassets */; };
@@ -49,7 +62,6 @@
 		CC674A682770A4CC00E1DE78 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A672770A4CC00E1DE78 /* Recipes.swift */; };
 		CC674A6A2770ACBB00E1DE78 /* ReciperDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A692770ACBB00E1DE78 /* ReciperDownloader.swift */; };
 		CC674A6E2771F34A00E1DE78 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A6D2771F34A00E1DE78 /* TabBarViewController.swift */; };
-		CC674A702771F38D00E1DE78 /* RandomRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A6F2771F38D00E1DE78 /* RandomRecipeViewController.swift */; };
 		CC674A722771F3BB00E1DE78 /* FavoriteRecipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A712771F3BB00E1DE78 /* FavoriteRecipeTableViewController.swift */; };
 		CC674A742771F3CD00E1DE78 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A732771F3CD00E1DE78 /* MenuViewController.swift */; };
 /* End PBXBuildFile section */
@@ -87,6 +99,19 @@
 		CC403DE6278C780F00BBE448 /* DetailsRecipeInformationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRecipeInformationAssembly.swift; sourceTree = "<group>"; };
 		CC403DE8278C782100BBE448 /* DetailsRecipeInformationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRecipeInformationCoordinator.swift; sourceTree = "<group>"; };
 		CC403DEA2790675B00BBE448 /* CategoryRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRecipe.swift; sourceTree = "<group>"; };
+		CC403DEC2791969A00BBE448 /* RandomRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRecipesViewController.swift; sourceTree = "<group>"; };
+		CC403DF32791985200BBE448 /* ImageNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNameTableViewCell.swift; sourceTree = "<group>"; };
+		CC403DF52791988100BBE448 /* ImageNameCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNameCellModel.swift; sourceTree = "<group>"; };
+		CC403DF72791989000BBE448 /* ImageNameCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNameCellViewModel.swift; sourceTree = "<group>"; };
+		CC403DFB279198C700BBE448 /* CategoriesTableCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableCellModel.swift; sourceTree = "<group>"; };
+		CC403DFD279198D600BBE448 /* CategoriesTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableCellViewModel.swift; sourceTree = "<group>"; };
+		CC403DFF279198EB00BBE448 /* TimeButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeButtonsTableViewCell.swift; sourceTree = "<group>"; };
+		CC403E01279198F700BBE448 /* TimeButtonsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeButtonsCellModel.swift; sourceTree = "<group>"; };
+		CC403E032791990600BBE448 /* TimeButtonsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeButtonsCellViewModel.swift; sourceTree = "<group>"; };
+		CC403E052791992300BBE448 /* SummuryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummuryTableViewCell.swift; sourceTree = "<group>"; };
+		CC403E072791993000BBE448 /* SummuryCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummuryCellModel.swift; sourceTree = "<group>"; };
+		CC403E092791993C00BBE448 /* SummuryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummuryCellViewModel.swift; sourceTree = "<group>"; };
+		CC403E0B27958DF500BBE448 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		CC674A4727709ECE00E1DE78 /* SpoonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpoonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,7 +125,6 @@
 		CC674A672770A4CC00E1DE78 /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
 		CC674A692770ACBB00E1DE78 /* ReciperDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReciperDownloader.swift; sourceTree = "<group>"; };
 		CC674A6D2771F34A00E1DE78 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		CC674A6F2771F38D00E1DE78 /* RandomRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRecipeViewController.swift; sourceTree = "<group>"; };
 		CC674A712771F3BB00E1DE78 /* FavoriteRecipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeTableViewController.swift; sourceTree = "<group>"; };
 		CC674A732771F3CD00E1DE78 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		D270B7529F2FB5AE7BF4E4CC /* Pods-SpoonApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpoonApp.debug.xcconfig"; path = "Target Support Files/Pods-SpoonApp/Pods-SpoonApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -158,9 +182,11 @@
 		CC3DCE40278492E500BBED4F /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				CC3DCE0C2772186800BBED4F /* CategoriesCollectionViewCell.swift */,
-				CC403DD62787273800BBE448 /* CategoriesCellViewModel.swift */,
-				CC403DD42787271C00BBE448 /* CategoriesCellModel.swift */,
+				CC403DF22791981900BBE448 /* SummuryTableViewCell */,
+				CC403DF1279197ED00BBE448 /* TimeButtonsTableViewCell */,
+				CC403DF0279197DD00BBE448 /* CollectionTableViewCell */,
+				CC403DEF2791978200BBE448 /* ImageNameTableViewCell */,
+				CC403DEE2791976000BBE448 /* CategoriesCollectionViewCell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -173,6 +199,56 @@
 				CC3DCE19277D994D00BBED4F /* NavigationNode.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		CC403DEE2791976000BBE448 /* CategoriesCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				CC3DCE0C2772186800BBED4F /* CategoriesCollectionViewCell.swift */,
+				CC403DD62787273800BBE448 /* CategoriesCellViewModel.swift */,
+				CC403DD42787271C00BBE448 /* CategoriesCellModel.swift */,
+			);
+			path = CategoriesCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		CC403DEF2791978200BBE448 /* ImageNameTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				CC403DF32791985200BBE448 /* ImageNameTableViewCell.swift */,
+				CC403DF72791989000BBE448 /* ImageNameCellViewModel.swift */,
+				CC403DF52791988100BBE448 /* ImageNameCellModel.swift */,
+			);
+			path = ImageNameTableViewCell;
+			sourceTree = "<group>";
+		};
+		CC403DF0279197DD00BBE448 /* CollectionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				CC403E0B27958DF500BBE448 /* CategoriesTableViewCell.swift */,
+				CC403DFD279198D600BBE448 /* CategoriesTableCellViewModel.swift */,
+				CC403DFB279198C700BBE448 /* CategoriesTableCellModel.swift */,
+			);
+			path = CollectionTableViewCell;
+			sourceTree = "<group>";
+		};
+		CC403DF1279197ED00BBE448 /* TimeButtonsTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				CC403DFF279198EB00BBE448 /* TimeButtonsTableViewCell.swift */,
+				CC403E032791990600BBE448 /* TimeButtonsCellViewModel.swift */,
+				CC403E01279198F700BBE448 /* TimeButtonsCellModel.swift */,
+			);
+			path = TimeButtonsTableViewCell;
+			sourceTree = "<group>";
+		};
+		CC403DF22791981900BBE448 /* SummuryTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				CC403E052791992300BBE448 /* SummuryTableViewCell.swift */,
+				CC403E092791993C00BBE448 /* SummuryCellViewModel.swift */,
+				CC403E072791993000BBE448 /* SummuryCellModel.swift */,
+			);
+			path = SummuryTableViewCell;
 			sourceTree = "<group>";
 		};
 		CC674A3E27709ECD00E1DE78 = {
@@ -228,7 +304,7 @@
 				CC3DCE40278492E500BBED4F /* Cells */,
 				CC403DD8278C599700BBE448 /* RandomRecipeAssembly.swift */,
 				CC3DCE21277DBBE900BBED4F /* RandomRecipeCoordinator.swift */,
-				CC674A6F2771F38D00E1DE78 /* RandomRecipeViewController.swift */,
+				CC403DEC2791969A00BBE448 /* RandomRecipesViewController.swift */,
 				CC3DCE1227738F5C00BBED4F /* RecipeViewModel.swift */,
 				CC3DCE1027738F4F00BBED4F /* RecipeModel.swift */,
 			);
@@ -420,7 +496,6 @@
 				CC3DCE2E277DBFB100BBED4F /* FavouriteViewModel.swift in Sources */,
 				CC403DE3278C761D00BBE448 /* DetailsRecipeInformationModel.swift in Sources */,
 				CC403DDF278C645E00BBE448 /* TabBarAssembly.swift in Sources */,
-				CC674A702771F38D00E1DE78 /* RandomRecipeViewController.swift in Sources */,
 				CC3DCE462785E13D00BBED4F /* DetailsRecipeInformationViewController.swift in Sources */,
 				CC674A6E2771F34A00E1DE78 /* TabBarViewController.swift in Sources */,
 				CC3DCE482785E98700BBED4F /* RecipeSaveModel.swift in Sources */,
@@ -440,11 +515,20 @@
 				CC403DEB2790675B00BBE448 /* CategoryRecipe.swift in Sources */,
 				CC3DCE1127738F4F00BBED4F /* RecipeModel.swift in Sources */,
 				CC674A632770A0E900E1DE78 /* assets.swift in Sources */,
+				CC403E0A2791993C00BBE448 /* SummuryCellViewModel.swift in Sources */,
 				CC403DDB278C61EB00BBE448 /* FavouriteRecipeAssembly.swift in Sources */,
 				CC3DCE20277DAAE300BBED4F /* TabBarCoordinator.swift in Sources */,
+				CC403E02279198F700BBE448 /* TimeButtonsCellModel.swift in Sources */,
+				CC403E00279198EB00BBE448 /* TimeButtonsTableViewCell.swift in Sources */,
+				CC403E0C27958DF600BBE448 /* CategoriesTableViewCell.swift in Sources */,
 				CC3DCE1C277DA80100BBED4F /* Coordinator.swift in Sources */,
+				CC403DF42791985200BBE448 /* ImageNameTableViewCell.swift in Sources */,
+				CC403E062791992300BBE448 /* SummuryTableViewCell.swift in Sources */,
+				CC403DED2791969A00BBE448 /* RandomRecipesViewController.swift in Sources */,
+				CC403E042791990600BBE448 /* TimeButtonsCellViewModel.swift in Sources */,
 				CC3DCE2A277DBE1400BBED4F /* MenuViewModel.swift in Sources */,
 				CC403DDD278C61FA00BBE448 /* MenuAssembly.swift in Sources */,
+				CC403DFE279198D600BBE448 /* CategoriesTableCellViewModel.swift in Sources */,
 				CC403DE5278C763F00BBE448 /* DetailsRecipeInformationViewModel.swift in Sources */,
 				CC403DD72787273800BBE448 /* CategoriesCellViewModel.swift in Sources */,
 				CC3DCE1E277DAA9400BBED4F /* AppNavigator.swift in Sources */,
@@ -455,8 +539,12 @@
 				CC3DCE1327738F5C00BBED4F /* RecipeViewModel.swift in Sources */,
 				CC3DCE17277620FC00BBED4F /* String.swift in Sources */,
 				CC3DCE2C277DBF9F00BBED4F /* FavouriteModel.swift in Sources */,
+				CC403DFC279198C700BBE448 /* CategoriesTableCellModel.swift in Sources */,
+				CC403DF62791988100BBE448 /* ImageNameCellModel.swift in Sources */,
+				CC403E082791993000BBE448 /* SummuryCellModel.swift in Sources */,
 				CC403DD52787271C00BBE448 /* CategoriesCellModel.swift in Sources */,
 				CC674A4D27709ECE00E1DE78 /* SceneDelegate.swift in Sources */,
+				CC403DF82791989100BBE448 /* ImageNameCellViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

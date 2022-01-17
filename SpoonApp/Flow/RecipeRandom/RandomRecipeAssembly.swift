@@ -9,7 +9,7 @@ final class RandomRecipeAssembly: Assembly {
     }
     
     func assemble(container: Container) {
-        container.register(RandomRecipeViewController.self) {
+        container.register(RandomRecipesViewController.self) {
             [unowned parent] _ in
             let model = RecipeModel(
                 parent: parent,
@@ -17,7 +17,7 @@ final class RandomRecipeAssembly: Assembly {
                 storage: ReciperStorage()
             )
             let viewModel = RecipeViewModel(model: model)
-            let controller = RandomRecipeViewController(viewModel)
+            let controller = RandomRecipesViewController(viewModel)
             
             return controller
         }.inObjectScope(.transient)
