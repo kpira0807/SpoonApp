@@ -3,25 +3,40 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class RandomRecipesViewController: UIViewController {
+final class RandomRecipesViewController: UIViewController {
     
-    var categoryRecipe = [CategoryRecipe]()
+    private var isAnswerReady = false
+    var recipeAll: RecipesDetail
     private let disposeBag = DisposeBag()
     private let viewModel: RecipeViewModel
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(ImageNameTableViewCell.self, forCellReuseIdentifier: ImageNameTableViewCell.identifier)
-        tableView.register(CategoriesTableViewCell.self, forCellReuseIdentifier: CategoriesTableViewCell.identifier)
-        tableView.register(TimeButtonsTableViewCell.self, forCellReuseIdentifier: TimeButtonsTableViewCell.identifier)
-        tableView.register(SummuryTableViewCell.self, forCellReuseIdentifier: SummuryTableViewCell.identifier)
         tableView.separatorColor = UIColor.clear
         
         return tableView
     }()
     
+    private lazy var activityIndicatorContainer: UIView = {
+        let activityIndicatorContainer = UIView()
+        activityIndicatorContainer.backgroundColor = .black
+        activityIndicatorContainer.alpha = 0.8
+        activityIndicatorContainer.layer.cornerRadius = 10
+        
+        return activityIndicatorContainer
+    }()
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = .large
+        
+        return activityIndicator
+    }()
+    
     init(_ viewModel: RecipeViewModel) {
         self.viewModel = viewModel
+        self.recipeAll = RecipesDetail(recipes: [Recipes]())
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -30,26 +45,69 @@ class RandomRecipesViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func loadView() {
+        super.loadView()
+        
+        setupActivityIndicator()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        view.addSubview(tableView)
+        setupTableView(tableView)
         
         tableView.delegate = self
         tableView.dataSource = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
-        tableView.frame = view.bounds
+        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         viewModel.usersUpdate()
+            .subscribe { [weak self] (answer) in
+                guard let self = self else { return }
+                if answer != nil {
+                    self.isAnswerReady = true
+                }
+                self.recipeAll = answer!
+                print("Recipe All - \(self.recipeAll)")
+            } onError: { (error) in
+                print(error)
+            } .disposed(by: self.disposeBag)
+    }
+    
+    private func setupTableView() {
+      tableView.registerReusableCell(cellType: ImageNameTableViewCell.self)
+      tableView.registerReusableCell(cellType: CategoriesTableViewCell.self)
+      tableView.registerReusableCell(cellType: TimeButtonsTableViewCell.self)
+      tableView.registerReusableCell(cellType: SummuryTableViewCell.self)
+    }
+    
+}
+
+extension RandomRecipesViewController {
+ 
+    private func setupTableView(_ table: UITableView) {
+        view.addSubview(table)
+        table.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicatorContainer)
+        activityIndicatorContainer.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.height.width.equalTo(80.0)
+        }
+          
+        activityIndicatorContainer.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalTo(activityIndicatorContainer)
+        }
     }
     
 }
@@ -61,53 +119,18 @@ extension RandomRecipesViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: ImageNameTableViewCell.identifier,
-                for: indexPath
-            ) as? ImageNameTableViewCell else {
-                return UITableViewCell()}
-            
-            return cell
-        } else if indexPath.row == 1 {
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: CategoriesTableViewCell.identifier,
-                for: indexPath
-            ) as? CategoriesTableViewCell else {
-                return UITableViewCell()}
-            
-            
-            return cell
-        } else if indexPath.row == 2 {
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: TimeButtonsTableViewCell.identifier,
-                for: indexPath
-            ) as? TimeButtonsTableViewCell else {
-                return UITableViewCell()}
-            
-            return cell
-        } else {
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: SummuryTableViewCell.identifier,
-                for: indexPath
-            ) as? SummuryTableViewCell else {
-                return UITableViewCell()}
-            
-            return cell
-        }
+        let cellViewModel = viewModel.cellViewModels[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withModel: cellViewModel, for: indexPath)
+        
+        return cell
     }
-    
+  
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 380
-        } else if indexPath.row == 1 {
-            return 35
-        } else if indexPath.row == 2 {
-            return 50
-        } else {
-            return 400
-        }
+        let cellViewModel = viewModel.cellViewModels[indexPath.row]
+
+        return cellViewModel.height
     }
+   
     
 }
 

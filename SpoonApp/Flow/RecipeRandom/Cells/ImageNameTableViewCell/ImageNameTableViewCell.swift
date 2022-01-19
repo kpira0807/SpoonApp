@@ -1,11 +1,12 @@
 import UIKit
 import SnapKit
 
-class ImageNameTableViewCell: UITableViewCell {
+final class ImageNameTableViewCell: UITableViewCell, Reusable {
     
     static let identifier = String(describing: ImageNameTableViewCell.self)
     
-    // image for recipe
+    var viewModel: ImageNameCellViewModel!
+    
     private lazy var recipeImage: UIImageView = {
         let recipeImage = UIImageView()
         recipeImage.contentMode = .scaleAspectFill
@@ -14,12 +15,11 @@ class ImageNameTableViewCell: UITableViewCell {
         return recipeImage
     }()
     
-    // name recipe from json
     private lazy var nameRecipeLabel: UILabel = {
         let nameRecipeLabel = UILabel()
-        nameRecipeLabel.textAlignment = NSTextAlignment.center
+        nameRecipeLabel.textAlignment = .center
         nameRecipeLabel.textColor = Asset.textColor.color
-        nameRecipeLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .bold)
+        nameRecipeLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
         nameRecipeLabel.numberOfLines = 0
         nameRecipeLabel.clipsToBounds = true
         
@@ -30,8 +30,8 @@ class ImageNameTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.backgroundColor = .white
-        contentView.addSubview(recipeImage)
-        contentView.addSubview(nameRecipeLabel)
+        setupImage(recipeImage)
+        setupName(nameRecipeLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -50,30 +50,25 @@ class ImageNameTableViewCell: UITableViewCell {
         recipeImage.image = nil
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        sizeImage(image: recipeImage)
-        sizeName(name: nameRecipeLabel)
-    }
-    
 }
 
 extension ImageNameTableViewCell {
     
-    func sizeImage(image: UIImageView) {
+    private func setupImage(_ image: UIImageView) {
+        contentView.addSubview(image)
+        
         image.snp.makeConstraints{ make in
-            make.centerX.top.width.equalTo(contentView)
+            make.trailing.leading.top.equalToSuperview()
             make.height.equalTo(300.0)
         }
     }
     
-    func sizeName(name: UILabel) {
+    private func setupName(_ name: UILabel) {
+        contentView.addSubview(name)
+        
         name.snp.makeConstraints{ make in
-            make.centerX.equalTo(contentView)
             make.top.equalTo(recipeImage.snp.bottom).offset(15.0)
-            make.leading.equalTo(contentView).offset(15.0)
-            make.trailing.equalTo(contentView).offset(-15.0)
+            make.leading.trailing.equalToSuperview().inset(15.0)
         }
     }
     

@@ -1,9 +1,11 @@
 import UIKit
 import SnapKit
 
-final class CategoriesCollectionViewCell: UICollectionViewCell {
+final class CategoriesCollectionViewCell: UICollectionViewCell, Reusable {
     
     static let identifier = String(describing: CategoriesCollectionViewCell.self)
+    
+    var viewModel: CategoriesCellViewModel!
     
     private lazy var backCellView: UIView = {
         let backCellView = UIView()
@@ -18,9 +20,9 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
     private lazy var categoriesLabel: UILabel = {
         let categoriesLabel = UILabel()
         categoriesLabel.textColor = Asset.textColor.color
-        categoriesLabel.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        categoriesLabel.font = .systemFont(ofSize: 12, weight: .semibold)
         categoriesLabel.numberOfLines = 0
-        categoriesLabel.textAlignment = NSTextAlignment.center
+        categoriesLabel.textAlignment = .center
         categoriesLabel.clipsToBounds = true
         
         return categoriesLabel
@@ -28,6 +30,9 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        setupCategoriesLabel(categoriesLabel)
+        setupBackCellView(backCellView)
     }
     
     required init?(coder: NSCoder) {
@@ -45,16 +50,22 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
         backCellView.backgroundColor = backColor
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+}
+
+extension CategoriesCollectionViewCell {
+    
+    private func setupBackCellView(_ view: UIView) {
+        contentView.addSubview(view)
         
-        contentView.addSubview(backCellView)
-        backCellView.snp.makeConstraints { make in
+        view.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    private func setupCategoriesLabel(_ label: UILabel) {
+        backCellView.addSubview(label)
         
-        backCellView.addSubview(categoriesLabel)
-        categoriesLabel.snp.makeConstraints { make in
+        label.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

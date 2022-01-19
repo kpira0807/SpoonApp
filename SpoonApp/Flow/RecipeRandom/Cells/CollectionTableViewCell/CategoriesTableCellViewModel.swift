@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 final class CategoriesTableCellViewModel {
     
@@ -6,6 +6,18 @@ final class CategoriesTableCellViewModel {
     
     init(model: CategoriesTableCellModel) {
         self.model = model
+    }
+    
+}
+
+extension CategoriesTableCellViewModel: CellViewModel {
+    
+    var height: CGFloat {
+        35.0
+    }
+    
+    func setup(cell: CategoriesTableViewCell) {
+        cell.viewModel = self
     }
     
 }

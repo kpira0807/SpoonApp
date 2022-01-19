@@ -1,14 +1,16 @@
 import UIKit
 import SnapKit
 
-class TimeButtonsTableViewCell: UITableViewCell {
+final class TimeButtonsTableViewCell: UITableViewCell, Reusable {
     
     static let identifier = String(describing: TimeButtonsTableViewCell.self)
+    
+    var viewModel: TimeButtonsCellViewModel!
     
     // label with time what need for cook
     private lazy var timeCookLabel: UILabel = {
         let timeCookLabel = UILabel()
-        timeCookLabel.textAlignment = NSTextAlignment.left
+        timeCookLabel.textAlignment = .left
         timeCookLabel.textColor = Asset.textColor.color
         timeCookLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
         timeCookLabel.numberOfLines = 0
@@ -17,36 +19,34 @@ class TimeButtonsTableViewCell: UITableViewCell {
         return timeCookLabel
     }()
     
-    // button for add recipe in save
-    private lazy var favouriteButton: UIButton = {
-        let favouriteButton = UIButton()
-        let image = Asset.heart.name
-        favouriteButton.setImage(UIImage(named: image), for: .normal)
+    private lazy var addToFavouriteButton: UIButton = {
+        let addToFavouriteButton = UIButton()
+        addToFavouriteButton.setImage(Asset.heart.image, for: .normal)
         
-        return favouriteButton
+        return addToFavouriteButton
     }()
     
-    // datails information
-    private lazy var moreButton: UIButton = {
-        let moreButton = UIButton()
-        moreButton.setTitle(L10n.moreButton, for: .normal)
-        moreButton.setTitleColor(Asset.tabBarTintColor.color, for: .normal)
-        moreButton.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
-        moreButton.layer.cornerRadius = 8
-        moreButton.layer.borderWidth = 1
-        moreButton.layer.borderColor = Asset.tabBarTintColor.color.cgColor
-        moreButton.clipsToBounds = true
+    private lazy var openDetailInfoButton: UIButton = {
+        let openDetailInfoButton = UIButton()
+        openDetailInfoButton.setTitle(L10n.moreButton, for: .normal)
+        openDetailInfoButton.setTitleColor(Asset.tabBarTintColor.color, for: .normal)
+        openDetailInfoButton.titleLabel?.font = .systemFont(ofSize: 12.0)
+        openDetailInfoButton.layer.cornerRadius = 8
+        openDetailInfoButton.layer.borderWidth = 1
+        openDetailInfoButton.layer.borderColor = Asset.tabBarTintColor.color.cgColor
+        openDetailInfoButton.clipsToBounds = true
         
-        return moreButton
+        return openDetailInfoButton
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.backgroundColor = .white
-        contentView.addSubview(timeCookLabel)
-        contentView.addSubview(favouriteButton)
-        contentView.addSubview(moreButton)
+        
+        setupTimeLabel(timeCookLabel)
+        setupFavouriteButton(addToFavouriteButton)
+        setupMoreButton(openDetailInfoButton)
     }
     
     required init?(coder: NSCoder) {
@@ -63,37 +63,35 @@ class TimeButtonsTableViewCell: UITableViewCell {
         timeCookLabel.text = nil
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        sizeTimeLabel(time: timeCookLabel)
-        sizeFavouriteButton(button: favouriteButton)
-        sizeMoreButton(button: moreButton)
-    }
-    
 }
 
 extension TimeButtonsTableViewCell {
     
-    func sizeTimeLabel(time: UILabel) {
+    private func setupTimeLabel(_ time: UILabel) {
+        contentView.addSubview(time)
+        
         time.snp.makeConstraints{ make in
-            make.centerY.equalTo(contentView)
-            make.leading.equalTo(contentView).offset(20.0)
-            make.trailing.equalTo(favouriteButton.snp.leading).offset(-10.0)
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(20.0)
+            make.trailing.equalTo(contentView.snp.centerX).offset(-25.0)
         }
     }
     
-    func sizeFavouriteButton(button: UIButton) {
+    private func setupFavouriteButton(_ button: UIButton) {
+        contentView.addSubview(button)
+        
         button.snp.makeConstraints{ make in
-            make.center.equalTo(contentView)
+            make.center.equalToSuperview()
             make.width.height.equalTo(30.0)
         }
     }
     
-    func sizeMoreButton(button: UIButton) {
+    private func setupMoreButton(_ button: UIButton) {
+        contentView.addSubview(button)
+        
         button.snp.makeConstraints{ make in
-            make.centerY.equalTo(contentView)
-            make.trailing.equalTo(contentView).offset(-20.0)
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-20.0)
             make.height.equalTo(40.0)
             make.width.equalTo(60.0)
         }

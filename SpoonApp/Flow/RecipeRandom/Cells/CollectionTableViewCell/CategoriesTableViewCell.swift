@@ -1,9 +1,11 @@
 import UIKit
 import SnapKit
 
-class CategoriesTableViewCell: UITableViewCell {
+final class CategoriesTableViewCell: UITableViewCell, Reusable {
     
     static let identifier = String(describing: CategoriesTableViewCell.self)
+    
+    var viewModel: CategoriesTableCellViewModel!
     
     private let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
@@ -11,12 +13,12 @@ class CategoriesTableViewCell: UITableViewCell {
         
         return collectionView
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.backgroundColor = .white
-        contentView.addSubview(collectionView)
+        setupCollectionview(collectionView)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -26,19 +28,15 @@ class CategoriesTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        sizeCollection(collection: collectionView)
-    }
-
 }
 
-extension CategoriesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension CategoriesTableViewCell {
     
-    func sizeCollection(collection: UICollectionView) {
+    private func setupCollectionview(_ collection: UICollectionView) {
+        contentView.addSubview(collection)
+        
         collection.snp.makeConstraints{ make in
-            make.edges.equalTo(contentView)
+            make.edges.equalToSuperview()
         }
         
         let cellSize = CGSize(width: contentView.bounds.width/3, height:28.0)
@@ -49,22 +47,17 @@ extension CategoriesTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         layout.minimumLineSpacing = 1.0
         layout.minimumInteritemSpacing = 1.0
         collection.setCollectionViewLayout(layout, animated: true)
-        collection.reloadData()
     }
+    
+}
+
+extension CategoriesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else {
             
             return UICollectionViewCell()
         }
-        // cell.configure(categoties: "Okay", backColor: .white)
-        /*
-        if categoryRecipe[indexPath.row].status == false {
-            cell.configure(categoties: categoryRecipe[indexPath.row].name, backColor: Asset.greyLight.color)
-        } else {
-            cell.configure(categoties: categoryRecipe[indexPath.row].name, backColor: Asset.backGreen.color)
-        }
-       */
         return cell
     }
     
@@ -72,5 +65,5 @@ extension CategoriesTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         
         return 8
     }
-
+    
 }

@@ -1,8 +1,10 @@
 import Foundation
 import RxSwift
+import RxCocoa
 
 final class RecipeModel: NavigationNode {
-
+    
+    let cellModels = BehaviorRelay(value: [CellModel]())
     private let downloader: ReciperDownloaderProtocol
     private let storage: ReciperStorageProtocol
     private let disposeBag = DisposeBag()
@@ -15,15 +17,19 @@ final class RecipeModel: NavigationNode {
         self.storage = storage
         
         super.init(parent: parent)
+        
+        prepareCellModels()
     }
     
-    func getRandomRecipe(_ completion: @escaping (RecipesDetail) -> Void) {
-        downloader.getResponseRecipe(success: { recipe in completion(recipe)
-        })
+    private func prepareCellModels() {
+        let imageNameCellModel = ImageNameCellModel()
+        let categoriesTableCellModel = CategoriesTableCellModel()
+        let timeButtonsCellModel = TimeButtonsCellModel()
+        let summuryCellModel = SummuryCellModel()
+        
+        cellModels.accept([imageNameCellModel, categoriesTableCellModel, timeButtonsCellModel, summuryCellModel])
     }
     
-    ///For RxSwift in future
-    /*
     func getRandomRecipe() -> Observable<RecipesDetail?> {
         
         return Observable.create { observer in
@@ -31,7 +37,7 @@ final class RecipeModel: NavigationNode {
                 .subscribe { recipe in
                     if let answer = recipe {
                         observer.onNext(answer)
-                      //  observer.on(.next(answer))
+                      
                         print("ANSWER -- \(answer)")
                     }
                 } onError: { error in
@@ -41,7 +47,7 @@ final class RecipeModel: NavigationNode {
             return Disposables.create()
         }
     }
-   */
+   
     func saveFavouriteRecipe(_ recipe: RecipeSaveModel) {
         storage.saveRecipe(recipe)
     }
