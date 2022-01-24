@@ -2,7 +2,7 @@ import UIKit
 import Swinject
 
 final class TabBarCoordinator: NavigationNode {
-
+    
     private weak var tabBarController: UITabBarController?
     private var container: Container!
     
@@ -12,13 +12,13 @@ final class TabBarCoordinator: NavigationNode {
         registerFlow()
         addHandlers()
     }
-   
+    
     private func registerFlow() {
         container = Container()
         
         TabBarAssembly(self).assemble(container: container)
     }
-  
+    
     private func addHandlers() {
         // add Settings flow event handlers
     }
@@ -70,7 +70,7 @@ extension TabBarCoordinator: Coordinator {
             selectedImage: menuSelectedImage
         )
         menuViewController.tabBarItem = menuTabBarItem
- 
+        
         tabBarController!.viewControllers = [
             randomViewController,
             favouriteViewController,
@@ -79,5 +79,5 @@ extension TabBarCoordinator: Coordinator {
         
         return tabBarController!
     }
-  
+    
 }

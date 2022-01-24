@@ -5,57 +5,39 @@ import RxCocoa
 final class RecipeModel: NavigationNode {
     
     let cellModels = BehaviorRelay(value: [CellModel]())
-    private let downloader: ReciperDownloaderProtocol
-    private let storage: ReciperStorageProtocol
+    private let downloader: ProtocolRecipeDownloader
+    private let storage: ProtocolRecipeStorage
     private let disposeBag = DisposeBag()
     
-    init(parent: NavigationNode,
-         downloader: ReciperDownloaderProtocol = ReciperDownloader(),
-         storage: ReciperStorageProtocol = ReciperStorage()
+    init(
+        parent: NavigationNode,
+        downloader: ProtocolRecipeDownloader = RecipeDownloaderManager(),
+        storage: ProtocolRecipeStorage = RecipeStorageManager()
     ) {
         self.downloader = downloader
         self.storage = storage
         
         super.init(parent: parent)
-        
-        prepareCellModels()
+
     }
     
-    private func prepareCellModels() {
-        let imageNameCellModel = ImageNameCellModel()
-        let categoriesTableCellModel = CategoriesTableCellModel()
-        let timeButtonsCellModel = TimeButtonsCellModel()
-        let summuryCellModel = SummuryCellModel()
-        
-        cellModels.accept([imageNameCellModel, categoriesTableCellModel, timeButtonsCellModel, summuryCellModel])
+    private func prepareCellModels(recipt: Recipe) {
+        let imageNameCellModel = ImageNameCellModel.init(name: recipt.title ?? "", imageUrl: recipt.image ?? "")
+        let categoriesTableCellModel = CategoriesTableCellModel(parent: self)
+        let timeButtonsCellModel = TimeButtonsCellModel.init(time: "\(recipt.readyInMinutes ?? 0) minutes")
+        let summaryCellModel = SummaryCellModel.init(summary: recipt.summary ?? "")
+
+        cellModels.accept([imageNameCellModel, categoriesTableCellModel, timeButtonsCellModel, summaryCellModel])
     }
     
-    func getRandomRecipe() -> Observable<RecipesDetail?> {
-        
-        return Observable.create { observer in
-            self.downloader.getResponseRecipe()
-                .subscribe { recipe in
-                    if let answer = recipe {
-                        observer.onNext(answer)
-                      
-                        print("ANSWER -- \(answer)")
-                    }
-                } onError: { error in
-                    print(error)
-                } .disposed(by: self.disposeBag)
-            
-            return Disposables.create()
-        }
+    func getRandomRecipe() {
+        downloader.getResponseRandomRecipe().compactMap{$0}.subscribe(onNext: { [weak self] recept in
+            self?.prepareCellModels(recipt: recept)
+        }).disposed(by: self.disposeBag)
     }
-   
+    
     func saveFavouriteRecipe(_ recipe: RecipeSaveModel) {
         storage.saveRecipe(recipe)
     }
-    
-    func detailButton() -> UIViewController {
-        let vc = DetailsRecipeInformationViewController(DetailsRecipeInformationViewModel(model: DetailsRecipeInformationModel(parent: self)))
-        
-        return vc
-    }
-    
+
 }

@@ -1,6 +1,16 @@
 import UIKit
+import RxCocoa
+import RxSwift
 
 final class CategoriesTableCellViewModel {
+    
+    var cellViewModels: [CellAnyViewModel] {
+      return model.cellModels.value.map({ $0.viewModel })
+    }
+    
+    var reloadData: Observable<Void> {
+      model.cellModels.map { _ in }.asObservable()
+    }
     
     private let model: CategoriesTableCellModel
     

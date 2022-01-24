@@ -1,17 +1,24 @@
 import UIKit
 import SnapKit
+import RxCocoa
+import RxSwift
 
 final class CategoriesCollectionViewCell: UICollectionViewCell, Reusable {
     
     static let identifier = String(describing: CategoriesCollectionViewCell.self)
     
-    var viewModel: CategoriesCellViewModel!
+    var viewModel: CategoriesCellViewModel! {
+        didSet {
+            initializeBindings()
+        }
+    }
+    private var disposeBag = DisposeBag()
     
     private lazy var backCellView: UIView = {
         let backCellView = UIView()
-        backCellView.layer.cornerRadius = 8
+        backCellView.layer.cornerRadius = 8.0
         backCellView.layer.borderColor = Asset.tabBarTintColor.color.cgColor
-        backCellView.layer.borderWidth = 1
+        backCellView.layer.borderWidth = 1.0
         backCellView.clipsToBounds = true
         
         return backCellView
@@ -20,7 +27,7 @@ final class CategoriesCollectionViewCell: UICollectionViewCell, Reusable {
     private lazy var categoriesLabel: UILabel = {
         let categoriesLabel = UILabel()
         categoriesLabel.textColor = Asset.textColor.color
-        categoriesLabel.font = .systemFont(ofSize: 12, weight: .semibold)
+        categoriesLabel.font = .systemFont(ofSize: 12.0, weight: .semibold)
         categoriesLabel.numberOfLines = 0
         categoriesLabel.textAlignment = .center
         categoriesLabel.clipsToBounds = true
@@ -31,8 +38,8 @@ final class CategoriesCollectionViewCell: UICollectionViewCell, Reusable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupCategoriesLabel(categoriesLabel)
-        setupBackCellView(backCellView)
+        setupCategoriesLabel()
+        setupBackCellView()
     }
     
     required init?(coder: NSCoder) {
@@ -50,22 +57,26 @@ final class CategoriesCollectionViewCell: UICollectionViewCell, Reusable {
         backCellView.backgroundColor = backColor
     }
     
+    private func initializeBindings() {
+        
+    }
+    
 }
 
 extension CategoriesCollectionViewCell {
     
-    private func setupBackCellView(_ view: UIView) {
-        contentView.addSubview(view)
+    private func setupBackCellView() {
+        contentView.addSubview(backCellView)
         
-        view.snp.makeConstraints { make in
+        backCellView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
-    private func setupCategoriesLabel(_ label: UILabel) {
-        backCellView.addSubview(label)
+    private func setupCategoriesLabel() {
+        backCellView.addSubview(categoriesLabel)
         
-        label.snp.makeConstraints { make in
+        categoriesLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

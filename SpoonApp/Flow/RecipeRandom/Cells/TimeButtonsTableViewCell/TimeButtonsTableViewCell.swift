@@ -1,11 +1,17 @@
 import UIKit
 import SnapKit
+import RxCocoa
+import RxSwift
 
 final class TimeButtonsTableViewCell: UITableViewCell, Reusable {
     
-    static let identifier = String(describing: TimeButtonsTableViewCell.self)
+    var viewModel: TimeButtonsCellViewModel! {
+        didSet {
+            initializeBindings()
+        }
+    }
     
-    var viewModel: TimeButtonsCellViewModel!
+    private var disposeBag = DisposeBag()
     
     // label with time what need for cook
     private lazy var timeCookLabel: UILabel = {
@@ -19,24 +25,12 @@ final class TimeButtonsTableViewCell: UITableViewCell, Reusable {
         return timeCookLabel
     }()
     
-    private lazy var addToFavouriteButton: UIButton = {
-        let addToFavouriteButton = UIButton()
-        addToFavouriteButton.setImage(Asset.heart.image, for: .normal)
+    private lazy var timeCookImage: UIImageView = {
+        let timeCookImage = UIImageView()
+        timeCookImage.contentMode = .scaleAspectFill
+        timeCookImage.image = Asset.cookingTime.image
         
-        return addToFavouriteButton
-    }()
-    
-    private lazy var openDetailInfoButton: UIButton = {
-        let openDetailInfoButton = UIButton()
-        openDetailInfoButton.setTitle(L10n.moreButton, for: .normal)
-        openDetailInfoButton.setTitleColor(Asset.tabBarTintColor.color, for: .normal)
-        openDetailInfoButton.titleLabel?.font = .systemFont(ofSize: 12.0)
-        openDetailInfoButton.layer.cornerRadius = 8
-        openDetailInfoButton.layer.borderWidth = 1
-        openDetailInfoButton.layer.borderColor = Asset.tabBarTintColor.color.cgColor
-        openDetailInfoButton.clipsToBounds = true
-        
-        return openDetailInfoButton
+        return timeCookImage
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -44,56 +38,47 @@ final class TimeButtonsTableViewCell: UITableViewCell, Reusable {
         
         contentView.backgroundColor = .white
         
-        setupTimeLabel(timeCookLabel)
-        setupFavouriteButton(addToFavouriteButton)
-        setupMoreButton(openDetailInfoButton)
+        setupTimeImage()
+        setupTimeLabel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    public func configure(time: String) {
-        timeCookLabel.text = time
-    }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         
         timeCookLabel.text = nil
     }
     
+    private func initializeBindings() {
+        viewModel.time
+            .bind(to: timeCookLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
 }
 
 extension TimeButtonsTableViewCell {
     
-    private func setupTimeLabel(_ time: UILabel) {
-        contentView.addSubview(time)
+    private func setupTimeImage() {
+        contentView.addSubview(timeCookImage)
         
-        time.snp.makeConstraints{ make in
+        timeCookImage.snp.makeConstraints{ make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(20.0)
-            make.trailing.equalTo(contentView.snp.centerX).offset(-25.0)
+            make.leading.equalToSuperview().offset(15.0)
+            make.height.width.equalTo(35)
         }
     }
     
-    private func setupFavouriteButton(_ button: UIButton) {
-        contentView.addSubview(button)
+    private func setupTimeLabel() {
+        contentView.addSubview(timeCookLabel)
         
-        button.snp.makeConstraints{ make in
-            make.center.equalToSuperview()
-            make.width.height.equalTo(30.0)
-        }
-    }
-    
-    private func setupMoreButton(_ button: UIButton) {
-        contentView.addSubview(button)
-        
-        button.snp.makeConstraints{ make in
+        timeCookLabel.snp.makeConstraints{ make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-20.0)
-            make.height.equalTo(40.0)
-            make.width.equalTo(60.0)
+            make.leading.equalTo(timeCookImage.snp.trailing).offset(20.0)
+            make.trailing.equalToSuperview()
         }
     }
     

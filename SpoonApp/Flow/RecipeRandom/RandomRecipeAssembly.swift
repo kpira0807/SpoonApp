@@ -13,8 +13,8 @@ final class RandomRecipeAssembly: Assembly {
             [unowned parent] _ in
             let model = RecipeModel(
                 parent: parent,
-                downloader: ReciperDownloader(),
-                storage: ReciperStorage()
+                downloader: RecipeDownloaderManager(),
+                storage: RecipeStorageManager()
             )
             let viewModel = RecipeViewModel(model: model)
             let controller = RandomRecipesViewController(viewModel)

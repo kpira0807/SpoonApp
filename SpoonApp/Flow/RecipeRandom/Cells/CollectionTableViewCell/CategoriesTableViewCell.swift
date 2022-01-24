@@ -1,41 +1,57 @@
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class CategoriesTableViewCell: UITableViewCell, Reusable {
     
-    static let identifier = String(describing: CategoriesTableViewCell.self)
-    
-    var viewModel: CategoriesTableCellViewModel!
-    
+    var viewModel: CategoriesTableCellViewModel! {
+        didSet {
+            collectionView.dataSource = self
+            collectionView.delegate = self
+            collectionView.reloadData()
+            
+            initializeBindings()
+        }
+    }
+    private var disposeBag = DisposeBag()
     private let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-        collectionView.register(CategoriesCollectionViewCell.self, forCellWithReuseIdentifier: CategoriesCollectionViewCell.identifier)
         
         return collectionView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+
         contentView.backgroundColor = .white
-        setupCollectionview(collectionView)
+        layoutCollectionView()
         
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        setupCollectionView()
     }
+    
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupCollectionView() {
+        collectionView.registerReusableCell(cellType: CategoriesCollectionViewCell.self)
+    }
+    
+    private func initializeBindings() {
+        
     }
     
 }
 
 extension CategoriesTableViewCell {
     
-    private func setupCollectionview(_ collection: UICollectionView) {
-        contentView.addSubview(collection)
+    private func layoutCollectionView() {
+        contentView.addSubview(collectionView)
         
-        collection.snp.makeConstraints{ make in
+        collectionView.snp.makeConstraints{ make in
             make.edges.equalToSuperview()
         }
         
@@ -46,7 +62,7 @@ extension CategoriesTableViewCell {
         layout.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
         layout.minimumLineSpacing = 1.0
         layout.minimumInteritemSpacing = 1.0
-        collection.setCollectionViewLayout(layout, animated: true)
+        collectionView.setCollectionViewLayout(layout, animated: true)
     }
     
 }
@@ -54,16 +70,15 @@ extension CategoriesTableViewCell {
 extension CategoriesTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else {
-            
-            return UICollectionViewCell()
-        }
+        
+        let cellViewModel = viewModel.cellViewModels[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withModel: cellViewModel, for: indexPath)
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return 8
+        viewModel.cellViewModels.count
     }
     
 }

@@ -1,12 +1,18 @@
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
+import Kingfisher
 
 final class ImageNameTableViewCell: UITableViewCell, Reusable {
     
-    static let identifier = String(describing: ImageNameTableViewCell.self)
+    var viewModel: ImageNameCellViewModel! {
+        didSet {
+            initializeBindings()
+        }
+    }
     
-    var viewModel: ImageNameCellViewModel!
-    
+    private var disposeBag = DisposeBag()
     private lazy var recipeImage: UIImageView = {
         let recipeImage = UIImageView()
         recipeImage.contentMode = .scaleAspectFill
@@ -30,19 +36,14 @@ final class ImageNameTableViewCell: UITableViewCell, Reusable {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.backgroundColor = .white
-        setupImage(recipeImage)
-        setupName(nameRecipeLabel)
+        setupImage()
+        setupName()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    public func configure(image: UIImage, name: String) {
-        recipeImage.image = image
-        nameRecipeLabel.text = name
-    }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -50,23 +51,37 @@ final class ImageNameTableViewCell: UITableViewCell, Reusable {
         recipeImage.image = nil
     }
     
+    private func initializeBindings() {
+        viewModel.name
+            .bind(to: nameRecipeLabel.rx.text)
+            .disposed(by: disposeBag)
+
+
+        viewModel.image.subscribe(onNext: { [weak self] imageUrl in
+            guard let url = URL.init(string: imageUrl) else {
+                return
+            }
+            self?.recipeImage.kf.setImage(with: ImageResource.init(downloadURL: url))
+        }).disposed(by: disposeBag)
+    }
+    
 }
 
 extension ImageNameTableViewCell {
     
-    private func setupImage(_ image: UIImageView) {
-        contentView.addSubview(image)
+    private func setupImage() {
+        contentView.addSubview(recipeImage)
         
-        image.snp.makeConstraints{ make in
+        recipeImage.snp.makeConstraints{ make in
             make.trailing.leading.top.equalToSuperview()
             make.height.equalTo(300.0)
         }
     }
     
-    private func setupName(_ name: UILabel) {
-        contentView.addSubview(name)
+    private func setupName() {
+        contentView.addSubview(nameRecipeLabel)
         
-        name.snp.makeConstraints{ make in
+        nameRecipeLabel.snp.makeConstraints{ make in
             make.top.equalTo(recipeImage.snp.bottom).offset(15.0)
             make.leading.trailing.equalToSuperview().inset(15.0)
         }

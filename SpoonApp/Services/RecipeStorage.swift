@@ -1,14 +1,14 @@
 import Foundation
 import RealmSwift
 
-protocol RecipeStorageManager {
+protocol ProtocolRecipeStorage {
     
     func saveRecipe(_ recipe: RecipeSaveModel)
     func getGivenRecipe() -> [RecipeSaveModel]
-    
+
 }
 
-final class RecipeStorage: RecipeStorageManager {
+final class RecipeStorageManager: ProtocolRecipeStorage {
 
     var results: Results<RecipeSaveModel>!
     

@@ -1,12 +1,12 @@
 import Foundation
 
-struct RecipesDetail: Codable {
+struct RecipeJSON: Codable {
     
-    var recipes: [Recipes]
+    var recipes: [Recipe]
     
 }
 
-struct Recipes: Codable {
+struct Recipe: Codable {
     
     var vegetarian: Bool?
     var vegan: Bool?

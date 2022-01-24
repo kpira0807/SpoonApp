@@ -30,7 +30,9 @@ extension RecipeCoordinator: Coordinator {
         let recipeViewController = container.resolve(RandomRecipesViewController.self)
         root = recipeViewController
         
-        return recipeViewController!
+        let navigationController = UINavigationController(rootViewController: recipeViewController!)
+        
+        return navigationController
     }
     
 }

@@ -1,4 +1,5 @@
 import Swinject
+import UIKit
 
 final class TabBarAssembly: Assembly {
     

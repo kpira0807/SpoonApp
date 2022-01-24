@@ -1,6 +1,13 @@
-import Foundation
+import RxSwift
+import RxCocoa
 
 final class TimeButtonsCellModel {
+    
+    let time: String
+
+    init(time: String) {
+        self.time = time
+    }
     
 }
 
