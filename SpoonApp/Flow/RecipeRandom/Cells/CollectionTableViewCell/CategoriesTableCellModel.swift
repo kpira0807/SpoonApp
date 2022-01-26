@@ -4,13 +4,16 @@ import RxSwift
 import UIKit
 
 final class CategoriesTableCellModel: NavigationNode {
-        
+    
+    var categories = [CategoryRecipe]()
+    
     let cellModels = BehaviorRelay(value: [CellModel]())
-
-    init(parent: NavigationNode) {
+    
+    init(parent: NavigationNode, categories: [CategoryRecipe]) {
         super.init(parent: parent)
-
-        prepareCellModels()
+        
+        self.categories = categories
+        prepareCellModels(categories: categories)
     }
     
 }
@@ -21,10 +24,10 @@ extension CategoriesTableCellModel: CellModel {
         CategoriesTableCellViewModel(model: self)
     }
     
-    private func prepareCellModels() {
-        let categoriesCellModel = CategoriesCellModel()
+    private func prepareCellModels(categories: [CategoryRecipe]) {
+        let cellModel: [CellModel] = categories.map { CategoriesCellModel($0) }
         
-        cellModels.accept([categoriesCellModel])
+        cellModels.accept(cellModel)
     }
     
 }

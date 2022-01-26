@@ -5,8 +5,6 @@ import RxSwift
 
 final class CategoriesCollectionViewCell: UICollectionViewCell, Reusable {
     
-    static let identifier = String(describing: CategoriesCollectionViewCell.self)
-    
     var viewModel: CategoriesCellViewModel! {
         didSet {
             initializeBindings()
@@ -16,7 +14,7 @@ final class CategoriesCollectionViewCell: UICollectionViewCell, Reusable {
     
     private lazy var backCellView: UIView = {
         let backCellView = UIView()
-        backCellView.layer.cornerRadius = 8.0
+        backCellView.layer.cornerRadius = 10.0
         backCellView.layer.borderColor = Asset.tabBarTintColor.color.cgColor
         backCellView.layer.borderWidth = 1.0
         backCellView.clipsToBounds = true
@@ -46,19 +44,19 @@ final class CategoriesCollectionViewCell: UICollectionViewCell, Reusable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        categoriesLabel.text = nil
-    }
-    
     public func configure(categoties: String, backColor: UIColor) {
         categoriesLabel.text = categoties
         backCellView.backgroundColor = backColor
     }
     
     private func initializeBindings() {
+        viewModel.categories
+            .bind(to: categoriesLabel.rx.text)
+            .disposed(by: disposeBag)
         
+        viewModel.color
+            .bind(to: backCellView.rx.backgroundColor)
+            .disposed(by: disposeBag)
     }
     
 }

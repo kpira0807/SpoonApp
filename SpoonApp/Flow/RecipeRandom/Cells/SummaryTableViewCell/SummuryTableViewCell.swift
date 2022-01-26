@@ -17,10 +17,10 @@ final class SummaryTableViewCell: UITableViewCell, Reusable {
         let summaryText = UILabel()
         summaryText.numberOfLines = 0
         summaryText.clipsToBounds = true
-
+        
         return summaryText
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -31,19 +31,13 @@ final class SummaryTableViewCell: UITableViewCell, Reusable {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        summaryText.text = nil
-    }
     
     private func initializeBindings() {
         viewModel.summary
             .bind(to: summaryText.rx.attributedText)
             .disposed(by: disposeBag)
     }
-
+    
 }
 
 extension SummaryTableViewCell {

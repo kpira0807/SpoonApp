@@ -56,7 +56,6 @@
 		CC403E102796FE9600BBE448 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403E0F2796FE9600BBE448 /* Reusable.swift */; };
 		CC403E122797034D00BBE448 /* TableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403E112797034D00BBE448 /* TableView+Reusable.swift */; };
 		CC403E182799978700BBE448 /* ComponentsURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403E172799978700BBE448 /* ComponentsURL.swift */; };
-		CC403E1A2799BE8F00BBE448 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403E192799BE8F00BBE448 /* ImageView.swift */; };
 		CC403E1C279ABEC600BBE448 /* CollectionView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403E1B279ABEC600BBE448 /* CollectionView+Reusable.swift */; };
 		CC674A4B27709ECE00E1DE78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */; };
 		CC674A4D27709ECE00E1DE78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC674A4C27709ECE00E1DE78 /* SceneDelegate.swift */; };
@@ -124,7 +123,6 @@
 		CC403E0F2796FE9600BBE448 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		CC403E112797034D00BBE448 /* TableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+Reusable.swift"; sourceTree = "<group>"; };
 		CC403E172799978700BBE448 /* ComponentsURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsURL.swift; sourceTree = "<group>"; };
-		CC403E192799BE8F00BBE448 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		CC403E1B279ABEC600BBE448 /* CollectionView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+Reusable.swift"; sourceTree = "<group>"; };
 		CC674A4727709ECE00E1DE78 /* SpoonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpoonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC674A4A27709ECE00E1DE78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 				CC403E0D2796EEE800BBE448 /* TableViewHelpers.swift */,
 				CC403E0F2796FE9600BBE448 /* Reusable.swift */,
 				CC403E112797034D00BBE448 /* TableView+Reusable.swift */,
-				CC403E192799BE8F00BBE448 /* ImageView.swift */,
 				CC403E1B279ABEC600BBE448 /* CollectionView+Reusable.swift */,
 				CC0B24B1279C8D2F00204F5C /* FetchError.swift */,
 			);
@@ -554,7 +551,6 @@
 				CC403DDD278C61FA00BBE448 /* MenuAssembly.swift in Sources */,
 				CC403DFE279198D600BBE448 /* CategoriesTableCellViewModel.swift in Sources */,
 				CC403DE5278C763F00BBE448 /* DetailsRecipeInformationViewModel.swift in Sources */,
-				CC403E1A2799BE8F00BBE448 /* ImageView.swift in Sources */,
 				CC403DD72787273800BBE448 /* CategoriesCellViewModel.swift in Sources */,
 				CC3DCE1E277DAA9400BBED4F /* AppNavigator.swift in Sources */,
 				CC3DCE24277DBC0500BBED4F /* FavouriteCoordinator.swift in Sources */,

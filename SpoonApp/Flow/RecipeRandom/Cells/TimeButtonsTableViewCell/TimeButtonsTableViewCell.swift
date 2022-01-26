@@ -45,12 +45,6 @@ final class TimeButtonsTableViewCell: UITableViewCell, Reusable {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        timeCookLabel.text = nil
-    }
     
     private func initializeBindings() {
         viewModel.time
@@ -68,7 +62,7 @@ extension TimeButtonsTableViewCell {
         timeCookImage.snp.makeConstraints{ make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(15.0)
-            make.height.width.equalTo(35)
+            make.height.width.equalTo(35.0)
         }
     }
     

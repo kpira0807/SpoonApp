@@ -20,7 +20,6 @@ final class RecipeCoordinator: NavigationNode {
     }
     
     private func addHandlers() {
-        // add Settings flow event handlers
     }
 }
 

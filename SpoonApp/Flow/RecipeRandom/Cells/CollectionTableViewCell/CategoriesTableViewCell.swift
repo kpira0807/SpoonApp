@@ -7,14 +7,12 @@ final class CategoriesTableViewCell: UITableViewCell, Reusable {
     
     var viewModel: CategoriesTableCellViewModel! {
         didSet {
-            collectionView.dataSource = self
-            collectionView.delegate = self
-            collectionView.reloadData()
-            
-            initializeBindings()
+            initializedBindings()
         }
     }
+    
     private var disposeBag = DisposeBag()
+    
     private let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         
@@ -24,13 +22,14 @@ final class CategoriesTableViewCell: UITableViewCell, Reusable {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
         contentView.backgroundColor = .white
         layoutCollectionView()
         
         setupCollectionView()
     }
-    
-
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -40,9 +39,11 @@ final class CategoriesTableViewCell: UITableViewCell, Reusable {
         collectionView.registerReusableCell(cellType: CategoriesCollectionViewCell.self)
     }
     
-    private func initializeBindings() {
-        
-    }
+    private func initializedBindings() {
+        viewModel.reloadData.subscribe(onNext: { [weak self] _ in
+            self?.collectionView.reloadData()
+        }).disposed(by: disposeBag)
+      }
     
 }
 
@@ -55,13 +56,13 @@ extension CategoriesTableViewCell {
             make.edges.equalToSuperview()
         }
         
-        let cellSize = CGSize(width: contentView.bounds.width/3, height:28.0)
+        let cellSize = CGSize(width: contentView.bounds.width/3, height:30.0)
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .horizontal
         layout.itemSize = cellSize
         layout.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-        layout.minimumLineSpacing = 1.0
-        layout.minimumInteritemSpacing = 1.0
+        layout.minimumLineSpacing = 2.0
+        layout.minimumInteritemSpacing = 2.0
         collectionView.setCollectionViewLayout(layout, animated: true)
     }
     

@@ -5,7 +5,7 @@ import RxCocoa
 final class RecipeViewModel {
     
     var cellViewModels: [CellAnyViewModel] {
-      model.cellModels.value.map { $0.viewModel }
+      model.cellModels.value.map{ $0.viewModel }
     }
 
     private let model: RecipeModel
@@ -16,10 +16,10 @@ final class RecipeViewModel {
     }
     
     var reloadData: Observable<Int> {
-        return model.cellModels.asObservable().map({ $0.count })
+        model.cellModels.asObservable().map{ $0.count }
       }
 
-    func viewDidLoad() {
+    func loadRandomRecipe() {
         model.getRandomRecipe()
     }
     

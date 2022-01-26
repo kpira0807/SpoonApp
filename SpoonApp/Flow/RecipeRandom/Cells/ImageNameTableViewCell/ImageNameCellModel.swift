@@ -4,13 +4,8 @@ import RxCocoa
 
 final class ImageNameCellModel {
     
-    let name: String
-    let imageUrl: String
-
-    init(name: String, imageUrl: String) {
-        self.name = name
-        self.imageUrl = imageUrl
-    }
+    var name = BehaviorRelay<String?>(value: "")
+    var imageUrl = BehaviorRelay<String?>(value: "")
     
 }
 

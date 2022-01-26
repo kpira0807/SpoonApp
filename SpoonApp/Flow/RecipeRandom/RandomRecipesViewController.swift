@@ -4,17 +4,17 @@ import RxSwift
 import RxCocoa
 
 final class RandomRecipesViewController: UIViewController {
-
+    
     private let disposeBag = DisposeBag()
     private let viewModel: RecipeViewModel
-
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorColor = UIColor.clear
         
         return tableView
     }()
-
+    
     private lazy var activityIndicatorContainer: UIView = {
         let activityIndicatorContainer = UIView()
         activityIndicatorContainer.backgroundColor = .black
@@ -24,23 +24,23 @@ final class RandomRecipesViewController: UIViewController {
         return activityIndicatorContainer
     }()
     
-    private lazy var activityIndicator: UIActivityIndicatorView = {
+    private var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = .large
         
         return activityIndicator
     }()
-
-    @objc private lazy var openDetailInfoButton: UIBarButtonItem = {
-        let openDetailInfoButton = UIBarButtonItem.init(
+    
+    @objc private lazy var infoButton: UIBarButtonItem = {
+        let infoButton = UIBarButtonItem(
             title: L10n.moreButton,
             style: .plain,
             target: self,
-            action: #selector(openDetailScreen)
+            action: #selector(infoButtonAction)
         )
         
-        return openDetailInfoButton
+        return infoButton
     }()
     
     init(_ viewModel: RecipeViewModel) {
@@ -55,22 +55,22 @@ final class RandomRecipesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let addToFavouriteButton = UIBarButtonItem.init(
+        
+        let addToFavouriteButton = UIBarButtonItem(
             image: UIImage(systemName: "heart"),
             style: .plain,
             target: self,
-            action: #selector(addToFavouriteButton)
-            )
-
-        self.navigationItem.rightBarButtonItem  = addToFavouriteButton
-        self.navigationItem.leftBarButtonItem  = openDetailInfoButton
+            action: #selector(addToFavouriteButtonAction)
+        )
         
-        self.navigationController?.navigationBar.tintColor = Asset.tabBarTintColor.color
-        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: Asset.textColor.color]
+        navigationItem.rightBarButtonItem  = addToFavouriteButton
+        navigationItem.leftBarButtonItem  = infoButton
         
-        self.navigationItem.title = L10n.recipeTitleVC
-
+        navigationController?.navigationBar.tintColor = Asset.tabBarTintColor.color
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: Asset.textColor.color]
+        
+        navigationItem.title = L10n.recipeTitleVC
+        
         view.backgroundColor = .white
         layoutTableView()
         
@@ -78,30 +78,33 @@ final class RandomRecipesViewController: UIViewController {
         tableView.dataSource = self
         
         setupTableView()
-
+        setupActivityIndicator()
+        
         initializedBindings()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         initializedBindings()
     }
     
-    
-    @objc func addToFavouriteButton() {
+    @objc func addToFavouriteButtonAction() {
     }
     
-    @objc func openDetailScreen() {
+    @objc func infoButtonAction() {
     }
     
     private func initializedBindings() {
-        viewModel.viewDidLoad()
-
+        activityIndicator.startAnimating()
+        viewModel.loadRandomRecipe()
+        
         viewModel.reloadData.subscribe(onNext: { [weak self] _ in
             self?.tableView.reloadData()
+            self?.activityIndicator.stopAnimating()
+            self?.activityIndicatorContainer.isHidden = true
         }).disposed(by: disposeBag)
-      }
+    }
     
     private func setupTableView() {
         tableView.registerReusableCell(cellType: ImageNameTableViewCell.self)
@@ -113,7 +116,7 @@ final class RandomRecipesViewController: UIViewController {
 }
 
 extension RandomRecipesViewController {
- 
+    
     private func layoutTableView() {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -127,10 +130,10 @@ extension RandomRecipesViewController {
             make.center.equalToSuperview()
             make.height.width.equalTo(80.0)
         }
-          
+        
         activityIndicatorContainer.addSubview(activityIndicator)
         activityIndicator.snp.makeConstraints { make in
-            make.center.equalTo(activityIndicatorContainer)
+            make.center.equalToSuperview()
         }
     }
     
@@ -148,11 +151,11 @@ extension RandomRecipesViewController: UITableViewDelegate, UITableViewDataSourc
         
         return cell
     }
-  
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cellViewModel = viewModel.cellViewModels[indexPath.row]
-
+        
         return cellViewModel.height
     }
-   
+    
 }

@@ -2,14 +2,14 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-protocol ProtocolRecipeDownloader {
+protocol RecipeDownloader {
     
-    func getResponseRecipe(path: RecipeURLPath) -> Observable<RecipeJSON?>
-    func getResponseRandomRecipe() -> Observable<Recipe?>
+    func loadingRecipe(path: RecipeURLPath) -> Observable<RecipeJSON?>
+    func loadingRandomRecipe() -> Observable<Recipe?>
     
 }
 
-final class RecipeDownloaderManager: ProtocolRecipeDownloader {
+final class RecipeDownloaderManager: RecipeDownloader {
     
     private let session: URLSession
     private let url = URLBuilder()
@@ -18,20 +18,20 @@ final class RecipeDownloaderManager: ProtocolRecipeDownloader {
         self.session = session
     }
     
-    func getResponseRecipe(path: RecipeURLPath) -> Observable<RecipeJSON?> {
-        let url = url.urlBuilder(path: path.rawValue)
+    func loadingRecipe(path: RecipeURLPath) -> Observable<RecipeJSON?> {
+        guard let url = url.urlBuilder(path: path.rawValue) else { fatalError("Cannot Create URL") }
         let request = URLRequest(url: url)
         
         return session.rx.response(request: request)
             .map { result -> Data in
                 
-                if 200 ..< 300 ~= result.response.statusCode {
+                if result.response.statusCode >= 200 && result.response.statusCode < 300 {                
                     print("Success status: \(result.response.statusCode)")
                 }
                 else {
                     print( "Failure status \(result.response.statusCode)")
                 }
- 
+                
                 return result.data
             }.map { data in
                 do {
@@ -48,9 +48,9 @@ final class RecipeDownloaderManager: ProtocolRecipeDownloader {
             .observeOn(MainScheduler.instance)
             .asObservable()
     }
-
-    func getResponseRandomRecipe() -> Observable<Recipe?> {
-        return getResponseRecipe(path: .random).map { $0?.recipes.first }
+    
+    func loadingRandomRecipe() -> Observable<Recipe?> {
+        return loadingRecipe(path: .random).map { $0?.recipes.first }
     }
     
 }

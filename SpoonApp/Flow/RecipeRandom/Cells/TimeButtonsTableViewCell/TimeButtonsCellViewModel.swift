@@ -3,9 +3,10 @@ import RxSwift
 import RxRelay
 
 final class TimeButtonsCellViewModel {
-   
-    var time: Observable<String> {
-        return BehaviorRelay.init(value: model.time).asObservable()
+    
+    var time: Observable<String?> {
+        model.time.asObservable().map{ value -> String in
+            return String("\(value ?? 0) minutes") }
     }
     
     private let model: TimeButtonsCellModel

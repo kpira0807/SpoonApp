@@ -43,25 +43,18 @@ final class ImageNameTableViewCell: UITableViewCell, Reusable {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        nameRecipeLabel.text = nil
-        recipeImage.image = nil
-    }
     
     private func initializeBindings() {
         viewModel.name
             .bind(to: nameRecipeLabel.rx.text)
             .disposed(by: disposeBag)
-
-
+        
+        
         viewModel.image.subscribe(onNext: { [weak self] imageUrl in
-            guard let url = URL.init(string: imageUrl) else {
+            guard let url = URL(string: imageUrl ?? "") else {
                 return
             }
-            self?.recipeImage.kf.setImage(with: ImageResource.init(downloadURL: url))
+            self?.recipeImage.kf.setImage(with: ImageResource(downloadURL: url))
         }).disposed(by: disposeBag)
     }
     

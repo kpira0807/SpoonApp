@@ -1,14 +1,14 @@
 import Foundation
 import RealmSwift
 
-protocol ProtocolRecipeStorage {
+protocol RecipeStorage {
     
     func saveRecipe(_ recipe: RecipeSaveModel)
-    func getGivenRecipe() -> [RecipeSaveModel]
+    func fetchRecipe(completion: @escaping (_ recipeArray: [RecipeSaveModel]?) -> Void)
 
 }
 
-final class RecipeStorageManager: ProtocolRecipeStorage {
+final class RecipeStorageManager: RecipeStorage {
 
     var results: Results<RecipeSaveModel>!
     
@@ -19,7 +19,6 @@ final class RecipeStorageManager: ProtocolRecipeStorage {
                     let realm = try Realm()
                     try realm.write {
                         realm.add(recipe)
-                        realm.refresh()
                     }
                 } catch {
                     print("save Error")
@@ -27,20 +26,16 @@ final class RecipeStorageManager: ProtocolRecipeStorage {
             }
         }
     }
-    
-    func getGivenRecipe() -> [RecipeSaveModel] {
-        DispatchQueue(label: "background").sync {
+
+    func fetchRecipe(completion: @escaping (_ recipeArray: [RecipeSaveModel]?) -> Void) {
+        DispatchQueue.global(qos: .background).async {
             do {
                 let realm = try Realm()
-                let answers = realm.objects(RecipeSaveModel.self)
-                realm.refresh()
-                let arrayAnswers = Array(answers)
-                
-                return arrayAnswers
+                let recipeArray = realm.objects(RecipeSaveModel.self)
+                completion(Array(recipeArray))
             } catch {
-                print(L10n.errorAlert)
+                print("fetchRecipe error")
             }
-            return []
         }
     }
     
