@@ -25,7 +25,7 @@ extension CategoriesTableCellModel: CellModel {
     }
     
     private func prepareCellModels(categories: [CategoryRecipe]) {
-        let cellModel: [CellModel] = categories.map { CategoriesCellModel($0) }
+        let cellModel: [CellModel] = categories.map { CategoriesCellModel(categories: $0) }
         
         cellModels.accept(cellModel)
     }

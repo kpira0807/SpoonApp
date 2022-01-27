@@ -50,7 +50,7 @@ final class CategoriesCollectionViewCell: UICollectionViewCell, Reusable {
     }
     
     private func initializeBindings() {
-        viewModel.categories
+        viewModel.name
             .bind(to: categoriesLabel.rx.text)
             .disposed(by: disposeBag)
         

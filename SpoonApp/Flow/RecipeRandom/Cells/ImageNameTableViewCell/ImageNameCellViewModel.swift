@@ -4,12 +4,12 @@ import RxSwift
 
 final class ImageNameCellViewModel {
     
-    var name: Observable<String?> {
+    var name: Observable<String> {
         model.name.asObservable()
     }
     
-    var image: Observable<String?> {
-        model.imageUrl.asObservable()
+    var image: Observable<String> {
+        model.imageStringUrl.asObservable()
     }
     
     private let model: ImageNameCellModel

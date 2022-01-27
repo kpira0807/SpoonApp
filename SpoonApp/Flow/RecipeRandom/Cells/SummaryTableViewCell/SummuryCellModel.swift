@@ -3,7 +3,7 @@ import RxCocoa
 
 final class SummaryCellModel {
     
-    var summary = BehaviorRelay<String?>(value: "")
+    let summary = BehaviorRelay(value: "")
     
 }
 

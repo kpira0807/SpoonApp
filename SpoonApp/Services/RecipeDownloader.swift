@@ -4,8 +4,8 @@ import RxSwift
 
 protocol RecipeDownloader {
     
-    func loadingRecipe(path: RecipeURLPath) -> Observable<RecipeJSON?>
-    func loadingRandomRecipe() -> Observable<Recipe?>
+    func fetchRecipe(path: RecipeURLPath) -> Observable<RecipeJSON?>
+    func fetchRandomRecipe() -> Observable<Recipe?>
     
 }
 
@@ -18,14 +18,14 @@ final class RecipeDownloaderManager: RecipeDownloader {
         self.session = session
     }
     
-    func loadingRecipe(path: RecipeURLPath) -> Observable<RecipeJSON?> {
+    func fetchRecipe(path: RecipeURLPath) -> Observable<RecipeJSON?> {
         guard let url = url.urlBuilder(path: path.rawValue) else { fatalError("Cannot Create URL") }
         let request = URLRequest(url: url)
         
         return session.rx.response(request: request)
             .map { result -> Data in
                 
-                if result.response.statusCode >= 200 && result.response.statusCode < 300 {                
+                if (200..<300).contains(result.response.statusCode) {
                     print("Success status: \(result.response.statusCode)")
                 }
                 else {
@@ -49,8 +49,8 @@ final class RecipeDownloaderManager: RecipeDownloader {
             .asObservable()
     }
     
-    func loadingRandomRecipe() -> Observable<Recipe?> {
-        return loadingRecipe(path: .random).map { $0?.recipes.first }
+    func fetchRandomRecipe() -> Observable<Recipe?> {
+        return fetchRecipe(path: .random).map { $0?.recipes.first }
     }
     
 }

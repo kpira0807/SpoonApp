@@ -4,9 +4,9 @@ import RxRelay
 
 final class TimeButtonsCellViewModel {
     
-    var time: Observable<String?> {
-        model.time.asObservable().map{ value -> String in
-            return String("\(value ?? 0) minutes") }
+    var time: Observable<String> {
+        model.time.map{ value -> String in
+            return "\(value) minutes" }
     }
     
     private let model: TimeButtonsCellModel

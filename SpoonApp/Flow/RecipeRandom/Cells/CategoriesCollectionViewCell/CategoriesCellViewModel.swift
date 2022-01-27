@@ -5,15 +5,13 @@ import RxCocoa
 final class CategoriesCellViewModel {
     
     var color: Observable<UIColor> {
-        if model.categories.value.status == false {
-            return  BehaviorRelay(value: Asset.greyLight.color).asObservable()
-        } else {
-            return  BehaviorRelay(value: Asset.backGreen.color).asObservable()
+        model.categories.map{
+            $0.status ? Asset.backGreen.color : Asset.greyLight.color
         }
     }
     
-    var categories: Observable<String> {
-        BehaviorRelay(value: model.categories.value.name).asObservable()
+    var name: Observable<String> {
+        model.categories.map{ $0.name }
     }
     
     private let model: CategoriesCellModel

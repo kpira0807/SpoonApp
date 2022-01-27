@@ -5,9 +5,13 @@ import RxCocoa
 final class RecipeViewModel {
     
     var cellViewModels: [CellAnyViewModel] {
-      model.cellModels.value.map{ $0.viewModel }
+        model.cellModels.value.map{ $0.viewModel }
     }
-
+    
+    var loadRandomRecipes: PublishSubject<Void> {
+        model.loadRandomRecipe
+    }
+    
     private let model: RecipeModel
     private let disposeBag = DisposeBag()
     
@@ -16,11 +20,7 @@ final class RecipeViewModel {
     }
     
     var reloadData: Observable<Int> {
-        model.cellModels.asObservable().map{ $0.count }
-      }
-
-    func loadRandomRecipe() {
-        model.getRandomRecipe()
+        model.cellModels.map{ $0.count }
     }
     
 }

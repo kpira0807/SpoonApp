@@ -3,7 +3,7 @@ import RxCocoa
 
 final class TimeButtonsCellModel {
     
-    var time = BehaviorRelay<Int?>(value: 0)
+    let time = BehaviorRelay(value: 0)
     
 }
 

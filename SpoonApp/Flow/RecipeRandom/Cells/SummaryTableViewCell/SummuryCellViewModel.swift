@@ -5,10 +5,9 @@ import RxCocoa
 final class SummaryCellViewModel {
     
     var summary: Observable<NSAttributedString?> {
-        let summary = model.summary.value
-        let text = summary?.convertHtmlToAttributedStringWithCSS(font: UIFont.systemFont(ofSize: 14.0), csscolor: "black", lineheight: 5, csstextalign: "justify")
-        
-        return BehaviorRelay(value: text).asObservable()
+        model.summary.map{
+            return $0.convertHtmlToAttributedStringWithCSS(font: UIFont.systemFont(ofSize: 14.0), csscolor: "black", lineheight: 5, csstextalign: "justify")
+        }
     }
     
     private let model: SummaryCellModel

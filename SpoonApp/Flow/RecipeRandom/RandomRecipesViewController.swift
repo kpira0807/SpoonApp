@@ -24,7 +24,7 @@ final class RandomRecipesViewController: UIViewController {
         return activityIndicatorContainer
     }()
     
-    private var activityIndicator: UIActivityIndicatorView = {
+    private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = .large
@@ -63,8 +63,8 @@ final class RandomRecipesViewController: UIViewController {
             action: #selector(addToFavouriteButtonAction)
         )
         
-        navigationItem.rightBarButtonItem  = addToFavouriteButton
-        navigationItem.leftBarButtonItem  = infoButton
+        navigationItem.rightBarButtonItem = addToFavouriteButton
+        navigationItem.leftBarButtonItem = infoButton
         
         navigationController?.navigationBar.tintColor = Asset.tabBarTintColor.color
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: Asset.textColor.color]
@@ -97,12 +97,13 @@ final class RandomRecipesViewController: UIViewController {
     
     private func initializedBindings() {
         activityIndicator.startAnimating()
-        viewModel.loadRandomRecipe()
+        viewModel.loadRandomRecipes.onNext(())
         
         viewModel.reloadData.subscribe(onNext: { [weak self] _ in
-            self?.tableView.reloadData()
-            self?.activityIndicator.stopAnimating()
-            self?.activityIndicatorContainer.isHidden = true
+            guard let strongSelf = self else { return }
+            strongSelf.tableView.reloadData()
+            strongSelf.activityIndicator.stopAnimating()
+            strongSelf.activityIndicatorContainer.isHidden = true
         }).disposed(by: disposeBag)
     }
     

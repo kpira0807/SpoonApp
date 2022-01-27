@@ -21,9 +21,6 @@ final class CategoriesTableViewCell: UITableViewCell, Reusable {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        collectionView.dataSource = self
-        collectionView.delegate = self
         
         contentView.backgroundColor = .white
         layoutCollectionView()
@@ -36,6 +33,9 @@ final class CategoriesTableViewCell: UITableViewCell, Reusable {
     }
     
     private func setupCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
         collectionView.registerReusableCell(cellType: CategoriesCollectionViewCell.self)
     }
     

@@ -8,36 +8,36 @@ struct RecipeJSON: Codable {
 
 struct Recipe: Codable {
     
-    var vegetarian: Bool?
-    var vegan: Bool?
-    var glutenFree: Bool?
-    var dairyFree: Bool?
-    var veryHealthy: Bool?
-    var cheap: Bool?
-    var veryPopular: Bool?
-    var sustainable: Bool?
+    var vegetarian: Bool = false
+    var vegan: Bool = false
+    var glutenFree: Bool = false
+    var dairyFree: Bool = false
+    var veryHealthy: Bool = false
+    var cheap: Bool = false
+    var veryPopular: Bool = false
+    var sustainable: Bool = false
     //  var weightWatcherSmartPoints: Int
     //    var gaps: String
     // var lowFodmap: Bool
     //    var aggregateLikes: Int
     //   var spoonacularScore: Int
     //var healthScore: Int
-    var creditsText: String?
+    var creditsText: String = ""
     //  var license: String
-    var sourceName: String?
+    var sourceName: String = ""
     //  var pricePerServing: Float
     var extendedIngredients: [ExtendedIngredients]
-    var id: Int?
-    var title: String?
-    var readyInMinutes: Int?
+    var id: Int
+    var title: String = ""
+    var readyInMinutes: Int = 0
     //  var servings: Int
-    var image: String?
+    var image: String = ""
     //   var imageType: String
-    var sourceUrl: String?
-    var summary: String?
+    var sourceUrl: String = ""
+    var summary: String = ""
     //  var dishTypes: [String]
     //  var cuisines: [String]
-    var instructions: String?
+    var instructions: String = ""
     
 }
 
