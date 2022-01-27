@@ -5,7 +5,7 @@ import RxSwift
 final class CategoriesTableCellViewModel {
     
     var cellViewModels: [CellAnyViewModel] {
-        model.cellModels.value.map{ $0.viewModel }
+        model.cellModels.value.map { $0.viewModel }
     }
     
     var reloadData: Observable<Void> {

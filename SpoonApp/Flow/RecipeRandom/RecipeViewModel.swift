@@ -5,7 +5,7 @@ import RxCocoa
 final class RecipeViewModel {
     
     var cellViewModels: [CellAnyViewModel] {
-        model.cellModels.value.map{ $0.viewModel }
+        model.cellModels.value.map { $0.viewModel }
     }
     
     var loadRandomRecipes: PublishSubject<Void> {

@@ -4,6 +4,7 @@ import RxCocoa
 
 final class RecipeModel: NavigationNode {
     
+    let categories = [CategoryRecipe]()
     let loadRandomRecipe = PublishSubject<Void>()
     let cellModels = BehaviorRelay(value: [CellModel]())
     private let downloader: RecipeDownloader
@@ -34,7 +35,7 @@ final class RecipeModel: NavigationNode {
         imageNameCellModel.name.accept(recipe.title)
         imageNameCellModel.imageStringUrl.accept(recipe.image)
         
-        let categoriesTableCellModel = CategoriesTableCellModel(parent: self, categories: [CategoryRecipe]())
+        let categoriesTableCellModel = CategoriesTableCellModel(parent: self, categories: categories)
         
         let timeButtonsCellModel = TimeButtonsCellModel()
         timeButtonsCellModel.time.accept(recipe.readyInMinutes)

@@ -5,8 +5,8 @@ import RxCocoa
 final class SummaryCellViewModel {
     
     var summary: Observable<NSAttributedString?> {
-        model.summary.map{
-            return $0.convertHtmlToAttributedStringWithCSS(font: UIFont.systemFont(ofSize: 14.0), csscolor: "black", lineheight: 5, csstextalign: "justify")
+        model.summary.map {
+            $0.convertHtmlToAttributedStringWithCSS(font: UIFont.systemFont(ofSize: 14.0), csscolor: "black", lineheight: 5, csstextalign: "justify")
         }
     }
     

@@ -100,10 +100,11 @@ final class RandomRecipesViewController: UIViewController {
         viewModel.loadRandomRecipes.onNext(())
         
         viewModel.reloadData.subscribe(onNext: { [weak self] _ in
-            guard let strongSelf = self else { return }
-            strongSelf.tableView.reloadData()
-            strongSelf.activityIndicator.stopAnimating()
-            strongSelf.activityIndicatorContainer.isHidden = true
+            guard let self = self else { return }
+            
+            self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
+            self.activityIndicatorContainer.isHidden = true
         }).disposed(by: disposeBag)
     }
     

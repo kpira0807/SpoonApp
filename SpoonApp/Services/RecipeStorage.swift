@@ -30,12 +30,14 @@ final class RecipeStorageManager: RecipeStorage {
     }
     
     func getRecipe() -> Observable<[RecipeSaveModel]> {
-        let realm = try! Realm()
-        let objects = realm.objects(RecipeSaveModel.self)
-        
         return Observable.create { observer -> Disposable in
-            observer.onNext(Array(objects))
-            
+            do {
+                let realm = try Realm()
+                let objects = realm.objects(RecipeSaveModel.self)
+                observer.onNext(Array(objects))
+            } catch let error {
+                observer.onError(error)
+            }
             return Disposables.create()
         }
     }
