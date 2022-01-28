@@ -3,15 +3,13 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-final class CategoriesTableCellModel: NavigationNode {
+final class CategoriesTableCellModel {
     
     var categories = [CategoryRecipe]()
     
     let cellModels = BehaviorRelay(value: [CellModel]())
     
-    init(parent: NavigationNode, categories: [CategoryRecipe]) {
-        super.init(parent: parent)
-        
+    init(categories: [CategoryRecipe]) {
         self.categories = categories
         prepareCellModels(categories: categories)
     }

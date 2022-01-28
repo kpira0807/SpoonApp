@@ -35,7 +35,7 @@ final class RecipeModel: NavigationNode {
         imageNameCellModel.name.accept(recipe.title)
         imageNameCellModel.imageStringUrl.accept(recipe.image)
         
-        let categoriesTableCellModel = CategoriesTableCellModel(parent: self, categories: categories)
+        let categoriesTableCellModel = CategoriesTableCellModel(categories: categories)
         
         let timeButtonsCellModel = TimeButtonsCellModel()
         timeButtonsCellModel.time.accept(recipe.readyInMinutes)
