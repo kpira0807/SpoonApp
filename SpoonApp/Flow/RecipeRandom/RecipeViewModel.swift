@@ -1,7 +1,16 @@
 import Foundation
 import RxSwift
+import RxCocoa
 
 final class RecipeViewModel {
+    
+    var cellViewModels: [CellAnyViewModel] {
+        model.cellModels.value.map { $0.viewModel }
+    }
+    
+    var loadRandomRecipes: PublishSubject<Void> {
+        model.loadRandomRecipe
+    }
     
     private let model: RecipeModel
     private let disposeBag = DisposeBag()
@@ -10,35 +19,8 @@ final class RecipeViewModel {
         self.model = model
     }
     
-    var updateRecipeData: ((RecipesDetail) -> Void)?
-    
-    ///For RxSwift in future
- /*
-    func usersUpdate() -> Observable<RecipesDetail?> {
-        
-        return Observable.create { [weak self] observer in
-            guard let self = self else { return Disposables.create() }
-            self.model.getRandomRecipe()
-                .subscribe { answer in
-                    observer.onNext(answer)
-                } onError: { error in
-                    print(error)
-                } .disposed(by: self.disposeBag)
-                            
-            return Disposables.create()
-        }
-    }
-  */
-    func usersUpdate() {
-        model.getRandomRecipe { recipe in
-            self.updateRecipeData?(recipe)
-        }
-    }
-    
-    func buttonAction() -> UIViewController {
-        let vc = model.detailButton()
-        
-        return vc
+    var reloadData: Observable<Int> {
+        model.cellModels.map{ $0.count }
     }
     
 }

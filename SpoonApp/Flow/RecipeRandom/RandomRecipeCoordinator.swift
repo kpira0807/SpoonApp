@@ -20,17 +20,18 @@ final class RecipeCoordinator: NavigationNode {
     }
     
     private func addHandlers() {
-        // add Settings flow event handlers
     }
 }
 
 extension RecipeCoordinator: Coordinator {
     
     func createFlow() -> UIViewController {
-        let recipeViewController = container.resolve(RandomRecipeViewController.self)
+        let recipeViewController = container.resolve(RandomRecipesViewController.self)
         root = recipeViewController
         
-        return recipeViewController!
+        let navigationController = UINavigationController(rootViewController: recipeViewController!)
+        
+        return navigationController
     }
     
 }

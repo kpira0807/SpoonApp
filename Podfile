@@ -18,4 +18,6 @@ pod 'Swinject', '~> 2.6.1'
 
 pod 'SnapKit', '~> 5.0.0'
 
+pod 'Kingfisher', '~> 7.0'
+
 end
