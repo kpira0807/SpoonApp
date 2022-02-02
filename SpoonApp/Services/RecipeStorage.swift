@@ -7,6 +7,7 @@ protocol RecipeStorage {
     
     func saveRecipe(_ recipe: RecipeSaveModel) -> Observable<Void>
     func getRecipe() -> Observable<[RecipeSaveModel]>
+    func deleteRecipe(_ recipe: RecipeSaveModel) -> Observable<Void>
     
 }
 
@@ -20,7 +21,21 @@ final class RecipeStorageManager: RecipeStorage {
                 let realm = try Realm()
                 try realm.write {
                     realm.add(recipe)
+                    print("RECIPE -- \(recipe)")
                 }
+                observer.onNext(())
+            } catch let error {
+                observer.onError(error)
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func deleteRecipe(_ recipe: RecipeSaveModel) -> Observable<Void> {
+        return Observable.create { observer -> Disposable in
+            do {
+                let realm = try Realm()
+                realm.delete(recipe)
                 observer.onNext(())
             } catch let error {
                 observer.onError(error)

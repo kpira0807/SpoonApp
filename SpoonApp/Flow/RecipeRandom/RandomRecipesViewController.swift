@@ -43,6 +43,8 @@ final class RandomRecipesViewController: UIViewController {
         return infoButton
     }()
     
+    private lazy var addToFavouriteButton = UIBarButtonItem()
+    
     init(_ viewModel: RecipeViewModel) {
         self.viewModel = viewModel
         
@@ -56,7 +58,7 @@ final class RandomRecipesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let addToFavouriteButton = UIBarButtonItem(
+        addToFavouriteButton = UIBarButtonItem(
             image: UIImage(systemName: "heart"),
             style: .plain,
             target: self,
@@ -90,9 +92,18 @@ final class RandomRecipesViewController: UIViewController {
     }
     
     @objc func addToFavouriteButtonAction() {
+        if addToFavouriteButton.image == UIImage(systemName: "heart") {
+            addToFavouriteButton.image = UIImage(systemName: "heart.fill")
+            viewModel.saveRecipe.onNext(())
+        }
+        else{
+            addToFavouriteButton.image = UIImage(systemName: "heart")
+         //   viewModel.deleteRecipe.onNext(())
+        }
     }
-    
-    @objc func infoButtonAction() {
+
+    @objc private func infoButtonAction() {
+        viewModel.detailButtonAction.onNext(())
     }
     
     private func initializedBindings() {

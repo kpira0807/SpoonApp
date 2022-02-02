@@ -25,12 +25,14 @@ final class DetailsRecipeInformationCoordinator: NavigationNode {
 }
 
 extension DetailsRecipeInformationCoordinator: Coordinator {
-    
+
     func createFlow() -> UIViewController {
-        let detailsRecipeInformationViewController = container.resolve(DetailsRecipeInformationViewController.self)
-        root = detailsRecipeInformationViewController
+        let detailModel = DetailsRecipeInformationModel(parent: self)
+        let detailViewModel = DetailsRecipeInformationViewModel(model: detailModel)
+        let detailViewController = DetailsRecipeInformationViewController(detailViewModel)
+        root = detailViewController
         
-        return detailsRecipeInformationViewController!
+        return detailViewController
     }
 
 }
