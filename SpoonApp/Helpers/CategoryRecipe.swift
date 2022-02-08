@@ -6,13 +6,13 @@ struct CategoryRecipe {
     let status: Bool
     
     init(name: String = "", status: Bool = false) {
-      self.name = name
-      self.status = status
+        self.name = name
+        self.status = status
     }
     
 }
 
-enum CategotiesName: String {
+enum CategotiesName: String, CaseIterable {
     
     case vegetarian = "Vegetarian"
     case vegan = "Vegan"
@@ -25,20 +25,10 @@ enum CategotiesName: String {
     
 }
 
-
 class CategoriesRandomRecipe {
     
     func categoriesNameStatusRecipe(recipe: Recipe) -> [CategoryRecipe] {
-        let recipeCategories = [
-            CategoryRecipe(name: CategotiesName.vegan.rawValue, status: recipe.vegan),
-            CategoryRecipe(name: CategotiesName.vegetarian.rawValue, status: recipe.vegetarian),
-            CategoryRecipe(name: CategotiesName.sustainable.rawValue, status: recipe.sustainable),
-            CategoryRecipe(name: CategotiesName.veryPopular.rawValue, status: recipe.veryPopular),
-            CategoryRecipe(name: CategotiesName.cheap.rawValue, status: recipe.cheap),
-            CategoryRecipe(name: CategotiesName.veryHealthy.rawValue, status: recipe.veryHealthy),
-            CategoryRecipe(name: CategotiesName.dairyFree.rawValue, status: recipe.dairyFree),
-            CategoryRecipe(name: CategotiesName.glutenFree.rawValue, status: recipe.glutenFree)
-        ]
+        let recipeCategories = CategotiesName.allCases.map { CategoryRecipe(name: $0.rawValue, status: $0.statusForRecipe(recipe)) }
         
         return recipeCategories
     }

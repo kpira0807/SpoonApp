@@ -4,18 +4,18 @@ import RxCocoa
 import RxSwift
 
 protocol RecipeStorage {
-    
-    func saveRecipe(_ recipe: RecipeSaveModel) -> Observable<Void>
-    func getRecipe() -> Observable<[RecipeSaveModel]>
-    func deleteRecipe(_ recipe: RecipeSaveModel) -> Observable<Void>
+
+    func saveRecipe(_ recipe: Recipe) -> Observable<Void>
+    func getRecipe() -> Observable<[Recipe]>
+    func deleteRecipe(_ recipe: Recipe) -> Observable<Void>
     
 }
 
 final class RecipeStorageManager: RecipeStorage {
     
-    var results: Results<RecipeSaveModel>!
+    var results: Results<Recipe>!
     
-    func saveRecipe(_ recipe: RecipeSaveModel) -> Observable<Void> {
+    func saveRecipe(_ recipe: Recipe) -> Observable<Void> {
         return Observable.create { observer -> Disposable in
             do {
                 let realm = try Realm()
@@ -31,7 +31,7 @@ final class RecipeStorageManager: RecipeStorage {
         }
     }
     
-    func deleteRecipe(_ recipe: RecipeSaveModel) -> Observable<Void> {
+    func deleteRecipe(_ recipe: Recipe) -> Observable<Void> {
         return Observable.create { observer -> Disposable in
             do {
                 let realm = try Realm()
@@ -44,11 +44,11 @@ final class RecipeStorageManager: RecipeStorage {
         }
     }
     
-    func getRecipe() -> Observable<[RecipeSaveModel]> {
+    func getRecipe() -> Observable<[Recipe]> {
         return Observable.create { observer -> Disposable in
             do {
                 let realm = try Realm()
-                let objects = realm.objects(RecipeSaveModel.self)
+                let objects = realm.objects(Recipe.self)
                 observer.onNext(Array(objects))
             } catch let error {
                 observer.onError(error)

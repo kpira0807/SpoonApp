@@ -13,6 +13,7 @@ final class RecipeModel: NavigationNode {
     private let downloader: RecipeDownloader
     private let storage: RecipeStorage
     private let disposeBag = DisposeBag()
+    private let recipe = BehaviorRelay(value: Recipe())
     
     init(
         parent: NavigationNode,
@@ -35,21 +36,27 @@ final class RecipeModel: NavigationNode {
         detailButtonAction.subscribe(onNext: { [weak self] in
             self?.raise(event: Event.openDetailRandomRecipe)
         }).disposed(by: disposeBag)
-
-        saveAction.subscribe(onNext: { [weak self] in
-            self?.saveFavouriteRecipe()
-        }).disposed(by: disposeBag)
         
-        deleteAction.subscribe(onNext: { [weak self] in
-            self?.deleteFavouriteRecipe()
-        }).disposed(by: disposeBag)
+        saveAction.withLatestFrom(recipe)
+            .subscribe(onNext: { [weak self] recipe in
+                guard let self = self else { return }
+                
+                self.saveToFavouriteRecipe(recipe)
+            }).disposed(by: disposeBag)
+        
+        // Need for delete
+        /*
+         deleteAction.subscribe(onNext: { [weak self] in
+         self?.deleteFavouriteRecipe(recipe)
+         }).disposed(by: disposeBag)
+         */
     }
     
     private func prepareCellModels(recipe: Recipe) {
         let imageNameCellModel = ImageNameCellModel()
         imageNameCellModel.name.accept(recipe.title)
         imageNameCellModel.imageStringUrl.accept(recipe.image)
-
+        
         let categoriesTableCellModel = CategoriesTableCellModel(categories: categories.categoriesNameStatusRecipe(recipe: recipe))
         
         let timeButtonsCellModel = TimeButtonsCellModel()
@@ -67,14 +74,12 @@ final class RecipeModel: NavigationNode {
         }).disposed(by: self.disposeBag)
     }
     
-    func saveFavouriteRecipe() {
-        let recipe = RecipeSaveModel()
+    func saveToFavouriteRecipe(_ recipe: Recipe) {
         storage.saveRecipe(recipe).subscribe()
             .disposed(by: self.disposeBag)
     }
     
-    func deleteFavouriteRecipe() {
-        let recipe = RecipeSaveModel()
+    func deleteFavouriteRecipe(_ recipe: Recipe) {
         storage.deleteRecipe(recipe).subscribe()
             .disposed(by: self.disposeBag)
     }
