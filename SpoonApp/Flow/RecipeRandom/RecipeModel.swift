@@ -34,7 +34,7 @@ final class RecipeModel: NavigationNode {
         }).disposed(by: disposeBag)
         
         detailButtonAction.subscribe(onNext: { [weak self] in
-            self?.raise(event: Event.openDetailRandomRecipe)
+            self?.raise(event: RecipeEvent.openDetailRandomRecipe)
         }).disposed(by: disposeBag)
         
         saveAction.withLatestFrom(recipe)
@@ -43,13 +43,13 @@ final class RecipeModel: NavigationNode {
                 
                 self.saveToFavouriteRecipe(recipe)
             }).disposed(by: disposeBag)
-        
-        // Need for delete
-        /*
-         deleteAction.subscribe(onNext: { [weak self] in
-         self?.deleteFavouriteRecipe(recipe)
-         }).disposed(by: disposeBag)
-         */
+
+        deleteAction.withLatestFrom(recipe)
+            .subscribe(onNext: { [weak self] recipe in
+                guard let self = self else { return }
+                
+                self.deleteFavouriteRecipe(recipe)
+            }).disposed(by: disposeBag)
     }
     
     private func prepareCellModels(recipe: Recipe) {
@@ -71,17 +71,17 @@ final class RecipeModel: NavigationNode {
     func getRandomRecipe() {
         downloader.fetchRandomRecipe().compactMap{ $0 }.subscribe(onNext: { [weak self] recipe in
             self?.prepareCellModels(recipe: recipe)
-        }).disposed(by: self.disposeBag)
+        }).disposed(by: disposeBag)
     }
     
     func saveToFavouriteRecipe(_ recipe: Recipe) {
         storage.saveRecipe(recipe).subscribe()
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
     }
     
     func deleteFavouriteRecipe(_ recipe: Recipe) {
         storage.deleteRecipe(recipe).subscribe()
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
     }
     
 }

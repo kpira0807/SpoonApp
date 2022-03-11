@@ -44,8 +44,8 @@ final class CategoriesCollectionViewCell: UICollectionViewCell, Reusable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(categoties: String, backColor: UIColor) {
-        categoriesLabel.text = categoties
+    public func configure(categories: String, backColor: UIColor) {
+        categoriesLabel.text = categories
         backCellView.backgroundColor = backColor
     }
     

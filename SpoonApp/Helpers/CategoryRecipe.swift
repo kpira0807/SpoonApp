@@ -12,7 +12,7 @@ struct CategoryRecipe {
     
 }
 
-enum CategotiesName: String, CaseIterable {
+enum CategoriesName: String, CaseIterable {
     
     case vegetarian = "Vegetarian"
     case vegan = "Vegan"
@@ -25,10 +25,11 @@ enum CategotiesName: String, CaseIterable {
     
 }
 
-class CategoriesRandomRecipe {
+final class CategoriesRandomRecipe {
     
     func categoriesNameStatusRecipe(recipe: Recipe) -> [CategoryRecipe] {
-        let recipeCategories = CategotiesName.allCases.map { CategoryRecipe(name: $0.rawValue, status: $0.statusForRecipe(recipe)) }
+        let recipeCategories = CategoriesName.allCases.map {
+            CategoryRecipe(name: $0.rawValue, status: $0.statusForRecipe(recipe)) }
         
         return recipeCategories
     }

@@ -36,7 +36,6 @@
 		CC403DE3278C761D00BBE448 /* DetailsRecipeInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE2278C761D00BBE448 /* DetailsRecipeInformationModel.swift */; };
 		CC403DE5278C763F00BBE448 /* DetailsRecipeInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE4278C763F00BBE448 /* DetailsRecipeInformationViewModel.swift */; };
 		CC403DE7278C780F00BBE448 /* DetailsRecipeInformationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE6278C780F00BBE448 /* DetailsRecipeInformationAssembly.swift */; };
-		CC403DE9278C782100BBE448 /* DetailsRecipeInformationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DE8278C782100BBE448 /* DetailsRecipeInformationCoordinator.swift */; };
 		CC403DEB2790675B00BBE448 /* CategoryRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DEA2790675B00BBE448 /* CategoryRecipe.swift */; };
 		CC403DED2791969A00BBE448 /* RandomRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DEC2791969A00BBE448 /* RandomRecipesViewController.swift */; };
 		CC403DF42791985200BBE448 /* ImageNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC403DF32791985200BBE448 /* ImageNameTableViewCell.swift */; };
@@ -102,7 +101,6 @@
 		CC403DE2278C761D00BBE448 /* DetailsRecipeInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRecipeInformationModel.swift; sourceTree = "<group>"; };
 		CC403DE4278C763F00BBE448 /* DetailsRecipeInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRecipeInformationViewModel.swift; sourceTree = "<group>"; };
 		CC403DE6278C780F00BBE448 /* DetailsRecipeInformationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRecipeInformationAssembly.swift; sourceTree = "<group>"; };
-		CC403DE8278C782100BBE448 /* DetailsRecipeInformationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRecipeInformationCoordinator.swift; sourceTree = "<group>"; };
 		CC403DEA2790675B00BBE448 /* CategoryRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRecipe.swift; sourceTree = "<group>"; };
 		CC403DEC2791969A00BBE448 /* RandomRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRecipesViewController.swift; sourceTree = "<group>"; };
 		CC403DF32791985200BBE448 /* ImageNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNameTableViewCell.swift; sourceTree = "<group>"; };
@@ -384,7 +382,6 @@
 			isa = PBXGroup;
 			children = (
 				CC403DE6278C780F00BBE448 /* DetailsRecipeInformationAssembly.swift */,
-				CC403DE8278C782100BBE448 /* DetailsRecipeInformationCoordinator.swift */,
 				CC3DCE452785E13C00BBED4F /* DetailsRecipeInformationViewController.swift */,
 				CC403DE4278C763F00BBE448 /* DetailsRecipeInformationViewModel.swift */,
 				CC403DE2278C761D00BBE448 /* DetailsRecipeInformationModel.swift */,
@@ -524,7 +521,6 @@
 				CC674A4B27709ECE00E1DE78 /* AppDelegate.swift in Sources */,
 				CC3DCE28277DBDC600BBED4F /* MenuModel.swift in Sources */,
 				CC403E0E2796EEE800BBE448 /* TableViewHelpers.swift in Sources */,
-				CC403DE9278C782100BBE448 /* DetailsRecipeInformationCoordinator.swift in Sources */,
 				CC3DCE0D2772186800BBED4F /* CategoriesCollectionViewCell.swift in Sources */,
 				CC403DD9278C599700BBE448 /* RandomRecipeAssembly.swift in Sources */,
 				CC403DD227871D2B00BBE448 /* URLBuilder.swift in Sources */,
@@ -704,6 +700,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -720,6 +717,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SpoonApp.SpoonApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -732,6 +730,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -748,6 +747,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SpoonApp.SpoonApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -9,14 +9,14 @@ struct RecipeJSON: Codable {
 
 final class Recipe: Object, Codable {
     
-    @objc dynamic var vegetarian: Bool = false
-    @objc dynamic var vegan: Bool = false
-    @objc dynamic var glutenFree: Bool = false
-    @objc dynamic var dairyFree: Bool = false
-    @objc dynamic var veryHealthy: Bool = false
-    @objc dynamic var cheap: Bool = false
-    @objc dynamic var veryPopular: Bool = false
-    @objc dynamic var sustainable: Bool = false
+    @objc dynamic var isVegetarian: Bool = false
+    @objc dynamic var isVegan: Bool = false
+    @objc dynamic var isGlutenFree: Bool = false
+    @objc dynamic var isDairyFree: Bool = false
+    @objc dynamic var isVeryHealthy: Bool = false
+    @objc dynamic var isCheap: Bool = false
+    @objc dynamic var isVeryPopular: Bool = false
+    @objc dynamic var isSustainable: Bool = false
     @objc dynamic var creditsText: String = ""
     @objc dynamic var sourceName: String = ""
     @objc dynamic var id: Int = 0
@@ -31,14 +31,14 @@ final class Recipe: Object, Codable {
     
     private enum CodingKeys: String, CodingKey {
         
-        case vegetarian
-        case vegan
-        case glutenFree
-        case dairyFree
-        case veryHealthy
-        case cheap
-        case veryPopular
-        case sustainable
+        case isVegetarian = "vegetarian"
+        case isVegan = "vegan"
+        case isGlutenFree = "glutenFree"
+        case isDairyFree = "dairyFree"
+        case isVeryHealthy = "veryHealthy"
+        case isCheap = "cheap"
+        case isVeryPopular = "veryPopular"
+        case isSustainable = "sustainable"
         case creditsText
         case sourceName
         case id
@@ -48,21 +48,21 @@ final class Recipe: Object, Codable {
         case sourceUrl
         case summary
         case instructions
-        case extendedIngredients = "extendedIngredients"
+        case extendedIngredients
         
     }
     
     public required convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.vegetarian = try container.decode(Bool.self, forKey: .vegetarian)
-        self.vegan = try container.decode(Bool.self, forKey: .vegan)
-        self.glutenFree = try container.decode(Bool.self, forKey: .glutenFree)
-        self.dairyFree = try container.decode(Bool.self, forKey: .dairyFree)
-        self.veryHealthy = try container.decode(Bool.self, forKey: .veryHealthy)
-        self.cheap = try container.decode(Bool.self, forKey: .cheap)
-        self.veryPopular = try container.decode(Bool.self, forKey: .veryPopular)
-        self.sustainable = try container.decode(Bool.self, forKey: .sustainable)
+        self.isVegetarian = try container.decode(Bool.self, forKey: .isVegetarian)
+        self.isVegan = try container.decode(Bool.self, forKey: .isVegan)
+        self.isGlutenFree = try container.decode(Bool.self, forKey: .isGlutenFree)
+        self.isDairyFree = try container.decode(Bool.self, forKey: .isDairyFree)
+        self.isVeryHealthy = try container.decode(Bool.self, forKey: .isVeryHealthy)
+        self.isCheap = try container.decode(Bool.self, forKey: .isCheap)
+        self.isVeryPopular = try container.decode(Bool.self, forKey: .isVeryPopular)
+        self.isSustainable = try container.decode(Bool.self, forKey: .isSustainable)
         self.creditsText = try container.decode(String.self, forKey: .creditsText)
         self.sourceName = try container.decode(String.self, forKey: .sourceName)
         self.id = try container.decode(Int.self, forKey: .id)
@@ -101,7 +101,7 @@ final class ExtendedIngredients: Object, Codable {
         case original
         case amount
         case unit
-        case measures = "measures"
+        case measures
         
     }
     
@@ -127,7 +127,7 @@ final class Measures: Object, Codable {
     
     private enum CodingKeys: String, CodingKey {
         
-        case metric = "metric"
+        case metric
         
     }
     
@@ -164,26 +164,26 @@ final class Metric: Object, Codable {
 }
 
 
-extension CategotiesName {
+extension CategoriesName {
     
     func statusForRecipe(_ recipe: Recipe) -> Bool {
         switch self {
         case .vegetarian:
-            return recipe.vegetarian
+            return recipe.isVegetarian
         case .vegan:
-            return recipe.vegan
+            return recipe.isVegan
         case .glutenFree:
-            return recipe.glutenFree
+            return recipe.isGlutenFree
         case .dairyFree:
-            return recipe.dairyFree
+            return recipe.isDairyFree
         case .veryHealthy:
-            return recipe.veryHealthy
+            return recipe.isVeryHealthy
         case .cheap:
-            return recipe.cheap
+            return recipe.isCheap
         case .veryPopular:
-            return recipe.veryPopular
+            return recipe.isVeryPopular
         case .sustainable:
-            return recipe.sustainable
+            return recipe.isSustainable
         }
     }
     

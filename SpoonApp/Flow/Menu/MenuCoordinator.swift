@@ -10,6 +10,7 @@ final class MenuCoordinator: NavigationNode {
         super.init(parent: parent)
         
         addHandlers()
+        registerFlow()
     }
     
     private func registerFlow() {
@@ -27,12 +28,10 @@ final class MenuCoordinator: NavigationNode {
 extension MenuCoordinator: Coordinator {
     
     func createFlow() -> UIViewController {
-        let menuModel = MenuModel(parent: self)
-        let menuViewModel = MenuViewModel(model: menuModel)
-        let menuViewController = MenuViewController(menuViewModel)
+        let menuViewController = container.resolve(MenuViewController.self)
         root = menuViewController
         
-        return menuViewController
+        return menuViewController!
     }
     
 }

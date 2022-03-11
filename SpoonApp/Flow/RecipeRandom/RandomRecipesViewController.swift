@@ -43,7 +43,16 @@ final class RandomRecipesViewController: UIViewController {
         return infoButton
     }()
     
-    private lazy var addToFavouriteButton = UIBarButtonItem()
+    @objc private lazy var addToFavouriteButton: UIBarButtonItem = {
+        let addToFavouriteButton = UIBarButtonItem(
+            image: UIImage(systemName: "heart"),
+            style: .plain,
+            target: self,
+            action: #selector(addToFavouriteButtonAction)
+        )
+        
+        return addToFavouriteButton
+    }()
     
     init(_ viewModel: RecipeViewModel) {
         self.viewModel = viewModel
@@ -57,14 +66,7 @@ final class RandomRecipesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        addToFavouriteButton = UIBarButtonItem(
-            image: UIImage(systemName: "heart"),
-            style: .plain,
-            target: self,
-            action: #selector(addToFavouriteButtonAction)
-        )
-        
+
         navigationItem.rightBarButtonItem = addToFavouriteButton
         navigationItem.leftBarButtonItem = infoButton
         
@@ -103,7 +105,8 @@ final class RandomRecipesViewController: UIViewController {
     }
 
     @objc private func infoButtonAction() {
-        viewModel.detailButtonAction.onNext(())
+        infoButton.rx.tap.bind(to: viewModel.detailButtonAction)
+            .disposed(by: disposeBag)
     }
     
     private func initializedBindings() {
