@@ -50,7 +50,7 @@ final class RecipeDownloaderManager: RecipeDownloader {
     }
     
     func fetchRandomRecipe() -> Observable<Recipe?> {
-        return fetchRecipe(path: .random).map { $0?.recipes.first }
+        fetchRecipe(path: .random).map { $0?.recipes.first }
     }
     
 }

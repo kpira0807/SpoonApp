@@ -1,4 +1,5 @@
 import Foundation
+import RealmSwift
 
 struct RecipeJSON: Codable {
     
@@ -6,69 +7,184 @@ struct RecipeJSON: Codable {
     
 }
 
-struct Recipe: Codable {
+final class Recipe: Object, Codable {
     
-    var vegetarian: Bool = false
-    var vegan: Bool = false
-    var glutenFree: Bool = false
-    var dairyFree: Bool = false
-    var veryHealthy: Bool = false
-    var cheap: Bool = false
-    var veryPopular: Bool = false
-    var sustainable: Bool = false
-    //  var weightWatcherSmartPoints: Int
-    //    var gaps: String
-    // var lowFodmap: Bool
-    //    var aggregateLikes: Int
-    //   var spoonacularScore: Int
-    //var healthScore: Int
-    var creditsText: String = ""
-    //  var license: String
-    var sourceName: String = ""
-    //  var pricePerServing: Float
-    var extendedIngredients: [ExtendedIngredients]
-    var id: Int
-    var title: String = ""
-    var readyInMinutes: Int = 0
-    //  var servings: Int
-    var image: String = ""
-    //   var imageType: String
-    var sourceUrl: String = ""
-    var summary: String = ""
-    //  var dishTypes: [String]
-    //  var cuisines: [String]
-    var instructions: String = ""
+    @objc dynamic var isVegetarian: Bool = false
+    @objc dynamic var isVegan: Bool = false
+    @objc dynamic var isGlutenFree: Bool = false
+    @objc dynamic var isDairyFree: Bool = false
+    @objc dynamic var isVeryHealthy: Bool = false
+    @objc dynamic var isCheap: Bool = false
+    @objc dynamic var isVeryPopular: Bool = false
+    @objc dynamic var isSustainable: Bool = false
+    @objc dynamic var creditsText: String = ""
+    @objc dynamic var sourceName: String = ""
+    @objc dynamic var id: Int = 0
+    @objc dynamic var title: String = ""
+    @objc dynamic var readyInMinutes: Int = 0
+    @objc dynamic var image: String = ""
+    @objc dynamic var sourceUrl: String = ""
+    @objc dynamic var summary: String = ""
+    @objc dynamic var instructions: String = ""
+    
+    var extendedIngredients = List<ExtendedIngredients>()
+    
+    private enum CodingKeys: String, CodingKey {
+        
+        case isVegetarian = "vegetarian"
+        case isVegan = "vegan"
+        case isGlutenFree = "glutenFree"
+        case isDairyFree = "dairyFree"
+        case isVeryHealthy = "veryHealthy"
+        case isCheap = "cheap"
+        case isVeryPopular = "veryPopular"
+        case isSustainable = "sustainable"
+        case creditsText
+        case sourceName
+        case id
+        case title
+        case readyInMinutes
+        case image
+        case sourceUrl
+        case summary
+        case instructions
+        case extendedIngredients
+        
+    }
+    
+    public required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.isVegetarian = try container.decode(Bool.self, forKey: .isVegetarian)
+        self.isVegan = try container.decode(Bool.self, forKey: .isVegan)
+        self.isGlutenFree = try container.decode(Bool.self, forKey: .isGlutenFree)
+        self.isDairyFree = try container.decode(Bool.self, forKey: .isDairyFree)
+        self.isVeryHealthy = try container.decode(Bool.self, forKey: .isVeryHealthy)
+        self.isCheap = try container.decode(Bool.self, forKey: .isCheap)
+        self.isVeryPopular = try container.decode(Bool.self, forKey: .isVeryPopular)
+        self.isSustainable = try container.decode(Bool.self, forKey: .isSustainable)
+        self.creditsText = try container.decode(String.self, forKey: .creditsText)
+        self.sourceName = try container.decode(String.self, forKey: .sourceName)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.title = try container.decode(String.self, forKey: .title)
+        self.readyInMinutes = try container.decode(Int.self, forKey: .readyInMinutes)
+        self.image = try container.decode(String.self, forKey: .image)
+        self.sourceUrl = try container.decode(String.self, forKey: .sourceUrl)
+        self.summary = try container.decode(String.self, forKey: .summary)
+        self.instructions = try container.decode(String.self, forKey: .instructions)
+        
+        let extendedIngredient = try container.decode([ExtendedIngredients].self, forKey: .extendedIngredients)
+        self.extendedIngredients.append(objectsIn: extendedIngredient)
+    }
+}
+
+final class ExtendedIngredients: Object, Codable {
+    
+    @objc dynamic var id: Int = 0
+    @objc dynamic var aisle: String = ""
+    @objc dynamic var image: String = ""
+    @objc dynamic var consistency: String = ""
+    @objc dynamic var name: String = ""
+    @objc dynamic var original: String = ""
+    @objc dynamic var amount: Double = 0.0
+    @objc dynamic var unit: String = ""
+    
+    @objc dynamic var measures: Measures?
+    
+    private enum CodingKeys: String, CodingKey {
+        
+        case id
+        case aisle
+        case image
+        case consistency
+        case name
+        case original
+        case amount
+        case unit
+        case measures
+        
+    }
+    
+    public required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.aisle = try container.decode(String.self, forKey: .aisle)
+        self.image = try container.decode(String.self, forKey: .image)
+        self.consistency = try container.decode(String.self, forKey: .consistency)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.original = try container.decode(String.self, forKey: .original)
+        self.amount = try container.decode(Double.self, forKey: .amount)
+        self.unit = try container.decode(String.self, forKey: .unit)
+        self.measures = try container.decode(Measures.self, forKey: .measures)
+    }
     
 }
 
-struct ExtendedIngredients: Codable {
+final class Measures: Object, Codable {
     
-    var id: Int?
-    var aisle: String?
-    var image: String?
-    var consistency: String?
-    var name: String?
-    //   var nameClean: String
-    var original: String?
-    //   var originalString: String
-    //  var originalName: String
-    var amount: Double?
-    var unit: String?
-    var measures: Measures
+    @objc dynamic var metric: Metric?
     
-}
-
-struct Measures: Codable {
+    private enum CodingKeys: String, CodingKey {
+        
+        case metric
+        
+    }
     
-    var metric: Metric
+    public required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.metric = try container.decode(Metric.self, forKey: .metric)
+    }
     
 }
 
-struct Metric: Codable {
+final class Metric: Object, Codable {
     
-    var amount: Double?
-    var unitShort: String?
-    var unitLong: String?
+    @objc dynamic var amount: Double = 0.0
+    @objc dynamic var unitShort: String = ""
+    @objc dynamic var unitLong: String = ""
+    
+    private enum CodingKeys: String, CodingKey {
+        
+        case amount
+        case unitShort
+        case unitLong
+        
+    }
+    
+    public required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.amount = try container.decode(Double.self, forKey: .amount)
+        self.unitShort = try container.decode(String.self, forKey: .unitShort)
+        self.unitLong = try container.decode(String.self, forKey: .unitLong)
+    }
     
 }
 
+
+extension CategoriesName {
+    
+    func statusForRecipe(_ recipe: Recipe) -> Bool {
+        switch self {
+        case .vegetarian:
+            return recipe.isVegetarian
+        case .vegan:
+            return recipe.isVegan
+        case .glutenFree:
+            return recipe.isGlutenFree
+        case .dairyFree:
+            return recipe.isDairyFree
+        case .veryHealthy:
+            return recipe.isVeryHealthy
+        case .cheap:
+            return recipe.isCheap
+        case .veryPopular:
+            return recipe.isVeryPopular
+        case .sustainable:
+            return recipe.isSustainable
+        }
+    }
+    
+}

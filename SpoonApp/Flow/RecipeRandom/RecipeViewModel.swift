@@ -12,6 +12,18 @@ final class RecipeViewModel {
         model.loadRandomRecipe
     }
     
+    var detailButtonAction: PublishSubject<Void> {
+      model.detailButtonAction
+    }
+    
+    var saveRecipe: PublishSubject<Void> {
+        model.saveAction
+    }
+    
+    var deleteRecipe: PublishSubject<Void> {
+        model.deleteAction
+    }
+    
     private let model: RecipeModel
     private let disposeBag = DisposeBag()
     

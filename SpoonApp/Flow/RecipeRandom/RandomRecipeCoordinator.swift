@@ -2,6 +2,12 @@ import UIKit
 import Swinject
 import RxSwift
 
+enum RecipeEvent: NavigationEvent {
+  
+  case openDetailRandomRecipe
+    
+}
+
 final class RecipeCoordinator: NavigationNode {
     
     private weak var root: UIViewController?
@@ -11,16 +17,31 @@ final class RecipeCoordinator: NavigationNode {
         super.init(parent: parent)
         
         registerFlow()
-        addHandlers()
+        handlers()
     }
     
     private func registerFlow() {
         container = Container()
+        
         RandomRecipeAssembly(self).assemble(container: container)
+        DetailsRecipeInformationAssembly(self).assemble(container: container)
+    }
+    
+    private func handlers() {
+        addHandler { [weak self] (event: RecipeEvent) in
+            guard let self = self else { return }
+            
+            switch event {
+            case .openDetailRandomRecipe:
+                let detailViewController = self.container.resolve(DetailsRecipeInformationViewController.self)
+                self.root?.navigationController?.pushViewController(detailViewController!, animated: true)
+            }
+        }
     }
     
     private func addHandlers() {
     }
+    
 }
 
 extension RecipeCoordinator: Coordinator {
